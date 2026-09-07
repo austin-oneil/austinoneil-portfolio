@@ -1,0 +1,74 @@
+---
+title: 48 hours before launch, the site left AWS
+summary: Built the full WordPress front end for a sports media company, then spent the last two days before a launch diagnosing why the infrastructure had disconnected and getting a replacement developer onboarded in time to ship.
+client: DNVR and PHNX
+context: All City Media
+period: "2021 - 2022"
+order: 90
+featured: true
+tags: ["Dev", "Full-Stack"]
+stack:
+  - WordPress
+  - PHP
+  - JavaScript
+  - AWS EC2
+  - Elastic Beanstalk
+  - Amazon RDS
+  - Amazon S3
+  - Route 53
+---
+
+## What problem does this solve?
+
+A sports media company needed a front end built from scratch for two properties.
+DNVR was the established one. PHNX was the first build outside the native market,
+in Phoenix, carrying a large blog and ecommerce memberships.
+
+I designed and built the full WordPress front end for both. The infrastructure
+was owned by a separate AWS developer, and I coordinated with them across EC2,
+Elastic Beanstalk, RDS, S3 and Route 53.
+
+## What actually happened
+
+48 hours before launch, the site was disconnected from AWS. The causes were
+mixed-content issues and an incomplete setup. The original developer who owned
+that infrastructure went dark.
+
+I was the front-end developer. I was not the person who built the AWS side and I
+was not the person on call for it, and that stopped being relevant the moment
+nobody else was going to do it.
+
+## What did I do?
+
+I worked directly with the CEO to diagnose the failure, studied AWS under time
+pressure to understand a stack I had coordinated with but had not built, and got
+an emergency replacement developer brought in and oriented on the system in time
+to launch.
+
+It launched with hours to spare.
+
+The important nuance, because it is the part that gets flattened in a retelling:
+I was not the emergency hire. I was the person who found and oriented them.
+
+## Decisions
+
+**Diagnose before recruiting.** Bringing in a replacement developer with 48 hours
+on the clock only works if they can start on the actual problem rather than
+spending the first day discovering the system. Learning enough AWS to describe
+what was broken and why was what made the handoff take hours instead of days.
+
+**Escalate to the CEO directly.** With the infrastructure owner unreachable and a
+fixed launch date, the decision that mattered was whether to move the date or
+replace the developer, and that was not mine to make. Going straight to the person
+who could make it is what left enough runway to act on the answer.
+
+## What happened after
+
+The relationship continued past the launch. I improved AWS security that had been
+left weak, fixed front-end bugs across both properties, and worked on UX.
+
+## Stack note
+
+I coordinated on the AWS side and worked on it directly during the incident and
+afterward. The front end for both properties is mine end to end. I am listing the
+infrastructure here because I worked in it, not because I architected it.

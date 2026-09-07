@@ -1,0 +1,75 @@
+---
+title: A booking and payments site, self-hosted end to end
+summary: Full-stack React and Express site for a real estate consultant, with Stripe Checkout, verified webhooks and TLS I provisioned myself on EC2. Shipped and ran in production without a technical issue.
+client: Ahead of the Curve Media
+context: Tangent Apps
+period: "2023"
+order: 70
+note: The business has since closed and the site is no longer live, so there is nothing to link to.
+tags: ["Dev", "Full-Stack"]
+stack:
+  - React 18
+  - React Router v6
+  - MUI v5
+  - Node.js
+  - Express 4
+  - Stripe
+  - Mailchimp Transactional
+  - AWS EC2
+  - Let's Encrypt
+---
+
+## What problem does this solve?
+
+A real estate consultant and content creator needed a site that did more than
+present them. It had to take bookings and take payment, which turns a marketing
+site into an application with money in it.
+
+## What constraints did it have to work inside?
+
+One developer, a real payment flow, and a client whose business ran on it. That
+rules out anything with a moving part I could not reason about on my own, and it
+raises the cost of any failure in the payment path from an inconvenience to a lost
+booking.
+
+## What did I build?
+
+A React 18 single-page app with React Router v6, MUI v5 including the X date
+pickers, Emotion for styling, and date-fns and Day.js for date handling.
+
+A Node and Express 4 backend that both serves the built SPA and exposes the API on
+the same origin.
+
+Payments through the Stripe Node SDK, with Checkout Sessions created server-side.
+Booking notifications through Mailchimp Transactional. Input hardened with
+`express-mongo-sanitize`, and configuration through dotenv with the `.env` file
+gitignored.
+
+I provisioned the EC2 instance myself and managed TLS directly with Let's Encrypt
+and Certbot.
+
+## Decisions
+
+**Create Checkout Sessions server-side and verify webhook signatures with
+`constructEvent`.** The amount has to be decided somewhere the client cannot
+influence, which means the server. And an unverified webhook endpoint is a public
+URL that will fulfil an order for anyone who can post plausible JSON to it.
+Signature verification is what makes the fulfilment path trust the event rather
+than the request.
+
+**Serve the SPA and the API from the same origin.** One Express process serving
+the built bundle and the API means no CORS configuration, no preflight on every
+call, and cookies that work without cross-site exceptions. For a single-developer
+project, removing an entire category of configuration is worth more than the
+flexibility of splitting them.
+
+**Self-manage TLS on EC2 rather than put a managed platform in front.** I owned
+the instance and the certificate lifecycle. That is more responsibility than a
+managed host, and it is the reason I know what the renewal path looks like when it
+fails rather than only that it usually does not.
+
+## Outcome
+
+Shipped and ran in production without a technical issue.
+
+The business has since closed and the site is no longer live.

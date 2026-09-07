@@ -1,0 +1,138 @@
+---
+title: Rebuilding a prayer hours system after finding it exposed
+summary: Inherited a WordPress site for a Catholic organization with a membership in the millions, found sensitive signup functionality sitting in the theme's public root folder, and rebuilt the whole system from scratch instead of patching it.
+client: Vocation Action Network
+context: Tangent Apps
+period: "2025 - present"
+order: 95
+featured: true
+tags: ["Dev", "Full-Stack"]
+stack:
+  - PHP
+  - WordPress Plugin API
+  - MySQL
+  - Vanilla JavaScript
+  - FullCalendar v6
+  - AJAX
+---
+
+## What problem does this solve?
+
+I took over a WordPress site for a large Catholic organization with a membership
+in the millions. The site had significant UX problems and significant security
+problems, and the two were tangled together.
+
+The one that decided the whole approach: sensitive signup functionality was
+sitting in the theme's public root folder, left there by the prior developer.
+That is not a bug in a feature. It is a structural decision that the rest of the
+system was built on top of.
+
+## What constraints did it have to work inside?
+
+A live site with a real membership, on WordPress, with no option to move platform
+and no window to take the feature offline. Whatever replaced the old system had to
+be installable, had to provision its own storage, and had to be composable into
+pages by people who do not write code.
+
+## Why rebuild instead of patch?
+
+Patching the exposure would have meant moving the exposed files somewhere safer
+and leaving everything downstream of them intact: the same data model, the same
+unguarded endpoints, the same assumptions about who is allowed to call what.
+
+The exposure was a symptom. Every input path in the feature had been written by
+someone who was comfortable putting sensitive functionality in a web-readable
+directory, and I did not want to inherit the rest of that judgment one file at a
+time. Rebuilding meant one pass to establish a security model and then everything
+built to it, rather than an indefinite series of discoveries.
+
+## What did I build?
+
+A custom WordPress plugin covering storage, an API, an admin dashboard and a
+front-end calendar.
+
+### Storage
+
+A dedicated `wp_prayer_hours` MySQL table, provisioned on plugin activation
+through `dbDelta()` and indexed on `prayer_date` and `user_id`, the two columns
+every read filters on. The columns are typed to the domain rather than dumped
+into text: an ENUM for entry type, DECIMAL for duration.
+
+### API
+
+REST-style AJAX endpoints registered through the `wp_ajax_*` hooks, covering
+submission, calendar fetch and per-day drill-down.
+
+Duration is calculated on the server in pure minutes arithmetic, with no
+`strtotime` dependency, then multiplied by participant count for group entries.
+Reads pivot multiple usermeta rows into one row per entry with `MAX(CASE WHEN
+...)` aggregation in a SQL JOIN, so a single query returns a shaped record
+instead of the application stitching rows together after the fact. WordPress
+stores user fields as one row per key, which means the naive version returns
+three rows per person and leaves the reassembly to PHP. The shape that avoids
+that:
+
+```sql
+SELECT
+  h.id,
+  h.prayer_date,
+  h.duration_minutes,
+  MAX(CASE WHEN m.meta_key = 'first_name' THEN m.meta_value END) AS first_name,
+  MAX(CASE WHEN m.meta_key = 'last_name'  THEN m.meta_value END) AS last_name,
+  MAX(CASE WHEN m.meta_key = 'diocese'    THEN m.meta_value END) AS diocese
+FROM wp_prayer_hours h
+LEFT JOIN wp_usermeta m ON m.user_id = h.user_id
+GROUP BY h.id;
+```
+
+Every meta key becomes a column instead of a row, so the query returns one
+record per entry and the dashboard can sort and filter on fields that would
+otherwise only exist after the application had already fetched everything.
+
+### Admin dashboard
+
+A native dashboard rather than a data dump: stat cards, a searchable and
+filterable paginated table, nonce-protected delete, and an async inline edit
+modal that recalculates totals on the server when a record is saved.
+
+### Front end
+
+Vanilla JavaScript with FullCalendar v6. The monthly calendar is scoped to the
+visible date range rather than fetching the full history, events are color-coded
+by composition, and a day-detail modal loads over AJAX with scroll lock and both
+Escape and backdrop dismissal. The submission form previews duration live on the
+client and splits into tabbed Individual and Group modes.
+
+Nine shortcodes expose the pieces so pages can be composed without touching the
+plugin.
+
+## Decisions
+
+**Every AJAX endpoint verifies a nonce, every query goes through
+`$wpdb->prepare()`.** Input is sanitized at the boundary with
+`sanitize_text_field()` and `absint()`, endpoints require an authenticated
+session, and the admin delete path is protected by a second nonce. This is the
+security model the rebuild existed to establish, applied without exception rather
+than case by case.
+
+**Duration math on the server, twice.** The client previews duration live because
+a form that silently computes the number you are agreeing to is a bad form. The
+server recalculates it on submit and again on inline edit, because the client
+preview is a convenience and not a source of truth.
+
+**Assets enqueue only on pages that contain a plugin shortcode.** The plugin
+serves one feature on a site with many pages. Loading its CSS and JavaScript
+everywhere would tax every page on the site for the benefit of a few, so the
+enqueue is conditional on the shortcode actually being present.
+
+**A custom table instead of a custom post type.** The records are rows with typed
+columns that get aggregated and filtered by date, which is what a table is good
+at. Modeling them as posts would have pushed the real fields into postmeta and
+turned every dashboard query into a meta join.
+
+## Outcome
+
+TODO(austin): add the outcome you want stated here. What is live, what the
+organization can now do that it could not before, and any figure you are willing
+to stand behind. I have deliberately left this blank rather than write something
+plausible.

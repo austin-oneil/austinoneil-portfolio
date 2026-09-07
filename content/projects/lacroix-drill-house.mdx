@@ -1,0 +1,70 @@
+---
+title: Replacing a $600 a month booking platform with JavaScript
+summary: Two sites for a hockey organization tied to Colorado Avalanche alumni, and custom booking and payment tools that took the monthly software cost from over $600 to $25.
+client: Lacroix Hockey and Drill House Sports Center
+context: Tangent Apps
+period: "2022 - 2025"
+order: 80
+tags: ["Dev", "Full-Stack"]
+stack:
+  - JavaScript
+  - WordPress
+  - Wix
+  - Custom booking flows
+  - Payment integration
+---
+
+## What problem does this solve?
+
+An organization tied to Colorado Avalanche alumni and coaches runs two related
+things: Lacroix Hockey, a nonprofit youth hockey org, and Drill House Sports
+Center, the affiliated training center.
+
+I came in on the Drill House side after a prior developer left the work
+incomplete, which meant the first job was not technical. The relationship needed
+repairing before anything I built would be trusted.
+
+They were also paying MindBody more than $600 a month for booking and payments on
+a business whose booking needs were narrower than what that platform is built for.
+
+## What constraints did it have to work inside?
+
+Two properties with genuinely different needs. Lacroix Hockey is a nonprofit that
+needed to be maintainable by people who are not developers. Drill House needed
+custom booking behaviour that off-the-shelf platforms charge a lot to approximate.
+
+Whatever replaced MindBody had to keep full functionality. A cheaper tool that
+loses a feature the business depends on is not a saving, it is a problem deferred
+to whoever handles the first booking it cannot take.
+
+## What did I build?
+
+Lacroix Hockey on Wix and Drill House Sports Center on WordPress, and custom
+JavaScript booking and payment tools for Drill House replacing MindBody.
+
+The booking tools cover custom flows for summer camps with waivers, extended
+custom form fields, and both down-payment and monthly payment options.
+
+## Decisions
+
+**Move the nonprofit to a lower-cost platform rather than build them more.** The
+recommendation that made the client money was not a build. Lacroix Hockey did not
+need a custom site, it needed one that its own people could update without calling
+me, so I guided them onto a platform that fit. Recommending less work than they
+expected to buy is part of why the relationship recovered.
+
+**Replace MindBody rather than negotiate it down.** The cost was not the whole
+problem. Camp registration with waivers, extended fields, and split payment terms
+were things the platform made awkward and expensive at the same time. Building
+those flows directly meant the booking experience matched how the business
+actually sells, and the cost fell out of that rather than being the goal.
+
+**Two platforms on purpose, not by accident.** Running the nonprofit on Wix and
+the training center on WordPress looks inconsistent from the outside. It is the
+right split: one needs to be editable by volunteers, the other needs custom
+booking logic that WordPress will host without fighting.
+
+## Outcome
+
+Monthly software cost went from more than $600 to $25, a 95 percent reduction,
+with full functionality retained.

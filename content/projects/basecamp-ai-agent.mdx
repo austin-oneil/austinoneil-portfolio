@@ -1,0 +1,88 @@
+---
+title: A serverless AI agent that does part of my job
+summary: A Python agent on AWS that watches Basecamp for tasks assigned to me, pulls the right client context, writes a tailored solution with the Claude API, and emails it back. In production, used daily.
+client: Prospecta Marketing
+context: Prospecta Marketing
+period: "2025 - present"
+order: 100
+featured: true
+tags: ["AI", "Dev", "Full-Stack"]
+stack:
+  - Python
+  - AWS Lambda
+  - DynamoDB
+  - Amazon S3
+  - Claude API
+  - Basecamp API
+---
+
+## What problem does this solve?
+
+I am the main technical point of contact for 30-plus client accounts at a time
+inside a book of more than 100. Work reaches me through Basecamp, and a large
+share of it is the same shape: a task lands, I load everything I know about that
+client, and I write back a solution that fits their specific stack.
+
+The loading step is the expensive part. The context lives in my head and in
+scattered documentation, and it has to be reassembled every time before any real
+thinking starts.
+
+## What constraints did it have to work inside?
+
+It runs against a live agency workflow, on real client accounts, so a few things
+were fixed before I wrote any code.
+
+It had to be event-driven rather than always-on, because the work arrives in
+bursts and paying for idle compute could not be justified. It had to hold state
+across a multi-step pipeline, because a single request fans out into retrieval,
+generation and delivery, and any of those steps can fail on its own. And it had
+to deliver through email, because that is where the reply is actually read, which
+put a hard ceiling on how large a single response could be.
+
+## What did I build?
+
+A serverless pipeline in Python on AWS. I wrote all of it.
+
+The agent monitors Basecamp for tasks assigned to my user ID. On trigger it
+retrieves client-specific context from project markdown files, calls the Claude
+API to generate a solution tailored to that client, and delivers the result by
+email. DynamoDB carries state between the stages of the pipeline, so each step
+knows what the previous one produced and a failure does not lose the request.
+
+Responses that exceed the size a mail server will accept do not get truncated.
+The agent writes the full response to S3 and delivers a pre-signed URL instead,
+so a long answer arrives complete rather than clipped at an arbitrary boundary.
+
+## Decisions
+
+**Retrieval from markdown files, not a vector database.** Client context is a
+bounded, hand-maintained set of documents, not an open corpus. Reading the
+relevant files directly keeps the retrieval step exact and legible: I can open
+the same file the agent read and see precisely what it was working from. A vector
+store would have added an embedding pipeline, an index to keep in sync, and a
+class of retrieval failure that is hard to debug, in exchange for recall I did
+not need at this scale.
+
+**DynamoDB for pipeline state rather than passing everything through the event
+payload.** The stages are separated in time and can fail independently. Holding
+state externally means a failed generation step can be inspected and retried
+against the context that was actually retrieved, instead of replaying the trigger
+and hoping the retrieval resolves the same way.
+
+**S3 pre-signed URLs as the overflow path instead of splitting the email.** A
+solution broken across three messages is worse than a link, because the reader
+has to reassemble it. Sending the complete response as a retrievable object keeps
+the output whole and leaves the delivery mechanism simple.
+
+## Outcome
+
+Live in production and used daily.
+
+TODO(austin): if you want a volume or time-saved figure here, give me the real
+number and I will add it. I have not put an estimate in, because an invented
+metric on this page would be worse than no metric.
+
+## Where this sits
+
+This is a Prospecta Marketing initiative, built inside my role there. It is not
+freelance work and it does not belong to Tangent Apps.

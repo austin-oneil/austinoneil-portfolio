@@ -1,0 +1,66 @@
+---
+title: Self-service account management without dropping the session
+summary: A WordPress plugin giving members profile and password control, built from scratch. The password change re-issues the auth cookie so changing your password does not log you out.
+client: Vocation Action Network
+context: Tangent Apps
+period: "2025"
+order: 85
+tags: ["Dev"]
+stack:
+  - PHP
+  - WordPress Plugin API
+  - AJAX
+  - Vanilla JavaScript
+---
+
+## What problem does this solve?
+
+Members of the organization had no way to manage their own accounts. Profile
+changes and password resets went through someone else, which is friction for the
+member and unpaid support work for the client.
+
+## What constraints did it have to work inside?
+
+The same site as the prayer hours rebuild, under the same security model.
+Anything touching credentials had to assume it would be attacked, and had to work
+for members who are not technical and get one shot at a form before giving up.
+
+## What did I build?
+
+A user dashboard plugin, written from scratch, exposing two AJAX endpoints. Both
+verify a nonce and both are restricted to authenticated sessions.
+
+Profile saves update the core WordPress user fields through `wp_update_user()`
+alongside custom location meta, so the built-in fields stay canonical rather than
+being shadowed by a parallel set of meta values.
+
+The password change verifies the current password with `wp_check_password()`
+before anything else, enforces a length minimum, checks that the confirmation
+matches, and updates through `wp_set_password()`. It then re-issues the auth
+cookie and sends a transactional security email.
+
+Every page load issues a fresh nonce, so the AJAX surface is CSRF-safe rather
+than relying on a token that outlives the page it was minted for.
+
+## Decisions
+
+**Re-issue the auth cookie after a password change.** `wp_set_password()`
+invalidates the current session as a side effect, which means the default
+behaviour is that a member changes their password and is immediately thrown out
+to the login screen. That reads as a failure even though it succeeded, and it is
+the point where a non-technical user assumes they broke something. Re-issuing the
+cookie keeps them signed in and lets the confirmation actually be seen.
+
+**Verify the current password even though the session is already
+authenticated.** An authenticated session proves someone logged in at some point,
+not that the person at the keyboard right now is the account holder. Asking for
+the current password is the difference between an unattended browser being an
+inconvenience and it being an account takeover.
+
+**A security email on change, not just a success message.** The success message
+is only seen by whoever made the change. The email is seen by the account holder,
+which is what makes an unauthorized change visible to the person who would care.
+
+## Outcome
+
+TODO(austin): confirm whether this is live and what you want said about adoption.

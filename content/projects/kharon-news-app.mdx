@@ -1,0 +1,83 @@
+---
+title: Replatforming a news reader in 90 minutes
+summary: A timeboxed Next.js 15 take-home rebuilding a news site's reader app against a headless CMS. Full SEO surface, a cache strategy designed around a constraint I found rather than fought, and a DECISIONS.md on the tradeoffs.
+client: Kharon
+context: Interview take-home
+period: "2026"
+order: 88
+note: This was an interview take-home, not employment. It reached the final rounds of Kharon's process.
+tags: ["Dev", "SEO", "Full-Stack"]
+stack:
+  - Next.js 15
+  - React 19
+  - TypeScript
+  - WordPress REST API
+  - JSON-LD
+---
+
+## What was the exercise?
+
+A 60 to 90 minute timeboxed take-home: replatform a news site's reader app
+against a WordPress-compatible headless CMS.
+
+Timeboxed exercises are about what you choose not to do. Most of what follows is
+a decision to spend the budget in one place rather than another.
+
+## What did I build?
+
+A dynamic `/brief/[slug]` route with the full SEO surface: dynamic title and meta
+description, OpenGraph including `publishedTime`, and JSON-LD `NewsArticle`
+structured data.
+
+A cached data-access layer using the Next.js `fetch` cache with a 60 second
+`revalidate`, which gives stale-while-revalidate behaviour. Roughly 860ms cold,
+roughly 50ms warm.
+
+Server-side archive gating for articles older than eight months, kept stateless
+and server-side so that full article bodies never reach anonymous users or
+crawlers in the HTML payload.
+
+Visibility filtering enforced on the reader side, checking `status === "publish"`
+and `date_gmt <= now`. A `/sitemap.xml` that reuses the same visibility-filtered
+fetch. And a `DECISIONS.md` covering rendering tradeoffs, cache-invalidation
+latency, edge cases and the gaps I knew I had left.
+
+## Decisions
+
+**Re-architect around the dynamic rendering constraint instead of fighting it.**
+I found that a `SiteHeader` in the root layout reading cookies forces the entire
+route tree into dynamic rendering. The instinct is to remove the cookie read and
+recover static generation. Inside a 90 minute box, that means redesigning a
+component that exists for a reason and hoping nothing else in the tree opts out
+later. Instead I accepted dynamic rendering as given and moved the caching down to
+the data layer, where a `fetch` cache with a 60 second revalidate gets most of the
+benefit and does not depend on every future component staying static. That is what
+produced the 860ms to 50ms difference.
+
+**Gate the archive on the server rather than in the client.** Client-side gating
+puts the full article body in the HTML payload and hides it with an overlay,
+which means it is available to anyone who reads the source and to every crawler
+that fetches the page. Doing it server-side means the content is not in the
+response at all. It is also stateless, so it does not need a session to work.
+
+**Filter visibility on the reader, not just trust the CMS.** The seed CMS served
+drafts to anonymous requests. The reader could have assumed the API returns only
+what the public should see, and that assumption is exactly how unpublished
+articles leak. Checking `status` and `date_gmt` on the reader side makes the
+guarantee a property of the app rather than of an upstream I do not control.
+
+**The sitemap reuses the same filtered fetch.** A sitemap built from a separate
+query is a second place for the visibility rules to drift, and the failure mode is
+that unpublished posts get submitted to search engines. Sharing one fetch means
+there is one rule.
+
+## Outcome
+
+The take-home received a perfect score from the reviewing engineers, and I reached
+the final rounds of Kharon's interview process.
+
+## Reading this honestly
+
+This is an interview take-home. It is the strongest evidence I have of Next.js and
+TypeScript proficiency, and it is not production employment. No employer has paid
+me for Next.js work.
