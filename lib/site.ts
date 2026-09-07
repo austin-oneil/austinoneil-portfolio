@@ -17,7 +17,6 @@ export const site = {
   description:
     "Austin O'Neil builds production web software and runs technical SEO for a 100+ client agency book. Case studies in AWS, WordPress plugin engineering, Next.js and serverless AI.",
   email: "austinroneil@gmail.com",
-  phone: "303-335-5761",
   socials: {
     github: "https://github.com/austin-oneil",
     linkedin: "https://linkedin.com/in/austinroneil",

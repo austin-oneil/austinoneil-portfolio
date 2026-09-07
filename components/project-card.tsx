@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Tag } from "@/components/ui/tag";
-import { BLUR_DATA_URL, placeholder } from "@/lib/images";
+import { BLUR_DATA_URL, projectImage } from "@/lib/images";
 import type { Project } from "@/types/content";
 
 /**
@@ -24,9 +24,9 @@ export function FeaturedProjectCard({
         className={`md:col-span-5 ${flip ? "md:order-2 md:col-start-8" : ""}`}
       >
         <Image
-          src={placeholder(`austin-${project.slug}`, 1200, 900)}
+          src={projectImage(project.slug)}
           alt=""
-          width={1200}
+          width={1600}
           height={900}
           priority={priority}
           placeholder="blur"
@@ -79,10 +79,10 @@ export function ProjectRow({ project }: { project: Project }) {
     <article className="group relative grid gap-4 border-b border-border py-8 sm:grid-cols-12 sm:gap-6">
       <div className="sm:col-span-3">
         <Image
-          src={placeholder(`austin-${project.slug}`, 800, 600)}
+          src={projectImage(project.slug)}
           alt=""
-          width={800}
-          height={600}
+          width={1600}
+          height={900}
           placeholder="blur"
           blurDataURL={BLUR_DATA_URL}
           sizes="(min-width: 640px) 14rem, 100vw"
@@ -126,10 +126,10 @@ export function CompactProjectCard({ project }: { project: Project }) {
   return (
     <article className="group relative flex flex-col">
       <Image
-        src={placeholder(`austin-${project.slug}`, 900, 600)}
+        src={projectImage(project.slug)}
         alt=""
-        width={900}
-        height={600}
+        width={1600}
+        height={900}
         placeholder="blur"
         blurDataURL={BLUR_DATA_URL}
         sizes="(min-width: 768px) 22rem, 100vw"

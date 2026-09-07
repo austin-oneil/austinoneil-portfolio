@@ -2,11 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    // Placeholder photography only. Remove this entry once real assets land in
-    // /public and every <Image> points at a local file.
-    remotePatterns: [
-      { protocol: "https", hostname: "picsum.photos", pathname: "/seed/**" },
-    ],
+    // Every image is a local file under /public, so no remote patterns are
+    // configured. Adding one would let any URL matching it be proxied through
+    // the optimizer, which is a wider door than this site needs.
     formats: ["image/avif", "image/webp"],
   },
   // Phosphor ships one module per icon; without this the whole set is pulled

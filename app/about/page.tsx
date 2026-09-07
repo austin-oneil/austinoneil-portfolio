@@ -5,7 +5,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { Tag } from "@/components/ui/tag";
 import { breadcrumbSchema, personSchema } from "@/lib/schema";
-import { BLUR_DATA_URL, placeholder } from "@/lib/images";
+import { BLUR_DATA_URL, PORTRAIT_IMAGE } from "@/lib/images";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -148,11 +148,12 @@ export default function AboutPage() {
 
           <div className="md:col-span-4">
             <Image
-              src={placeholder("austin-oneil-portrait", 1000, 1250)}
+              src={PORTRAIT_IMAGE}
               alt={`${site.name}, ${site.role}`}
               width={1000}
               height={1250}
               priority
+              fetchPriority="high"
               placeholder="blur"
               blurDataURL={BLUR_DATA_URL}
               sizes="(min-width: 768px) 20rem, 100vw"

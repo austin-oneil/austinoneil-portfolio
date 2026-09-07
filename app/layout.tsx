@@ -79,7 +79,10 @@ export default function RootLayout({
         </a>
         <div className="flex min-h-[100dvh] flex-col">
           <SiteHeader />
-          <main id="main" className="flex-1">
+          {/* tabIndex={-1} makes <main> a valid focus target. Without it the
+              skip link updates the URL but leaves focus where it was, which
+              is the failure mode the link exists to prevent. */}
+          <main id="main" tabIndex={-1} className="flex-1 outline-none">
             {children}
           </main>
           <SiteFooter />

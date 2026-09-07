@@ -11,7 +11,7 @@ import { mdxComponents } from "@/components/mdx/mdx-components";
 import { getAllProjects, getProject } from "@/lib/projects";
 import { buildToc, mdxOptions } from "@/lib/mdx";
 import { breadcrumbSchema, projectSchema } from "@/lib/schema";
-import { BLUR_DATA_URL, placeholder } from "@/lib/images";
+import { BLUR_DATA_URL, projectImage } from "@/lib/images";
 
 /** Fully static: every case study is known at build time. */
 export const dynamicParams = false;
@@ -126,11 +126,12 @@ export default async function ProjectPage({
         </header>
 
         <Image
-          src={placeholder(`austin-${project.slug}`, 1600, 900)}
+          src={projectImage(project.slug)}
           alt=""
           width={1600}
           height={900}
           priority
+          fetchPriority="high"
           placeholder="blur"
           blurDataURL={BLUR_DATA_URL}
           sizes="(min-width: 1024px) 64rem, 100vw"

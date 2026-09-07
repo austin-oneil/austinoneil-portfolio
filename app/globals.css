@@ -200,3 +200,139 @@ figure[data-rehype-pretty-code-figure] [data-highlighted-line] {
   font-size: 0.75rem;
   color: var(--text-muted);
 }
+
+/* ---------------------------------------------------------------------------
+   SUBWAY LINE
+   A scroll-drawn SVG rail threading the home page, with stations at each
+   section and tunnel lighting on the cards it passes behind. Geometry is
+   measured in components/subway-line.tsx; everything visual lives here.
+--------------------------------------------------------------------------- */
+
+.subway {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.subway-track {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 2;
+}
+
+.subway-progress {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 55%, transparent));
+}
+
+.station-outer {
+  fill: var(--bg);
+  stroke: var(--border);
+  stroke-width: 2;
+  transition: stroke 0.4s ease;
+}
+
+.station-inner {
+  fill: var(--border);
+  transition: fill 0.4s ease;
+}
+
+.station-terminus {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 2;
+  transition: stroke 0.4s ease;
+}
+
+.station.lit .station-outer {
+  stroke: var(--accent);
+}
+.station.lit .station-inner {
+  fill: var(--accent);
+}
+.station.lit .station-terminus {
+  stroke: var(--accent);
+}
+
+/* Tunnel: while the train is inside a card, light spills from both portals.
+   Headlight out of the bottom, ahead of travel; taillight out of the top,
+   behind it. Opacities are driven from the scroll subscription. */
+[data-tunnel] {
+  position: relative;
+}
+
+[data-tunnel]::before,
+[data-tunnel]::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.1s linear;
+}
+
+/* Headlight */
+[data-tunnel]::before {
+  left: calc(var(--tunnel-x, 40px) - 45px);
+  top: 100%;
+  width: 90px;
+  height: 110px;
+  background: radial-gradient(
+    55% 70% at 50% 0%,
+    color-mix(in srgb, var(--accent) 42%, transparent),
+    color-mix(in srgb, var(--accent) 22%, transparent) 40%,
+    transparent 75%
+  );
+  filter: blur(3px);
+  opacity: var(--head-o, 0);
+}
+
+/* Taillight */
+[data-tunnel]::after {
+  left: calc(var(--tunnel-x, 40px) - 26px);
+  bottom: 100%;
+  width: 52px;
+  height: 64px;
+  background: radial-gradient(
+    55% 70% at 50% 100%,
+    color-mix(in srgb, var(--accent) 30%, transparent),
+    color-mix(in srgb, var(--accent) 14%, transparent) 50%,
+    transparent 78%
+  );
+  filter: blur(2px);
+  opacity: var(--tail-o, 0);
+}
+
+/* The rail needs a gutter beside the content it runs next to. 72px clears the
+   widest rail offset (fx 0.04 of a 1152px container) plus the 7px station
+   radius, with room left over so a station never crowds the text. */
+@media (min-width: 900px) {
+  .rail-indent {
+    padding-left: 4.5rem;
+  }
+}
+
+/* No rail below 900px: there is no gutter to put it in. */
+@media (max-width: 899px) {
+  .subway {
+    display: none;
+  }
+  [data-tunnel]::before,
+  [data-tunnel]::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .subway-progress {
+    stroke-dashoffset: 0 !important;
+  }
+  [data-tunnel]::before,
+  [data-tunnel]::after {
+    display: none;
+  }
+}
