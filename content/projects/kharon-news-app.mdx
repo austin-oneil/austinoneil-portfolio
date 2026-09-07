@@ -20,8 +20,9 @@ stack:
 A 60 to 90 minute timeboxed take-home: replatform a news site's reader app
 against a WordPress-compatible headless CMS.
 
-Timeboxed exercises are about what you choose not to do. Most of what follows is
-a decision to spend the budget in one place rather than another.
+A timeboxed exercise is really a test of what you decline to do. Almost
+everything below is a decision to spend the budget here instead of there, and I
+would rather show you the reasoning than the line count.
 
 ## What did I build?
 
@@ -44,15 +45,18 @@ latency, edge cases and the gaps I knew I had left.
 
 ## Decisions
 
-**Re-architect around the dynamic rendering constraint instead of fighting it.**
-I found that a `SiteHeader` in the root layout reading cookies forces the entire
-route tree into dynamic rendering. The instinct is to remove the cookie read and
-recover static generation. Inside a 90 minute box, that means redesigning a
-component that exists for a reason and hoping nothing else in the tree opts out
-later. Instead I accepted dynamic rendering as given and moved the caching down to
-the data layer, where a `fetch` cache with a 60 second revalidate gets most of the
-benefit and does not depend on every future component staying static. That is what
-produced the 860ms to 50ms difference.
+**Re-architect around the constraint instead of fighting it.** I found that a
+`SiteHeader` in the root layout reading cookies forces the entire route tree into
+dynamic rendering. The instinct is to rip out the cookie read and win static
+generation back. Inside a 90 minute box that means redesigning a component that
+exists for a reason, and then hoping nothing else in the tree ever opts out
+again.
+
+So I let dynamic rendering stand and moved the caching down to the data layer,
+where a `fetch` cache with a 60 second revalidate gets most of the benefit and
+does not quietly depend on every future component staying pure. That is the
+860ms to 50ms difference. The constraint was load-bearing, and arguing with it
+would have cost more than working with it.
 
 **Gate the archive on the server rather than in the client.** Client-side gating
 puts the full article body in the HTML payload and hides it with an overlay,
@@ -78,6 +82,7 @@ the final rounds of Kharon's interview process.
 
 ## Reading this honestly
 
-This is an interview take-home. It is the strongest evidence I have of Next.js and
-TypeScript proficiency, and it is not production employment. No employer has paid
-me for Next.js work.
+This is an interview take-home. It is the strongest evidence I have that I am
+proficient in Next.js and TypeScript, and it is not production employment. No
+employer has paid me for Next.js work, and I would rather you hear that from me
+here than work it out later.

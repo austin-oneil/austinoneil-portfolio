@@ -17,44 +17,61 @@ export const metadata: Metadata = {
 };
 
 /**
- * TODO(austin): this page is scaffolded with the tools already evidenced in the
- * case studies and your certifications. Replace or extend it with what you
- * genuinely reach for day to day, and delete anything here you do not use.
+ * Everything here is sourced from work that appears in the case studies or in
+ * background.md. Where a tool is genuinely unconfirmed it is omitted rather
+ * than guessed at, and the gap is noted for Austin below rather than printed
+ * on the page as a placeholder.
+ *
+ * TODO(austin): add your terminal, your shell setup, and anything on the
+ * hardware side you want listed. I left those out instead of inventing them.
  */
 const groups = [
   {
     heading: "What do I write code in?",
     items: [
-      ["Editor", "TODO(austin): VS Code, Cursor, JetBrains, something else"],
-      ["Terminal", "TODO(austin)"],
-      ["Languages", "TypeScript, JavaScript, PHP, Python, SQL"],
+      ["Editor", "Cursor, and Claude Code in the terminal for anything agentic"],
+      [
+        "Languages",
+        "TypeScript and JavaScript, PHP, Python, SQL. Whichever one the problem is actually in",
+      ],
+      [
+        "AI in the loop",
+        "Claude and Cursor for generation, review and breaking work into pieces. I built a production agent on the Claude API, so I have a fairly grounded sense of what this is good for and what it is not",
+      ],
     ],
   },
   {
     heading: "What do I build with?",
     items: [
-      ["Framework", "Next.js App Router, React, Express for Node services"],
-      ["Styling", "Tailwind CSS"],
-      ["CMS", "WordPress with custom plugins, Webflow, Wix where it fits"],
-      ["Calendars", "FullCalendar for anything date-shaped in the browser"],
+      ["Framework", "Next.js App Router and React. Express when a Node service is the right answer"],
+      ["Styling", "Tailwind, which is what this site is built in"],
+      [
+        "CMS",
+        "WordPress with custom plugins when it needs real behaviour, Webflow when the client needs to own it, Wix when that is honestly the right call",
+      ],
+      ["Dates in the browser", "FullCalendar, which has yet to let me down"],
     ],
   },
   {
     heading: "Where does it run?",
     items: [
-      ["Serverless", "AWS Lambda, DynamoDB, S3"],
-      ["Servers", "EC2 when I want the whole box, with Certbot for TLS"],
+      ["Serverless", "AWS Lambda, DynamoDB and S3. This is where the Basecamp agent lives"],
+      ["Servers", "EC2 when I want the whole box, with Certbot handling TLS"],
       ["Managed hosting", "WP Engine for WordPress, Vercel for Next.js"],
-      ["Edge and DNS", "Cloudflare"],
+      ["Edge and DNS", "Cloudflare, near enough to daily"],
     ],
   },
   {
-    heading: "What do I run SEO with?",
+    heading: "What do I run search with?",
     items: [
-      ["Crawling", "Screaming Frog"],
-      ["Search data", "Google Search Console, Google Analytics 4"],
-      ["Field data", "Chrome UX Report and Lighthouse for Core Web Vitals"],
-      ["Structured data", "Schema.org JSON-LD, validated before it ships"],
+      ["Crawling", "Screaming Frog, and SEO PowerSuite for tracking"],
+      ["Search data", "Google Search Console, GA4, Bing Webmaster Tools"],
+      ["Competitive", "Semrush and Ahrefs"],
+      [
+        "Behaviour",
+        "Microsoft Clarity. Heatmaps and session recordings find conversion problems that no crawler will ever tell you about",
+      ],
+      ["Speed", "Lighthouse and CrUX field data, not just lab numbers"],
     ],
   },
 ];
@@ -74,8 +91,9 @@ export default function UsesPage() {
           Uses
         </h1>
         <p className="mt-5 max-w-[62ch] text-lg leading-relaxed text-text-muted">
-          The tools behind the work on this site. Kept short, and updated when it
-          changes rather than when it would be nice to have updated it.
+          The tools actually behind the work on this site. Kept short, and
+          updated when it changes rather than when it would look good to have
+          updated it.
         </p>
       </div>
 

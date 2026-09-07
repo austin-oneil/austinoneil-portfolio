@@ -1,6 +1,6 @@
 ---
-title: Rebuilding a prayer hours system after finding it exposed
-summary: Inherited a WordPress site for a Catholic organization with a membership in the millions, found sensitive signup functionality sitting in the theme's public root folder, and rebuilt the whole system from scratch instead of patching it.
+title: What I found in the theme folder
+summary: I inherited a WordPress site for an organization with a membership in the millions, found sensitive signup functionality sitting in a public folder, and rebuilt the system instead of patching it.
 client: Vocation Action Network
 context: Tangent Apps
 period: "2025 - present"
@@ -18,33 +18,38 @@ stack:
 
 ## What problem does this solve?
 
-I took over a WordPress site for a large Catholic organization with a membership
-in the millions. The site had significant UX problems and significant security
-problems, and the two were tangled together.
+I took over a WordPress site for a branch of an international religious
+organization with a membership base in the millions. It had UX problems and it
+had security problems, and the two were tangled together.
 
-The one that decided the whole approach: sensitive signup functionality was
-sitting in the theme's public root folder, left there by the prior developer.
-That is not a bug in a feature. It is a structural decision that the rest of the
-system was built on top of.
+Then I found the one that decided the whole approach. Sensitive signup
+functionality was sitting in the theme's public root folder, left there by the
+previous developer.
+
+That is not a bug in a feature. That is a structural decision, and everything
+downstream had been built on top of it.
 
 ## What constraints did it have to work inside?
 
-A live site with a real membership, on WordPress, with no option to move platform
-and no window to take the feature offline. Whatever replaced the old system had to
-be installable, had to provision its own storage, and had to be composable into
-pages by people who do not write code.
+A live site with a real membership, on WordPress, no option to change platform,
+and no window to take the feature offline while I thought about it. Whatever
+replaced the old system had to install cleanly, provision its own storage, and
+be composable into pages by people who do not write code and should not have to
+call me to publish something.
 
 ## Why rebuild instead of patch?
 
-Patching the exposure would have meant moving the exposed files somewhere safer
-and leaving everything downstream of them intact: the same data model, the same
-unguarded endpoints, the same assumptions about who is allowed to call what.
+I could have moved the exposed files somewhere safer and been done by lunch.
 
-The exposure was a symptom. Every input path in the feature had been written by
-someone who was comfortable putting sensitive functionality in a web-readable
-directory, and I did not want to inherit the rest of that judgment one file at a
-time. Rebuilding meant one pass to establish a security model and then everything
-built to it, rather than an indefinite series of discoveries.
+I did not, because the exposure was a symptom. Everything downstream of it was
+intact and unchanged: the same data model, the same unguarded endpoints, the
+same assumptions about who is allowed to call what. Every input path in that
+feature had been written by somebody who was comfortable putting sensitive
+functionality in a web-readable directory, and I did not want to inherit the
+rest of that judgment one discovery at a time.
+
+Rebuilding meant one pass to set a security model, and then everything built to
+it. Patching meant finding out for the next two years.
 
 ## What did I build?
 
@@ -132,7 +137,12 @@ turned every dashboard query into a meta join.
 
 ## Outcome
 
-TODO(austin): add the outcome you want stated here. What is live, what the
-organization can now do that it could not before, and any figure you are willing
-to stand behind. I have deliberately left this blank rather than write something
-plausible.
+The system is live and the organization logs prayer hours through it, on a
+platform whose membership runs into the millions.
+
+{/*
+  TODO(austin): tell me what you want claimed here and I will write it. Adoption,
+  entries logged, hours recorded, anything you can stand behind. I have written
+  only what I can source, because a made-up number on the security case study
+  would be a particularly bad place to start inventing things.
+*/}

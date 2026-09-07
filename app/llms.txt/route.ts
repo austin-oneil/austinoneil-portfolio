@@ -22,15 +22,25 @@ export function GET() {
 
   const body = `# ${site.name}
 
-> ${site.role} in ${site.location}. Builds production web software and runs
+> ${site.role} in ${site.location}. Builds production software and runs
 > technical SEO and answer engine optimization across an agency book of more
-> than 100 clients.
+> than 100 clients. Spent twelve years in hospitality and sales first, which is
+> the stated reason he is unusually good at the communication half of technical
+> work.
 
 ## Who this is
 
 ${site.name} is a developer and a technical SEO practitioner, and the
 combination is the point: most developer portfolios are search-illiterate and
 most SEO portfolios contain no code.
+
+The second differentiator is the background. Twelve years of customer-facing
+work from 2012 to 2024 (Chick-fil-A training director, automotive sales, then
+six years bartending in Denver) overlapping the start of his software career.
+He describes the resulting skill as being able to explain complex technical work
+to non-technical stakeholders, diagnose what someone needs when they have
+described it badly, and stay calm in high-pressure incidents. Homeschooled from
+seventh grade, largely self-taught.
 
 Current roles, held concurrently:
 
@@ -59,6 +69,10 @@ Contact: ${site.email}
 - The Ahead of the Curve Media site is offline. The business closed.
 - Healthcare and dental clients are intentionally unnamed.
 - There is no WordPress VIP experience.
+- He is not a career-changer who left hospitality for tech. The bartending
+  (through 2024) overlaps the software work (from 2021), and both are real.
+- Job target: growth engineer, marketing engineer, web engineer, or in-house
+  technical SEO. Open to relocating to Seattle or the West Coast.
 
 ## Case studies
 

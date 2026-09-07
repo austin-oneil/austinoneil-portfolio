@@ -11,73 +11,126 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Austin O'Neil is a developer and technical SEO specialist in Denver. Senior SEO Specialist at Prospecta Marketing, independent full-stack developer through Tangent Apps, and a 2026 computer science graduate.",
+    "Austin O'Neil is a developer and technical SEO specialist in Denver. Twelve years in hospitality and sales before software, homeschooled and self-taught, now Senior SEO Specialist at Prospecta Marketing and an independent developer through Tangent Apps.",
   alternates: { canonical: "/about" },
   openGraph: {
     title: "About - Austin O'Neil",
     description:
-      "Developer and technical SEO specialist in Denver. The long version.",
+      "Developer and technical SEO in Denver. The long version, including the twelve years before the code.",
     url: "/about",
     type: "profile",
   },
 };
 
 /**
- * Concurrent by design. Tangent Apps runs alongside full-time employment, so
- * the timeline states that explicitly rather than leaving overlapping dates to
- * be read as job-hopping.
+ * Technical roles. Tangent Apps runs alongside full-time work rather than
+ * between jobs, and the timeline says so, so overlapping dates never read as
+ * job-hopping.
  */
-const timeline = [
+const technical = [
   {
     period: "Feb 2024 - present",
     role: "Senior SEO Specialist and Account Executive",
     org: "Prospecta Marketing",
-    body: "A fully remote digital marketing agency. The title says SEO. In practice the scope is front-end development, WordPress and Webflow CMS architecture, custom plugin development, internal tooling and serverless automation. I am the main technical point of contact for 30-plus client accounts at a time inside a book of more than 100.",
+    body: "A fully remote digital marketing agency serving more than 100 clients. The title says SEO. The day job is front-end development, WordPress and Webflow CMS architecture, custom plugin development, internal tooling and serverless automation. I am the main technical point of contact for 30-plus accounts at a time. Small team, almost no formal onboarding, which meant figuring it out was the job description from week one.",
+    marks: ["Promoted twice in two years", "CTO succession track"],
   },
   {
     period: "Mar 2021 - present",
     role: "Full-stack developer",
     org: "Tangent Apps",
-    body: "My own independent consulting company, run concurrently with full-time work rather than between jobs. Client engagements include Vocation Action Network, Lacroix Hockey and Drill House Sports Center, and Ahead of the Curve Media.",
-    concurrent: true,
+    body: "My own consulting company. Vocation Action Network, Lacroix Hockey and Drill House Sports Center, Ahead of the Curve Media, DNVR and PHNX. I run these alongside full-time work, not between jobs, which is why the dates overlap everything else on this page.",
+    marks: ["Concurrent with full-time work"],
   },
   {
     period: "2021 - 2022",
     role: "Front-end developer",
     org: "All City Media",
-    body: "Designed and built the full WordPress front end for DNVR and PHNX, including the first build outside the native market, and worked directly with the CEO through an infrastructure failure 48 hours before launch.",
+    body: "Designed and built the full WordPress front end for DNVR and PHNX, a sports media startup, including their first build outside the home market. Then spent the 48 hours before launch working directly with the CEO to diagnose why the infrastructure had gone dark.",
+  },
+];
+
+/**
+ * The twelve customer-facing years. Deliberately given the same visual weight
+ * as the technical roles rather than tucked into a footnote: this is the half
+ * of the background that explains how he works, not a gap to apologize for.
+ */
+const hospitality = [
+  {
+    period: "2022 - 2024",
+    role: "Bartender",
+    org: "El Five, Denver",
+    body: "Front bar and service bar. Best-selling cocktail award, Q4 2022 and Q3 2023.",
+  },
+  {
+    period: "2021 - 2022",
+    role: "Bartender",
+    org: "The DNVR Bar, Denver",
+    body: "High-volume sports bar. Helped the GM with operations and inventory, and supported the DNVR media team with digital content.",
+  },
+  {
+    period: "2020 - 2021",
+    role: "Bartender and interim manager",
+    org: "TAG Restaurant Group, Denver",
+    body: "Two locations. Interim shift management across front and back of house, plus inventory and data entry.",
+  },
+  {
+    period: "2019 - 2020",
+    role: "Bartender",
+    org: "Renaissance Hotel Downtown, Denver",
+    body: "Craft cocktail bar. Collaborated on the quarterly beverage menu.",
+  },
+  {
+    period: "2018 - 2019",
+    role: "Server",
+    org: "The Kitchen Bistro, Denver",
+    body: "High-level service at a four-star farm-to-table restaurant. Where I learned that most of hospitality is anticipating the thing before anyone asks for it.",
+  },
+  {
+    period: "2017 - 2018",
+    role: "Online sales and leasing consultant",
+    org: "Asbury Automotive Group",
+    body: "Top salesperson in the Honda and Acura department every month from May 2017 to March 2018, closing at 13.5 percent against a target of 12.",
+  },
+  {
+    period: "2012 - 2017",
+    role: "Training director",
+    org: "Chick-fil-A",
+    body: "Shift management and daily operations at a franchise clearing more than $3M in annual net income. Built a growth template that let people move from cashier to director on a defined path.",
   },
 ];
 
 const skills = [
   {
-    heading: "Languages and runtimes",
-    items: ["TypeScript", "JavaScript", "PHP", "Python", "SQL", "Node.js"],
-  },
-  {
-    heading: "Frameworks and platforms",
+    heading: "Languages and frameworks",
     items: [
+      "TypeScript",
+      "JavaScript",
+      "PHP",
+      "Python",
+      "SQL",
       "React",
       "Next.js",
+      "Astro",
+      "Node.js",
       "Express",
-      "WordPress",
-      "Webflow",
-      "Wix",
-      "FullCalendar",
+      "Tailwind CSS",
     ],
   },
   {
-    heading: "Infrastructure",
+    heading: "Platforms and infrastructure",
     items: [
       "AWS Lambda",
-      "EC2",
       "DynamoDB",
       "S3",
-      "RDS",
-      "Route 53",
+      "EC2",
+      "Vercel",
       "Cloudflare",
       "WP Engine",
-      "Vercel",
+      "WordPress",
+      "Webflow",
+      "Docker",
+      "Git",
     ],
   },
   {
@@ -89,12 +142,17 @@ const skills = [
       "Core Web Vitals",
       "CMS architecture",
       "Site migrations",
+      "GA4",
+      "Search Console",
     ],
   },
 ];
 
 const certifications = [
-  { name: "B.S. Computer Science, Western Governors University", status: "Completed February 2026" },
+  {
+    name: "B.S. Computer Science, Western Governors University",
+    status: "February 2026",
+  },
   { name: "Meta Front-End Developer", status: "Certified" },
   { name: "HIPAA", status: "Certified" },
   { name: "AWS Solutions Architect, Associate", status: "In progress" },
@@ -117,25 +175,34 @@ export default function AboutPage() {
         <div className="grid gap-10 md:grid-cols-12 md:items-start md:gap-12">
           <div className="md:col-span-8">
             <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance text-text md:text-5xl">
-              A developer who does SEO, or an SEO who ships code
+              I spent twelve years talking to people before I got paid to write
+              code
             </h1>
             <div className="mt-6 max-w-[62ch] space-y-5 text-lg leading-relaxed text-text-muted">
               <p>
-                Both descriptions are accurate and neither is the whole thing. I
-                work at a digital marketing agency where my title is Senior SEO
-                Specialist, and most of what I do there is build software.
+                Restaurants, a car dealership, and six years behind a bar. Then
+                software. Most people read that as a career change. I read it as
+                the reason I am good at this one.
               </p>
               <p>
-                That combination is unusual enough to be worth explaining. Most
-                developers treat search as someone else&apos;s department, and
-                most search specialists stop at the point where the fix requires
-                changing code. Sitting in both means I can tell you why a
-                rendering decision costs you indexation and then go change the
-                rendering.
+                Here is what twelve years of customer-facing work actually teaches
+                you: how to explain something complicated to a person who did
+                not ask for a lecture, how to tell what someone needs when they
+                have described it badly, and how to stay level when four things
+                break at once and everybody is looking at you. That is not a
+                soft skill. That is most of the job when you are the technical
+                point of contact for thirty accounts.
               </p>
               <p>
-                I am in Denver, and open to relocating to Seattle or elsewhere on
-                the West Coast.
+                I was homeschooled from seventh grade on, which mostly meant
+                nobody was coming to teach me, so I learned how to learn things.
+                That habit is why I can be handed an unfamiliar stack on a
+                deadline and come back with an answer instead of an excuse.
+              </p>
+              <p>
+                I genuinely like building things and taking puzzles apart. I am
+                honest to a fault. I would rather walk down the hall and ask the
+                question than guess and ship it wrong.
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -164,9 +231,40 @@ export default function AboutPage() {
       </div>
 
       <Section>
-        <SectionHeading>Where I have worked</SectionHeading>
+        <SectionHeading>How the two halves met</SectionHeading>
+        <div className="max-w-[68ch] space-y-5 leading-relaxed text-text-muted">
+          <p>
+            In 2021 I was working the bar at The DNVR Bar, a high-volume sports
+            bar in Denver, helping their media team with digital content when
+            they needed it. By 2022 I had designed and built the full WordPress
+            front end for DNVR and PHNX, both properties, from scratch.
+          </p>
+          <p>
+            Then, 48 hours before the PHNX launch, the site came off AWS and the
+            developer who owned that infrastructure stopped answering. I was the
+            front-end guy. I was not on call for any of it. I learned enough AWS
+            under deadline to describe exactly what was broken, took it straight
+            to the CEO, and found and oriented a replacement developer in time
+            to launch with hours to spare.
+          </p>
+          <p>
+            That is the clearest version of what I actually do. The technical
+            work and the people work were the same job, and neither half would
+            have gotten there alone.
+          </p>
+          {/*
+            TODO(austin): if the bar work is what led to the DNVR/PHNX
+            engagement, say so outright, it is a better story told straight.
+            I have kept the two facts adjacent without claiming the causal link,
+            since background.md does not state it.
+          */}
+        </div>
+      </Section>
+
+      <Section bordered>
+        <SectionHeading>Technical work</SectionHeading>
         <ol className="border-t border-border">
-          {timeline.map((entry) => (
+          {technical.map((entry) => (
             <li
               key={`${entry.org}-${entry.period}`}
               className="grid gap-2 border-b border-border py-8 md:grid-cols-12 md:gap-8"
@@ -179,11 +277,45 @@ export default function AboutPage() {
                   {entry.org}
                 </h3>
                 <p className="mt-1 text-sm text-text-muted">{entry.role}</p>
-                {entry.concurrent ? (
-                  <p className="mt-3">
-                    <Tag tone="accent">Concurrent with full-time work</Tag>
-                  </p>
+                {entry.marks ? (
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {entry.marks.map((mark) => (
+                      <Tag key={mark} tone="accent">
+                        {mark}
+                      </Tag>
+                    ))}
+                  </div>
                 ) : null}
+              </div>
+              <p className="max-w-[62ch] leading-relaxed text-text-muted md:col-span-8">
+                {entry.body}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </Section>
+
+      <Section bordered>
+        <SectionHeading>The twelve years before</SectionHeading>
+        <p className="mb-8 max-w-[64ch] leading-relaxed text-text-muted">
+          Listed properly rather than buried, because it is half of why I work
+          the way I do. Every one of these was a job where being good at it
+          meant being good with people under pressure.
+        </p>
+        <ol className="border-t border-border">
+          {hospitality.map((entry) => (
+            <li
+              key={`${entry.org}-${entry.period}`}
+              className="grid gap-1 border-b border-border py-6 md:grid-cols-12 md:gap-8"
+            >
+              <div className="md:col-span-4">
+                <p className="font-mono text-xs text-text-subtle">
+                  {entry.period}
+                </p>
+                <h3 className="mt-2 font-semibold tracking-tight text-text">
+                  {entry.org}
+                </h3>
+                <p className="mt-1 text-sm text-text-muted">{entry.role}</p>
               </div>
               <p className="max-w-[62ch] leading-relaxed text-text-muted md:col-span-8">
                 {entry.body}
@@ -211,10 +343,12 @@ export default function AboutPage() {
             </div>
           ))}
         </div>
-        <p className="mt-8 max-w-[62ch] rounded-[--radius] border border-border bg-surface-2 p-4 text-sm leading-relaxed text-text-muted">
-          One calibration worth stating plainly: I am proficient in Next.js and
-          TypeScript, and no employer has paid me for Next.js work. The strongest
-          evidence I have is an interview take-home, and it is labelled as one.
+        <p className="mt-8 max-w-[64ch] rounded-[--radius] border border-border bg-surface-2 p-4 text-sm leading-relaxed text-text-muted">
+          One calibration I would rather state than have you find out: I am
+          genuinely proficient in Next.js and TypeScript, and no employer has
+          paid me for either. The evidence is an interview take-home, and it is
+          labelled as one. Everything else on this page is production work
+          somebody paid for.
         </p>
       </Section>
 

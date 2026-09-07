@@ -15,7 +15,7 @@ export const site = {
   locale: "en-US",
   location: "Denver, Colorado",
   description:
-    "Austin O'Neil builds production web software and runs technical SEO for a 100+ client agency book. Case studies in AWS, WordPress plugin engineering, Next.js and serverless AI.",
+    "Austin O'Neil is a developer and technical SEO specialist in Denver who spent twelve years in hospitality and sales first. He builds production software and runs technical SEO across a 100-plus client agency book. Case studies in AWS, WordPress plugin engineering, serverless AI and Next.js.",
   email: "austinroneil@gmail.com",
   socials: {
     github: "https://github.com/austin-oneil",

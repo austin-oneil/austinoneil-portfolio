@@ -27,15 +27,19 @@ export const metadata: Metadata = {
 const capabilities = [
   {
     heading: "What do I actually build?",
-    body: "Production web software. Custom WordPress plugins in PHP with their own tables, endpoints and admin dashboards. Serverless pipelines in Python on AWS. Full-stack JavaScript with real payment flows. Front ends I designed and built from scratch.",
+    body: "Production software. Custom WordPress plugins in PHP with their own tables, endpoints and admin dashboards. A serverless AI agent in Python on AWS that runs every day. Full-stack JavaScript with real money moving through it. Front ends I designed and built from scratch, not themes I recolored.",
   },
   {
     heading: "What does the SEO half mean?",
-    body: "Technical SEO and answer engine optimization across a book of more than 100 clients: crawlability, rendering, structured data, site speed, CMS architecture and the conversion paths that sit on top of them. It is engineering work that happens to be measured in search.",
+    body: "I run technical SEO and answer engine optimization across a book of more than 100 clients. Crawlability, rendering, structured data, site speed, CMS architecture, and the conversion paths sitting on top of them. It is engineering work. It just gets measured in search.",
   },
   {
     heading: "Why does the combination matter?",
-    body: "Most developer portfolios are search-illiterate and most SEO portfolios contain no code. Sitting in both means I can tell you why a rendering decision costs indexation, and then go change it.",
+    body: "Most developers treat search as somebody else's department. Most SEOs stop at the point where the fix needs a pull request. I can tell you why a rendering decision is costing you indexation, and then go change the rendering.",
+  },
+  {
+    heading: "Where does the bartending come in?",
+    body: "Twelve years of hospitality and sales before this, six of them behind a bar. You learn to read a room, explain something complicated to someone who did not ask for a lecture, and stay calm when everything is on fire at once. That turns out to be most of what a technical point of contact does.",
   },
 ];
 
@@ -95,7 +99,8 @@ export default function HomePage() {
               I build the site and I make it rank.
             </h1>
             <p className="mt-5 max-w-[46ch] text-lg leading-relaxed text-text-muted">
-              {site.role} in Denver. I write the code and own the search surface.
+              Developer and technical SEO in Denver. Twelve years behind a bar
+              and a counter taught me the other half of the job.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="/projects">See the work</ButtonLink>
@@ -133,7 +138,7 @@ export default function HomePage() {
             track runs underneath the left-hand column of cards. */}
         <div className="container-page">
           <Heading action={<MoreLink href="/projects">All work</MoreLink>}>
-            Selected work
+            Work I am proud of
           </Heading>
           <Reveal>
             <ProjectGrid projects={projects} />
@@ -171,7 +176,7 @@ export default function HomePage() {
         className="relative border-t border-border py-16 md:py-24"
       >
         <div className="container-page rail-indent">
-          <Heading>The combination is the point</Heading>
+          <Heading>Two careers, one skill set</Heading>
           <dl className="border-t border-border">
             {capabilities.map((item) => (
               <div
@@ -222,12 +227,14 @@ export default function HomePage() {
         <div className="container-page rail-indent">
           <div className="max-w-2xl">
             <h2 className="text-2xl font-semibold tracking-tight text-text md:text-3xl">
-              Currently looking for my next role
+              One conversation is worth fifty resume screens
             </h2>
             <p className="mt-4 leading-relaxed text-text-muted">
-              I am open to full-time engineering and technical SEO roles, and to
-              relocating to Seattle or the West Coast. The fastest way to reach
-              me is email.
+              I am looking for my next role, ideally the kind where somebody has
+              to build the marketing infrastructure and also explain it to the
+              people who depend on it. Open to relocating to Seattle or
+              elsewhere on the West Coast. Email is the fastest way to reach me,
+              and I answer all of them.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
               <ButtonLink href={`mailto:${site.email}`}>Get in touch</ButtonLink>

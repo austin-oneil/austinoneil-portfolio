@@ -27,10 +27,12 @@ site into an application with money in it.
 
 ## What constraints did it have to work inside?
 
-One developer, a real payment flow, and a client whose business ran on it. That
-rules out anything with a moving part I could not reason about on my own, and it
-raises the cost of any failure in the payment path from an inconvenience to a lost
-booking.
+One developer. That was the constraint, and it was me.
+
+A real payment flow with a client's business running through it rules out any
+moving part I could not reason about alone at eleven at night. It also changes
+what a bug costs: a failure in the payment path is not an inconvenience, it is a
+booking that never happened and a client who finds out before I do.
 
 ## What did I build?
 
@@ -63,13 +65,18 @@ call, and cookies that work without cross-site exceptions. For a single-develope
 project, removing an entire category of configuration is worth more than the
 flexibility of splitting them.
 
-**Self-manage TLS on EC2 rather than put a managed platform in front.** I owned
-the instance and the certificate lifecycle. That is more responsibility than a
-managed host, and it is the reason I know what the renewal path looks like when it
-fails rather than only that it usually does not.
+**Self-manage TLS on EC2 instead of hiding behind a managed platform.** I owned
+the box and the certificate lifecycle. That is more responsibility than a managed
+host and, honestly, more than the project strictly needed. It is also the reason
+I know what certificate renewal looks like when it fails, rather than only
+knowing that it usually does not.
 
 ## Outcome
 
-Shipped and ran in production without a technical issue.
+Shipped, live, taking real payments, and it ran without a single technical issue.
 
-The business has since closed and the site is no longer live.
+The business behind it closed a while later and the site is no longer up. I want
+to be straight about that rather than let a dead link speak for me: the build was
+never the thing that failed here. There are no traffic or revenue numbers to show
+you, because the business dissolved before there was meaningful usage to measure.
+What I can tell you is that the engineering held.

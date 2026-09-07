@@ -1,6 +1,6 @@
 ---
-title: A serverless AI agent that does part of my job
-summary: A Python agent on AWS that watches Basecamp for tasks assigned to me, pulls the right client context, writes a tailored solution with the Claude API, and emails it back. In production, used daily.
+title: I built an AI agent that does part of my job
+summary: A Python agent on AWS that watches Basecamp for work assigned to me, loads the right client context, writes a tailored solution with the Claude API, and emails it back. Live in production. I use it every day.
 client: Prospecta Marketing
 context: Prospecta Marketing
 period: "2025 - present"
@@ -18,71 +18,75 @@ stack:
 
 ## What problem does this solve?
 
-I am the main technical point of contact for 30-plus client accounts at a time
-inside a book of more than 100. Work reaches me through Basecamp, and a large
-share of it is the same shape: a task lands, I load everything I know about that
-client, and I write back a solution that fits their specific stack.
+I am the technical point of contact for 30-plus client accounts at a time inside
+a book of more than 100. Work reaches me through Basecamp, and a large share of
+it has the same shape: a task lands, I load everything I know about that client,
+and I write back a solution that fits their specific stack.
 
-The loading step is the expensive part. The context lives in my head and in
-scattered documentation, and it has to be reassembled every time before any real
-thinking starts.
+The loading is the expensive part. Not the thinking. The reassembling of context
+that lives in my head and in scattered documentation, every single time, before
+any real thinking can start.
+
+So I automated the reassembling and kept the thinking.
 
 ## What constraints did it have to work inside?
 
-It runs against a live agency workflow, on real client accounts, so a few things
-were fixed before I wrote any code.
+This runs against a live agency workflow on real client accounts, which fixed a
+few things before I wrote a line of code.
 
-It had to be event-driven rather than always-on, because the work arrives in
-bursts and paying for idle compute could not be justified. It had to hold state
-across a multi-step pipeline, because a single request fans out into retrieval,
-generation and delivery, and any of those steps can fail on its own. And it had
-to deliver through email, because that is where the reply is actually read, which
-put a hard ceiling on how large a single response could be.
+Event-driven, not always-on, because the work arrives in bursts and I could not
+justify paying for idle compute. Stateful across a multi-step pipeline, because
+one request fans out into retrieval, generation and delivery, and any of those
+can fail on its own. And delivered by email, because that is where the reply
+actually gets read, which put a hard ceiling on how big a single response could
+be.
 
 ## What did I build?
 
 A serverless pipeline in Python on AWS. I wrote all of it.
 
-The agent monitors Basecamp for tasks assigned to my user ID. On trigger it
-retrieves client-specific context from project markdown files, calls the Claude
-API to generate a solution tailored to that client, and delivers the result by
-email. DynamoDB carries state between the stages of the pipeline, so each step
-knows what the previous one produced and a failure does not lose the request.
+The agent watches Basecamp for tasks assigned to my user ID. On trigger it pulls
+client-specific context out of project markdown files, calls the Claude API to
+generate a solution shaped to that client, and delivers it by email. DynamoDB
+carries state between stages, so each step knows what the last one produced and a
+failure does not swallow the request.
 
-Responses that exceed the size a mail server will accept do not get truncated.
-The agent writes the full response to S3 and delivers a pre-signed URL instead,
-so a long answer arrives complete rather than clipped at an arbitrary boundary.
+When a response is bigger than a mail server will take, it does not get
+truncated. The agent writes the whole thing to S3 and sends a pre-signed URL
+instead, so a long answer arrives complete instead of clipped mid-sentence.
 
 ## Decisions
 
-**Retrieval from markdown files, not a vector database.** Client context is a
-bounded, hand-maintained set of documents, not an open corpus. Reading the
-relevant files directly keeps the retrieval step exact and legible: I can open
-the same file the agent read and see precisely what it was working from. A vector
-store would have added an embedding pipeline, an index to keep in sync, and a
-class of retrieval failure that is hard to debug, in exchange for recall I did
-not need at this scale.
+**Markdown files, not a vector database.** Client context here is a bounded set
+of documents I maintain by hand, not an open corpus. Reading the relevant files
+directly keeps retrieval exact and legible: I can open the same file the agent
+read and see precisely what it was working from. A vector store would have added
+an embedding pipeline, an index to keep in sync, and a category of retrieval
+failure that is genuinely hard to debug, in exchange for recall I do not need at
+this size. I would make a different call at a hundred times the documents.
 
-**DynamoDB for pipeline state rather than passing everything through the event
-payload.** The stages are separated in time and can fail independently. Holding
-state externally means a failed generation step can be inspected and retried
-against the context that was actually retrieved, instead of replaying the trigger
-and hoping the retrieval resolves the same way.
+**DynamoDB for state instead of stuffing everything in the event payload.** The
+stages are separated in time and fail independently. Holding state outside them
+means a failed generation can be inspected and retried against the context that
+was actually retrieved, rather than replaying the trigger and hoping retrieval
+resolves the same way twice.
 
-**S3 pre-signed URLs as the overflow path instead of splitting the email.** A
-solution broken across three messages is worse than a link, because the reader
-has to reassemble it. Sending the complete response as a retrievable object keeps
-the output whole and leaves the delivery mechanism simple.
+**A pre-signed URL instead of splitting the email.** A solution broken across
+three messages is worse than a link, because now the reader has to reassemble
+it. Sending the whole response as one retrievable object keeps the output intact
+and the delivery path simple.
 
 ## Outcome
 
-Live in production and used daily.
+Live in production. I use it every day.
 
-TODO(austin): if you want a volume or time-saved figure here, give me the real
-number and I will add it. I have not put an estimate in, because an invented
-metric on this page would be worse than no metric.
+{/*
+  TODO(austin): if you want a volume or time-saved number here, give me the real
+  one and I will add it. I have left it out rather than estimate, because an
+  invented metric on this page would undo the point of the whole site.
+*/}
 
-## Where this sits
+## Where this belongs
 
 This is a Prospecta Marketing initiative, built inside my role there. It is not
 freelance work and it does not belong to Tangent Apps.

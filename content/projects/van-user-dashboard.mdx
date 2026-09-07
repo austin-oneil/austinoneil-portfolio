@@ -15,15 +15,16 @@ stack:
 
 ## What problem does this solve?
 
-Members of the organization had no way to manage their own accounts. Profile
-changes and password resets went through someone else, which is friction for the
-member and unpaid support work for the client.
+Members had no way to manage their own accounts. Every profile change and every
+password reset went through a person. That is friction for the member and unpaid
+support work for the client, and it scales exactly as badly as it sounds.
 
 ## What constraints did it have to work inside?
 
 The same site as the prayer hours rebuild, under the same security model.
-Anything touching credentials had to assume it would be attacked, and had to work
-for members who are not technical and get one shot at a form before giving up.
+Anything touching credentials had to assume it would be attacked. It also had to
+work for members who are not technical and who get exactly one attempt at a form
+before deciding the website is broken and calling somebody.
 
 ## What did I build?
 
@@ -45,11 +46,15 @@ than relying on a token that outlives the page it was minted for.
 ## Decisions
 
 **Re-issue the auth cookie after a password change.** `wp_set_password()`
-invalidates the current session as a side effect, which means the default
-behaviour is that a member changes their password and is immediately thrown out
-to the login screen. That reads as a failure even though it succeeded, and it is
-the point where a non-technical user assumes they broke something. Re-issuing the
-cookie keeps them signed in and lets the confirmation actually be seen.
+invalidates the current session as a side effect. So the default behaviour is
+that a member successfully changes their password and is instantly thrown to the
+login screen for their trouble.
+
+It worked. It looks exactly like it broke. And that is the precise moment a
+non-technical user decides they did something wrong and stops trusting the form.
+Re-issuing the cookie keeps them signed in and lets them actually read the
+confirmation. Two extra lines, and it is the difference between a feature people
+use and a feature people report.
 
 **Verify the current password even though the session is already
 authenticated.** An authenticated session proves someone logged in at some point,
@@ -63,4 +68,7 @@ which is what makes an unauthorized change visible to the person who would care.
 
 ## Outcome
 
-TODO(austin): confirm whether this is live and what you want said about adoption.
+{/*
+  TODO(austin): confirm whether this is live and what you want said about
+  adoption, and I will write it properly. Left blank rather than guessed.
+*/}

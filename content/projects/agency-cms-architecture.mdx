@@ -1,11 +1,11 @@
 ---
-title: CMS architecture, conversion paths, and a hack that changed my job
-summary: Agency work across a 100-plus client book. Site architecture and a redesign recovery for a large multi-location dental group, reusable location-page layouts adopted companywide, and becoming the team's security lead after a credential-exposing breach.
+title: A hundred clients, one of me, and the week I became the security lead
+summary: Agency work across a 100-plus client book. CMS architecture and a redesign recovery for a large multi-location dental group, conversion layouts the whole company ended up using, and the credential breach that made me the person everyone called.
 client: Prospecta Marketing clients
 context: Prospecta Marketing
 period: "2024 - present"
 order: 75
-note: An anonymized composite of client work. Healthcare clients are never named.
+note: An anonymized composite of client work. Healthcare clients are never named here, and never will be.
 tags: ["Dev", "SEO", "Full-Stack"]
 stack:
   - WordPress
@@ -18,65 +18,93 @@ stack:
 
 ## What does this cover?
 
-I am a Senior SEO Specialist and Account Executive at Prospecta Marketing, and
-the title undersells the scope. In practice I am the main technical point of
-contact for 30-plus accounts at a time inside a book of more than 100, and the
-work is front-end development, CMS architecture, custom plugin development,
-internal tooling and serverless automation.
+My title at Prospecta Marketing is Senior SEO Specialist and Account Executive.
+That is the real title and I am not going to dress it up. It also undersells the
+job by a wide margin.
+
+In practice I am the main technical point of contact for 30-plus accounts at a
+time inside a book of more than 100, and the work is front-end development, CMS
+architecture, custom plugin development, internal tooling and serverless
+automation. It is a small team with almost no formal onboarding, so the answer
+to "who handles this" has usually been whoever picks it up.
 
 This page is an anonymized composite. Healthcare clients are not named here and
 will not be.
 
-## Recovering a bad launch
+## Recovering a launch that had already gone wrong
 
-A large multi-location dental group came out of a site refresh that had gone
-badly. I owned the CMS architecture and a full site redesign, working directly
-with their in-house engineering team rather than around them.
+A large multi-location dental group came to us out of a site refresh that had
+gone badly. I owned the CMS architecture and a full site redesign, and I worked
+directly with their in-house engineering team rather than around them.
 
-Both the client and their own developer credited the work.
+That last part is the whole thing. An agency arriving after a failed launch has
+an easy story available: the last work was bad, hand it over to us. It is also
+the story that guarantees friction with the people who will maintain the site
+afterward and who know things about it that were never written down.
 
-The layouts I built for location pages, designed for conversion and made
-reusable rather than bespoke per client, were later adopted companywide.
+So I treated their developer as a colleague. We got on Zoom, we got in a room,
+and we worked the problem together. Both the client and their own developer
+credited the work directly, and I would rather have that than the win.
+
+The conversion-focused location page layouts I built for them were reusable by
+design, and the company ended up adopting them across other accounts.
+
+## What did the numbers do?
+
+Every figure below is from tracked visibility reporting, with the exact window
+it happened in. No open-ended "since I took over" framing, because that hides
+when things actually moved.
+
+- A dental client from **Jun 2025 to Apr 2026**: search visibility from 29.9% to
+  71.3%, the fastest sustained growth in the book.
+- A practice at real risk of closing, **Feb 2024 to May 2024**: 5.4% to 28.3% in
+  three months. That growth bought the owner enough time to sell the business
+  with a patient base still attached, which mattered more than the number did.
+- A client on organic SEO only, no paid, **Sep 2025 onward**: 74.6% to 90.1%
+  over ten months. They paused the engagement because the patient influx got
+  ahead of what the practice could take. That is the strangest compliment I have
+  received at this job.
+- Across the book: clients up 40% or more inside the first one to two months of
+  dedicated work, landing pages moving from position 30-plus into the top ten
+  inside a month, and 100% on quarterly review counts while carrying 30-plus
+  accounts.
+
+I also built the agency's answer engine optimization strategy from nothing:
+entity-based optimization, knowledge-graph and brand-entity work, and
+structured data aimed at AI Overviews, ChatGPT and Perplexity rather than at
+ten blue links. Early results are good. It is too new for me to hand you a
+number I would defend.
 
 ## Decisions
 
-**Work with the in-house engineering team instead of replacing them.** An agency
-arriving after a failed launch has an easy story available: the previous work was
-bad, hand it over. It is also the story that guarantees friction with the people
-who will maintain the site afterward and know things about it that are not written
-down. Treating their developer as a collaborator is the reason the recovery
-produced a credit from both sides rather than a handoff.
+**Build the location pages once, properly.** Multi-location businesses are the
+same page repeated with different content, which means the work is either done
+once well or many times inconsistently. Designing for reuse is why the layout
+traveled past the client I built it for.
 
-**Build the location pages as a reusable layout, not a one-off.** Multi-location
-businesses have the same page repeated with different content, which means the
-work is either done once well or many times inconsistently. Designing the layout
-to be reused is what let it travel to other accounts.
-
-## Custom development and platform work
-
-A custom WordPress plugin in PHP implementing a branched-logic eligibility
-questionnaire, so an intake flow could ask only the questions a given answer path
-actually requires.
-
-Migrations onto managed WP Engine hosting with Cloudflare handling DNS and CDN.
-
-Technical SEO and site-speed audits across the book.
+**Say the title accurately and let the bullets carry the scope.** I could
+describe myself as a developer at an agency and nobody would check. The title on
+record says SEO Specialist, so that is what I put on things, and then I show
+what the work actually was. A title that does not survive a reference check is
+not worth the upgrade.
 
 ## Becoming the security lead
 
-After a hack that exposed credentials, I became the team's cybersecurity subject
-matter expert. I built and executed the remediation strategy that secured every
-client account within 24 hours and closed the weak points that had been exploited.
+We had a hack that exposed credentials.
+
+I ended up as the team's subject matter expert on it, which is a polite way of
+saying I was the person who did not put it down. I built the remediation
+strategy and executed it, and every client account was secured within 24 hours
+with the exploited weak points closed.
 
 **Why 24 hours and not a phased rollout.** With credentials exposed across a
-shared book of accounts, the exposure window is the whole risk. A phased
-remediation leaves a known-compromised credential live on some accounts while
-others are being fixed, and an attacker with a list does not work through it in
-the order you scheduled. Securing everything inside a day cost more coordination
-than a staged plan and removed the window entirely.
+shared book of accounts, the exposure window is the entire risk. A staged plan
+leaves a known-compromised credential live on some accounts while you fix
+others, and an attacker holding a list does not work through it in the order you
+scheduled. Doing all of it inside a day cost a great deal more coordination and
+removed the window completely.
 
-## Outcome
-
-TODO(austin): if there are results from the dental group redesign or the audits
-that you can share without identifying a client, send them and I will add them
-here.
+That week is also the clearest example of the thing I keep claiming about
+myself: the hard part was not the technical remediation. It was calling a lot of
+people, telling them something bad had happened, and keeping them calm enough to
+act on it quickly.
