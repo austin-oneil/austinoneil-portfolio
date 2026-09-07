@@ -1,26 +1,202 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   THEME STRATEGY
+   Single source of truth = CSS custom properties on :root, overridden under
+   [data-theme="dark"]. An inline script in <head> stamps data-theme before
+   first paint, so there is never a flash of the wrong theme.
+
+   RADIUS SYSTEM (documented, applied everywhere — see skill 4.4):
+     --radius-sm  6px  → tags, inline code, small chips
+     --radius    10px  → cards, inputs, buttons, media
+   No pill radii. No sharp corners. Two stops, that is the whole system.
+--------------------------------------------------------------------------- */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface-2: #f4f4f5;
+  --border: #e4e4e7;
+  --border-strong: #d4d4d8;
+
+  --text: #18181b;
+  --text-muted: #52525b;
+  --text-subtle: #71717a;
+
+  /* Electric blue. Contrast verified against --bg in both themes. */
+  --accent: #1d4ed8;          /* 7.2:1 on #fafafa */
+  --accent-hover: #1e40af;
+  --accent-solid: #1d4ed8;    /* button fill */
+  --accent-on-solid: #ffffff; /* 6.4:1 on #1d4ed8 */
+  --accent-faint: #eff6ff;
+  --accent-border: #bfdbfe;
+
+  --shadow-color: 240 5% 60%;
+
+  --radius-sm: 6px;
+  --radius: 10px;
+}
+
+[data-theme="dark"] {
+  --bg: #09090b;
+  --surface: #101012;
+  --surface-2: #18181b;
+  --border: #27272a;
+  --border-strong: #3f3f46;
+
+  --text: #fafafa;
+  --text-muted: #a1a1aa;
+  --text-subtle: #8b8b93;
+
+  --accent: #60a5fa;          /* 8.9:1 on #09090b */
+  --accent-hover: #93c5fd;
+  --accent-solid: #2563eb;
+  --accent-on-solid: #ffffff; /* 5.2:1 on #2563eb */
+  --accent-faint: #101a2e;
+  --accent-border: #1e3a8a;
+
+  --shadow-color: 240 10% 2%;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-solid: var(--accent-solid);
+  --color-accent-on-solid: var(--accent-on-solid);
+  --color-accent-faint: var(--accent-faint);
+  --color-accent-border: var(--accent-border);
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", Menlo, monospace;
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Offset for the sticky header when jumping to a heading anchor. */
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Never let the page body scroll sideways. Wide children scroll inside
+       their own overflow container instead. */
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-on-solid);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Reduced motion: collapse every transition and animation to instant. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Vertical rhythm container used by every page shell. */
+  .container-page {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  .container-prose {
+    width: 100%;
+    max-width: 45rem;
+    margin-inline: auto;
+  }
+}
+
+/* --- rehype-pretty-code / Shiki dual-theme ------------------------------- */
+code[data-theme],
+code[data-theme] span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+
+[data-theme="dark"] code[data-theme],
+[data-theme="dark"] code[data-theme] span {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg);
+}
+
+figure[data-rehype-pretty-code-figure] pre {
+  overflow-x: auto;
+  padding-block: 1rem;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+}
+
+figure[data-rehype-pretty-code-figure] code {
+  display: grid;
+  background-color: transparent !important;
+  counter-reset: line;
+}
+
+figure[data-rehype-pretty-code-figure] [data-line] {
+  padding-inline: 1.125rem;
+  border-left: 2px solid transparent;
+}
+
+figure[data-rehype-pretty-code-figure] [data-highlighted-line] {
+  border-left-color: var(--accent);
+  background-color: color-mix(in oklab, var(--accent) 10%, transparent);
+}
+
+[data-rehype-pretty-code-title] {
+  border-bottom: 1px solid var(--border);
+  padding: 0.625rem 1.125rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
 }
