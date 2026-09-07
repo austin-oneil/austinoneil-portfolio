@@ -94,12 +94,23 @@ function measure(): { geometry: Geometry; tunnels: Tunnel[] } | null {
     if (!section) return [];
     const index = sections.indexOf(section);
     if (index === -1) return [];
+
     const rect = el.getBoundingClientRect();
+    const left = rect.left + window.scrollX;
+    const railX = stops[index].x;
+
+    // A card is only a tunnel if the rail genuinely runs underneath it. In a
+    // grid the track passes through the left-hand column and misses the rest,
+    // and a glow on a card the line never entered reads as a stray light.
+    // Marking a card [data-tunnel] is a request, not a guarantee.
+    if (railX < left || railX > left + rect.width) {
+      el.style.setProperty("--head-o", "0");
+      el.style.setProperty("--tail-o", "0");
+      return [];
+    }
+
     // Park the glows at the exact x where the track crosses this card.
-    el.style.setProperty(
-      "--tunnel-x",
-      `${stops[index].x - (rect.left + window.scrollX)}px`,
-    );
+    el.style.setProperty("--tunnel-x", `${railX - left}px`);
     return [
       {
         el,

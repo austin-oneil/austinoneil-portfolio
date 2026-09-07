@@ -125,11 +125,13 @@ export default function HomePage() {
       <section
         id="work"
         data-stop
-        data-stop-fx="0.03"
+        data-stop-fx="0.045"
         data-stop-dy="104"
         className="relative py-16 md:py-24"
       >
-        <div className="container-page rail-indent">
+        {/* No rail-indent: the grid keeps the full container width so the
+            track runs underneath the left-hand column of cards. */}
+        <div className="container-page">
           <Heading action={<MoreLink href="/projects">All work</MoreLink>}>
             Selected work
           </Heading>
@@ -143,11 +145,12 @@ export default function HomePage() {
       <section
         id="stack"
         data-stop
-        data-stop-fx="0.040"
+        data-stop-fx="0.045"
         data-stop-dy="104"
         className="relative border-t border-border py-16 md:py-24"
       >
-        <div className="container-page rail-indent">
+        {/* No rail-indent: the track runs under the toolkit card. */}
+        <div className="container-page">
           <Heading>The stack I actually ship with</Heading>
           <Reveal>
             <div
