@@ -1,4 +1,4 @@
-# austinoneil.dev
+# austinoneil.me
 
 Personal site and technical blog for Austin O'Neil, developer and technical SEO
 specialist in Denver.
@@ -106,7 +106,7 @@ in `lib/images.ts`.
 3. Set one environment variable, for Production and Preview:
 
    ```
-   NEXT_PUBLIC_SITE_URL=https://austinoneil.dev
+   NEXT_PUBLIC_SITE_URL=https://austinoneil.me
    ```
 
    Every canonical URL, OG image URL, sitemap entry and `llms.txt` link derives
@@ -116,7 +116,7 @@ in `lib/images.ts`.
 5. Do **not** set `SHOW_DRAFTS` on the production environment. It exists only
    for preview deployments where a draft needs review on real infrastructure.
 
-After the first deploy, submit `https://austinoneil.dev/sitemap.xml` in Google
+After the first deploy, submit `https://austinoneil.me/sitemap.xml` in Google
 Search Console.
 
 ## How it is put together

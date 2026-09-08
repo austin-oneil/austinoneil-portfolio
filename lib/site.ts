@@ -6,12 +6,12 @@
 export const site = {
   name: "Austin O'Neil",
   role: "Developer and technical SEO specialist",
-  // TODO(austin): swap to the real apex domain once it is registered and
-  // pointed at Vercel. Every canonical, OG url and sitemap entry derives
-  // from this value.
+  // Apex is canonical; www redirects to it at the Vercel level. Every
+  // canonical tag, OG url, sitemap entry and llms.txt link derives from this
+  // value, so it must never carry a trailing slash or a www prefix.
   url:
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
-    "https://austinoneil.dev",
+    "https://austinoneil.me",
   locale: "en-US",
   location: "Denver, Colorado",
   description:
