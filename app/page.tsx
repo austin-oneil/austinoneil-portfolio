@@ -12,7 +12,7 @@ import { PostRow } from "@/components/post-row";
 import { getAllProjects } from "@/lib/projects";
 import { getAllPosts } from "@/lib/blog";
 import { personSchema, websiteSchema } from "@/lib/schema";
-import { AVATAR_IMAGE, BLUR_DATA_URL } from "@/lib/images";
+import { AVATAR_IMAGE, BLUR_DATA_URL, PORTRAIT_IMAGE } from "@/lib/images";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -180,15 +180,67 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stop 4. Positioning, as a definition list. */}
+      {/* Stop 4. The story teaser. No rail-indent, so the track runs under
+          the photograph the way it does under the work cards. */}
       <section
         data-stop
-        data-stop-fx="0.022"
+        data-stop-fx="0.045"
+        data-stop-dy="104"
+        className="relative border-t border-border py-16 md:py-24"
+      >
+        <div className="container-page">
+          <div className="grid gap-8 md:grid-cols-12 md:items-center md:gap-12">
+            {/* Photo on the left here, mirroring the hero rather than
+                repeating it. */}
+            <div data-tunnel className="md:col-span-5">
+              <Image
+                src={PORTRAIT_IMAGE}
+                alt={`${site.name} in Denver`}
+                width={1000}
+                height={1250}
+                placeholder="blur"
+                blurDataURL={BLUR_DATA_URL}
+                sizes="(min-width: 768px) 22rem, 100vw"
+                className="aspect-[4/5] w-full rounded-[--radius] border border-border object-cover"
+              />
+            </div>
+
+            <div className="md:col-span-7">
+              <h2 className="text-2xl font-semibold tracking-tight text-text md:text-3xl">
+                I didn&apos;t start in tech
+              </h2>
+              <div className="mt-5 max-w-[58ch] space-y-4 leading-relaxed text-text-muted">
+                <p>
+                  Restaurants, a car dealership, and six years behind a bar.
+                  Then software. Most people read that as a career change. I
+                  read it as the reason I&apos;m good at this one.
+                </p>
+                <p>
+                  Twelve years of talking to people for a living teaches you how
+                  to explain something complicated to someone who didn&apos;t
+                  ask for a lecture, and how to stay level when everything
+                  breaks at once. That turned out to be most of the job.
+                </p>
+              </div>
+              <div className="mt-7">
+                <ButtonLink href="/about" variant="outline">
+                  Read my story
+                </ButtonLink>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stop 5. The questions, as a definition list. */}
+      <section
+        data-stop
+        data-stop-fx="0.020"
         data-stop-dy="104"
         className="relative border-t border-border py-16 md:py-24"
       >
         <div className="container-page rail-indent">
-          <Heading>I didn&apos;t start in tech</Heading>
+          <Heading>Questions I get asked</Heading>
           <dl className="border-t border-border">
             {capabilities.map((item) => (
               <div
@@ -207,7 +259,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stop 5. Writing. */}
+      {/* Stop 6. Writing. */}
       {posts.length > 0 ? (
         <section
           data-stop
@@ -228,7 +280,7 @@ export default function HomePage() {
         </section>
       ) : null}
 
-      {/* Stop 6. Terminus. */}
+      {/* Stop 7. Terminus. */}
       <section
         id="contact"
         data-stop
