@@ -82,7 +82,7 @@ export default function HomePage() {
   const posts = getAllPosts().slice(0, 3);
 
   return (
-    <div className="relative">
+    <div data-rail-host className="relative">
       <JsonLd data={[personSchema(), websiteSchema()]} />
       <SubwayLine />
 
@@ -97,7 +97,7 @@ export default function HomePage() {
       <section
         data-stop
         data-stop-fx="0.012"
-        data-stop-dy="230"
+        data-stop-dy="150"
         className="relative border-b border-border"
       >
         <div className="container-page rail-indent grid grid-cols-[auto_1fr] items-center gap-x-5 gap-y-6 pt-16 pb-16 md:grid-cols-12 md:gap-x-12 md:gap-y-5 md:pt-24 md:pb-24">

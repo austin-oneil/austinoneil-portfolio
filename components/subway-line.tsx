@@ -55,6 +55,21 @@ function measure(): { geometry: Geometry; tunnels: Tunnel[] } | null {
   );
   if (sections.length < 2) return null;
 
+  // The SVG is absolutely positioned inside [data-rail-host], so its
+  // coordinate space starts at that element, not at the document. Everything
+  // below is measured against the document, so the host's own offset has to
+  // come back out or the whole rail is drawn one header-height too low. That
+  // was silently true for a while: the stations still lined up with their
+  // sections because the per-section dy values had been tuned around the
+  // error, and it only became visible once the track had to meet a specific
+  // point rather than just run down the page.
+  const host = document.querySelector<HTMLElement>("[data-rail-host]");
+  const hostRect = host?.getBoundingClientRect();
+  const originX = hostRect ? hostRect.left + window.scrollX : 0;
+  const originY = hostRect ? hostRect.top + window.scrollY : 0;
+  const toLocalX = (x: number) => Math.round(x - originX);
+  const toLocalY = (y: number) => Math.round(y - originY);
+
   const stops: Stop[] = sections.map((section) => {
     const container =
       section.querySelector<HTMLElement>(".container-page") ?? section;
@@ -62,9 +77,9 @@ function measure(): { geometry: Geometry; tunnels: Tunnel[] } | null {
     const fx = Number.parseFloat(section.dataset.stopFx ?? "0.03");
     const dy = Number.parseFloat(section.dataset.stopDy ?? "104");
     return {
-      x: Math.round(rect.left + window.scrollX + rect.width * fx),
-      y: Math.round(section.getBoundingClientRect().top + window.scrollY + dy),
-      floor: Math.round(rect.bottom + window.scrollY),
+      x: toLocalX(rect.left + window.scrollX + rect.width * fx),
+      y: toLocalY(section.getBoundingClientRect().top + window.scrollY + dy),
+      floor: toLocalY(rect.bottom + window.scrollY),
     };
   });
 
@@ -77,8 +92,8 @@ function measure(): { geometry: Geometry; tunnels: Tunnel[] } | null {
   let d: string;
   if (origin) {
     const r = origin.getBoundingClientRect();
-    const ox = Math.round(r.left + window.scrollX + r.width / 2);
-    const oy = Math.round(r.top + window.scrollY + r.height / 2);
+    const ox = toLocalX(r.left + window.scrollX + r.width / 2);
+    const oy = toLocalY(r.top + window.scrollY + r.height / 2);
     const midY = (oy + stops[0].y) / 2;
     d = `M ${ox} ${oy} C ${ox} ${midY}, ${stops[0].x} ${midY}, ${stops[0].x} ${stops[0].y}`;
   } else {
@@ -112,13 +127,14 @@ function measure(): { geometry: Geometry; tunnels: Tunnel[] } | null {
 
     const rect = el.getBoundingClientRect();
     const left = rect.left + window.scrollX;
+    const localLeft = toLocalX(left);
     const railX = stops[index].x;
 
     // A card is only a tunnel if the rail genuinely runs underneath it. In a
     // grid the track passes through the left-hand column and misses the rest,
     // and a glow on a card the line never entered reads as a stray light.
     // Marking a card [data-tunnel] is a request, not a guarantee.
-    if (railX < left || railX > left + rect.width) {
+    if (railX < localLeft || railX > localLeft + rect.width) {
       el.style.setProperty("--head-o", "0");
       el.style.setProperty("--tail-o", "0");
       return [];
@@ -129,8 +145,8 @@ function measure(): { geometry: Geometry; tunnels: Tunnel[] } | null {
     return [
       {
         el,
-        top: rect.top + window.scrollY,
-        bottom: rect.bottom + window.scrollY,
+        top: toLocalY(rect.top + window.scrollY),
+        bottom: toLocalY(rect.bottom + window.scrollY),
       },
     ];
   });
@@ -138,8 +154,8 @@ function measure(): { geometry: Geometry; tunnels: Tunnel[] } | null {
   return {
     geometry: {
       d,
-      width: document.documentElement.scrollWidth,
-      height: document.documentElement.scrollHeight,
+      width: Math.round(hostRect?.width ?? document.documentElement.scrollWidth),
+      height: Math.round(host?.scrollHeight ?? document.documentElement.scrollHeight),
       stops,
     },
     tunnels,
@@ -206,9 +222,13 @@ export function SubwayLine() {
       // everything and the terminus lights.
       const atBottom =
         y + window.innerHeight >= document.documentElement.scrollHeight - 2;
+      const hostTop =
+        document.querySelector<HTMLElement>("[data-rail-host]")
+          ?.getBoundingClientRect().top ?? 0;
+      const hostOffset = hostTop + window.scrollY;
       const penY = atBottom
         ? Number.POSITIVE_INFINITY
-        : y + window.innerHeight * 0.6;
+        : y + window.innerHeight * 0.6 - hostOffset;
 
       const samples = samplesRef.current;
       let len = 0;

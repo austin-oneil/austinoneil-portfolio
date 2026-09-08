@@ -13,6 +13,9 @@ import Link from "next/link";
  * between pages; this navigates within one. Two links called "Work" pointing
  * at different destinations is the confusion worth avoiding.
  *
+ * Coloured in the accent throughout so it reads as the same line as the rail
+ * below it rather than as a separate grey nav that happens to sit above one.
+ *
  * Desktop only, matching the rail. Below 900px there is no track for it to be
  * the legend of, and it would just be a second nav.
  */
@@ -39,7 +42,7 @@ export function StationNav() {
             {i > 0 ? (
               <span
                 aria-hidden
-                className="mx-3 h-px flex-1 bg-border-strong"
+                className="mx-3 h-px flex-1 bg-accent/45"
               />
             ) : null}
             <Link
@@ -49,7 +52,7 @@ export function StationNav() {
               <span
                 {...(i === 0 ? { "data-rail-origin": "" } : {})}
                 aria-hidden
-                className="inline-block size-2.5 shrink-0 rounded-full border-2 border-border-strong bg-bg transition-colors duration-150 group-hover:border-accent"
+                className="inline-block size-2.5 shrink-0 rounded-full border-2 border-accent bg-bg transition-[box-shadow] duration-150 group-hover:shadow-[0_0_0_3px_color-mix(in_srgb,var(--accent)_25%,transparent)]"
               />
               <span className="font-mono text-xs whitespace-nowrap text-text-subtle transition-colors duration-150 group-hover:text-text">
                 {station.label}
