@@ -1,52 +1,59 @@
 /**
- * Career convergence, drawn in the site's own transit language: six industry
- * lines running in from the left and meeting at one interchange.
+ * The trades on the left, the specialty on the right, drawn in the site's own
+ * transit language: five lines running in and meeting at one interchange.
  *
- * Real SVG with real text rather than an exported image, so it scales, respects
- * the theme through currentColor and CSS variables, is selectable, and costs no
- * network request. Server component, no JavaScript.
+ * The shape is the argument. Breadth is real and it is on the page, but it all
+ * runs toward one destination rather than sitting in a flat list of equal
+ * skills, which is what "a lot of trades, one I went deep on" actually looks
+ * like when you draw it.
  *
- * Below md the curves would compress the labels to an unreadable size, so the
- * same information renders as a plain list instead. Both carry identical
- * content; neither is decorative.
+ * Real SVG with real text rather than an exported image, so it scales, follows
+ * the theme, stays selectable and costs no network request. Server component,
+ * no JavaScript.
+ *
+ * Below md the curves would compress the labels past reading, so the same
+ * content renders as grouped lists instead. Neither version is decorative.
  */
 
-const INDUSTRIES = [
-  "Restaurants and bars",
-  "Automotive sales",
-  "Sports media",
-  "Youth sports",
-  "Nonprofit membership",
-  "Healthcare marketing",
+const TRADES = [
+  "Bartending",
+  "Hospitality management",
+  "Training and leadership",
+  "B2B and B2C sales",
+  "Technology consulting",
 ] as const;
 
-const DESTINATION = "Software and search";
+const SPECIALTY = [
+  "Full-stack development",
+  "Technical SEO",
+  "AI automation",
+] as const;
 
 export function ConvergenceMap() {
-  const rowY = [34, 96, 158, 220, 282, 344];
-  const hubX = 560;
-  const hubY = 189;
-  const dotX = 232;
+  const rowY = [46, 118, 190, 262, 334];
+  const dotX = 322;
+  const hubX = 600;
+  const hubY = 190;
 
   return (
     <>
       <svg
-        viewBox="0 0 760 380"
+        viewBox="0 0 780 420"
         className="hidden h-auto w-full md:block"
         role="img"
         aria-labelledby="convergence-title convergence-desc"
       >
         <title id="convergence-title">
-          Six industries converging on software and search
+          Five trades converging on one specialty
         </title>
         <desc id="convergence-desc">
-          {`Lines from ${INDUSTRIES.join(", ")} all meet at a single interchange labelled ${DESTINATION}.`}
+          {`${TRADES.join(", ")} all lead to ${SPECIALTY.join(", ")}.`}
         </desc>
 
         {rowY.map((y, i) => (
           <path
-            key={INDUSTRIES[i]}
-            d={`M ${dotX} ${y} C ${dotX + 170} ${y}, ${hubX - 150} ${hubY}, ${hubX} ${hubY}`}
+            key={TRADES[i]}
+            d={`M ${dotX} ${y} C ${dotX + 130} ${y}, ${hubX - 140} ${hubY}, ${hubX} ${hubY}`}
             fill="none"
             stroke="var(--border-strong)"
             strokeWidth={2}
@@ -54,20 +61,20 @@ export function ConvergenceMap() {
         ))}
 
         {rowY.map((y, i) => (
-          <g key={INDUSTRIES[i]}>
+          <g key={TRADES[i]}>
             <text
-              x={dotX - 20}
-              y={y + 5}
+              x={dotX - 22}
+              y={y + 6}
               textAnchor="end"
               className="fill-text-muted font-mono"
               style={{ fontSize: 19 }}
             >
-              {INDUSTRIES[i]}
+              {TRADES[i]}
             </text>
             <circle
               cx={dotX}
               cy={y}
-              r={5}
+              r={6}
               fill="var(--bg)"
               stroke="var(--border-strong)"
               strokeWidth={2}
@@ -75,33 +82,47 @@ export function ConvergenceMap() {
           </g>
         ))}
 
-        {/* The interchange. Filled rather than outlined, because this is the
-            one node everything else is running toward. */}
-        <circle cx={hubX} cy={hubY} r={13} fill="var(--bg)" stroke="var(--accent)" strokeWidth={2} />
-        <circle cx={hubX} cy={hubY} r={6} fill="var(--accent)" />
-        <text
-          x={hubX + 28}
-          y={hubY + 6}
-          className="fill-text font-semibold"
-          style={{ fontSize: 22 }}
-        >
-          {DESTINATION}
-        </text>
+        {/* The interchange. Filled, because this is the one node everything
+            else is running toward. */}
+        <circle cx={hubX} cy={hubY} r={15} fill="var(--bg)" stroke="var(--accent)" strokeWidth={2} />
+        <circle cx={hubX} cy={hubY} r={7} fill="var(--accent)" />
+
+        {SPECIALTY.map((line, i) => (
+          <text
+            key={line}
+            x={hubX}
+            y={hubY + 48 + i * 28}
+            textAnchor="middle"
+            className="fill-text font-mono font-semibold"
+            style={{ fontSize: 19 }}
+          >
+            {line}
+          </text>
+        ))}
       </svg>
 
-      <ul className="flex flex-wrap gap-2 md:hidden">
-        {INDUSTRIES.map((industry) => (
-          <li
-            key={industry}
-            className="rounded-[--radius] border border-border bg-surface px-3 py-2 font-mono text-xs text-text-muted"
-          >
-            {industry}
-          </li>
-        ))}
-        <li className="rounded-[--radius] border border-accent-border bg-accent-faint px-3 py-2 font-mono text-xs font-semibold text-accent">
-          {DESTINATION}
-        </li>
-      </ul>
+      <div className="space-y-3 md:hidden">
+        <ul className="flex flex-wrap gap-2">
+          {TRADES.map((trade) => (
+            <li
+              key={trade}
+              className="rounded-[--radius] border border-border bg-surface px-3 py-2 font-mono text-xs text-text-muted"
+            >
+              {trade}
+            </li>
+          ))}
+        </ul>
+        <ul className="flex flex-wrap gap-2">
+          {SPECIALTY.map((line) => (
+            <li
+              key={line}
+              className="rounded-[--radius] border border-accent-border bg-accent-faint px-3 py-2 font-mono text-xs font-semibold text-accent"
+            >
+              {line}
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 }

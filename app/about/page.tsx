@@ -180,7 +180,7 @@ export default function AboutPage() {
             </h1>
             <div className="mt-6 max-w-[62ch] space-y-5 text-lg leading-relaxed text-text-muted">
               <p>
-                Restaurants, a car dealership, and six years behind a bar. Then
+                Restaurants, automotive sales, and six years behind a bar. Then
                 software. Most people read that as a career change. I read it as
                 the reason I am good at this one.
               </p>
@@ -196,10 +196,10 @@ export default function AboutPage() {
               <p>
                 The other half of it is that I get to new things early, and I
                 would rather advocate for the person in front of me than follow
-                a process that is not serving them. At the dealership that meant
-                moving into online sales before most of the industry took it
-                seriously, then ignoring the script I was handed and leading
-                with actual questions instead. It made the sales managers
+                a process that is not serving them. In automotive sales that
+                meant moving into the online channel before most of the industry
+                took it seriously, then ignoring the script I was handed and
+                leading with actual questions instead. It made the sales managers
                 uncomfortable. It also made me the top salesperson in my
                 department every month I was there. I have not found a reason to
                 work differently since.

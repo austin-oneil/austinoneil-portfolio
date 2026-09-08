@@ -155,31 +155,35 @@ export default function HomePage() {
         className="relative border-t border-border py-16 md:py-24"
       >
         <div className="container-page">
-          <div className="grid gap-10 md:grid-cols-12 md:gap-12">
+          <div
+            data-tunnel
+            className="grid gap-10 rounded-[--radius] border border-border bg-surface p-6 md:grid-cols-12 md:gap-12 md:p-8"
+          >
             <div className="md:col-span-6">
               <h2 className="text-2xl font-semibold tracking-tight text-text md:text-3xl">
-                Six industries, one habit
+                A lot of trades. One I went deep on.
               </h2>
               <div className="mt-5 max-w-[58ch] space-y-4 leading-relaxed text-text-muted">
                 <p>
-                  Restaurants and bars. A car dealership. Sports media. A youth
-                  hockey organization. A membership nonprofit in the millions.
-                  And a hundred-plus dental practices. On paper that reads
-                  scattered.
+                  Bartending. Hospitality management. Training and leadership.
+                  B2B and B2C sales. Technology consulting. Then technical SEO,
+                  full-stack development, and the AI automation I build on top
+                  of both, which is where I stopped moving sideways and started
+                  going deeper.
                 </p>
                 <p>
-                  In practice it has been the same job every time: land somewhere
-                  I don&apos;t know yet, work out how it actually runs, and build
-                  the thing that makes it run better. The industry changes. The
-                  work of paying attention does not.
+                  Every one of those was the same job underneath: land
+                  somewhere I don&apos;t know yet, work out how it actually
+                  runs, and build the thing that makes it run better. The
+                  breadth was not a detour. It is why I can walk into an
+                  unfamiliar codebase, or an unfamiliar business, and be useful
+                  in the first week.
                 </p>
                 <p>
-                  I tend to get to new things early. At the dealership I moved
-                  into online sales while most of the industry still thought the
-                  internet was where you posted photos, and I spent that year
-                  breaking the script the sales managers wanted me to read.
-                  That&apos;s the same instinct that has me building production
-                  AI agents now rather than reading about them.
+                  What I do now is the engineering version of that. Marketing
+                  infrastructure, internal tooling, and AI that does real work
+                  rather than demos. I get to new things early, and I would
+                  rather ship one than have an opinion about it.
                 </p>
               </div>
             </div>
@@ -265,15 +269,23 @@ export default function HomePage() {
               </h2>
               <div className="mt-5 max-w-[58ch] space-y-4 leading-relaxed text-text-muted">
                 <p>
-                  Restaurants, a car dealership, and six years behind a bar.
-                  Then software. Most people read that as a career change. I
-                  read it as the reason I&apos;m good at this one.
+                  Twelve years of hospitality, leadership and sales before I
+                  wrote code for a living. Most people read that as a career
+                  change. I read it as the reason I&apos;m good at this one.
                 </p>
                 <p>
-                  Twelve years of talking to people for a living teaches you how
-                  to explain something complicated to someone who didn&apos;t
-                  ask for a lecture, and how to stay level when everything
-                  breaks at once. That turned out to be most of the job.
+                  In automotive sales I moved into the online channel while most
+                  of the industry still treated the internet as a place to post
+                  photos, and spent that year ignoring the script I&apos;d been
+                  handed in favour of actually listening. It made my managers
+                  uncomfortable. It also made me top salesperson in my
+                  department every month I was there.
+                </p>
+                <p>
+                  That is the same instinct behind everything on this page: get
+                  to new things early, take the side of the person in front of
+                  you, and be willing to be the one who says the current way
+                  isn&apos;t working.
                 </p>
               </div>
               <div className="mt-7">
