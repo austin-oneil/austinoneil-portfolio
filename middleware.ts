@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 /**
- * Keeps the development-only design system reference off the public site.
+ * Keeps the development-only reference pages off the public site.
  *
  * Doing this inside the page with notFound() did not work. The route rendered,
  * the root loading boundary began streaming, HTTP 200 and the loading skeleton
@@ -22,5 +22,5 @@ export function middleware() {
 }
 
 export const config = {
-  matcher: "/design-system",
+  matcher: ["/design-system", "/throughline-options"],
 };

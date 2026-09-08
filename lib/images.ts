@@ -17,13 +17,13 @@
 
 const PROJECT_IMAGES: Record<string, string> = {
   "basecamp-ai-agent": "/placeholder/basecamp-ai-agent.jpg",
-  "prayer-hours-plugin": "/placeholder/prayer-hours-plugin.jpg",
+  "prayer-hours-plugin": "/placeholder/tangent-apps.jpg",
   "dnvr-phnx": "/placeholder/dnvr-phnx.jpg",
   "kharon-news-app": "/placeholder/kharon-news-app.jpg",
-  "van-user-dashboard": "/placeholder/van-user-dashboard.jpg",
+  "van-user-dashboard": "/placeholder/tangent-apps.jpg",
   "lacroix-drill-house": "/placeholder/lacroix-drill-house.jpg",
   "agency-cms-architecture": "/placeholder/agency-cms-architecture.jpg",
-  "ahead-of-the-curve-media": "/placeholder/ahead-of-the-curve-media.jpg",
+  "ahead-of-the-curve-media": "/placeholder/tangent-apps.jpg",
 };
 
 /** Cover image for a case study, by slug. */
