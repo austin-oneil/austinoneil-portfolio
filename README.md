@@ -191,13 +191,14 @@ with the real portrait in place before deciding whether it needs more.
 
 ## Assets still needed
 
-Everything under `public/placeholder/` is a stand-in at the correct aspect
+The headshot at `public/austin-oneil.jpg` is real and done.
+
+Everything still under `public/placeholder/` is a stand-in at the correct aspect
 ratio. Layout, cropping and loading behaviour are all real; the pictures are
 not. Replace them and update `lib/images.ts`.
 
 | File | Ratio | Used on | What it should be |
 | --- | --- | --- | --- |
-| `portrait.jpg` | 4:5, 1000x1250 | Home hero, About | A real headshot. This is the LCP element on both pages, so keep it under about 200 KB. |
 | `basecamp-ai-agent.jpg` | 16:9, 1600x900 | Card and case study | Screenshot of the agent's output email, or an architecture diagram. Redact client names. |
 | `prayer-hours-plugin.jpg` | 16:9 | Card and case study | The admin dashboard or the FullCalendar month view. Redact member data. |
 | `dnvr-phnx.jpg` | 16:9 | Card and case study | DNVR or PHNX front end as built. |

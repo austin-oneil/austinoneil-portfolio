@@ -31,7 +31,17 @@ export function projectImage(slug: string): string {
   return PROJECT_IMAGES[slug] ?? "/placeholder/basecamp-ai-agent.jpg";
 }
 
-export const PORTRAIT_IMAGE = "/placeholder/portrait.jpg";
+/**
+ * Real asset, not a placeholder. Square source (1200x1206), which crops
+ * differently in the two slots it appears in:
+ *
+ *   4:5  (About, and the hero from md up) scales to fill the height and crops
+ *        the sides. No vertical crop happens, so object-position is a no-op.
+ *   16:9 (the hero below md) scales to fill the width and crops top and bottom,
+ *        keeping only the middle 56%. Centered would clip the top of his head,
+ *        so the hero biases the crop upward. See app/page.tsx.
+ */
+export const PORTRAIT_IMAGE = "/austin-oneil.jpg";
 
 /** Neutral 1x1 used as the blur placeholder so nothing flashes white. */
 export const BLUR_DATA_URL =

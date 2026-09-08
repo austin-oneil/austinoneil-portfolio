@@ -120,7 +120,11 @@ export default function HomePage() {
               placeholder="blur"
               blurDataURL={BLUR_DATA_URL}
               sizes="(min-width: 768px) 24rem, 100vw"
-              className="aspect-video w-full rounded-[--radius] border border-border object-cover md:aspect-[4/5]"
+              // object-[center_32%] only bites at 16:9, where the square
+              // source overflows vertically: it keeps the crop above his
+              // shoulders instead of slicing the top of his head. At 4:5 there
+              // is no vertical overflow, so it changes nothing on desktop.
+              className="aspect-video w-full rounded-[--radius] border border-border object-cover object-[center_32%] md:aspect-[4/5]"
             />
           </div>
         </div>
