@@ -68,10 +68,25 @@ function measure(): { geometry: Geometry; tunnels: Tunnel[] } | null {
     };
   });
 
-  let d = `M ${stops[0].x} ${Math.max(stops[0].y - 140, 0)}`;
+  // The line map above the hero marks the start of the route. When it is on
+  // screen the track begins at its first dot and curves down into the hero
+  // station, so the horizontal strip and the vertical rail read as one line
+  // rather than two unrelated decorations. Without it, the track just starts
+  // a little above the first station as before.
+  const origin = document.querySelector<HTMLElement>("[data-rail-origin]");
+  let d: string;
+  if (origin) {
+    const r = origin.getBoundingClientRect();
+    const ox = Math.round(r.left + window.scrollX + r.width / 2);
+    const oy = Math.round(r.top + window.scrollY + r.height / 2);
+    const midY = (oy + stops[0].y) / 2;
+    d = `M ${ox} ${oy} C ${ox} ${midY}, ${stops[0].x} ${midY}, ${stops[0].x} ${stops[0].y}`;
+  } else {
+    d = `M ${stops[0].x} ${Math.max(stops[0].y - 140, 0)}`;
+  }
   for (let i = 0; i < stops.length; i++) {
     const p = stops[i];
-    d += ` L ${p.x} ${p.y}`;
+    if (!(i === 0 && origin)) d += ` L ${p.x} ${p.y}`;
     const n = stops[i + 1];
     if (!n) {
       d += ` L ${p.x} ${p.y + 44}`; // short tail past the terminus

@@ -6,6 +6,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { JsonLd } from "@/components/json-ld";
 import { SubwayLine } from "@/components/subway-line";
+import { StationNav } from "@/components/station-nav";
 import { ProjectGrid } from "@/components/project-grid";
 import { StackCapsules } from "@/components/stack-capsules";
 import { PostRow } from "@/components/post-row";
@@ -96,15 +97,19 @@ export default function HomePage() {
       <section
         data-stop
         data-stop-fx="0.012"
-        data-stop-dy="132"
+        data-stop-dy="230"
         className="relative border-b border-border"
       >
         <div className="container-page rail-indent grid grid-cols-[auto_1fr] items-center gap-x-5 gap-y-6 pt-16 pb-16 md:grid-cols-12 md:gap-x-12 md:gap-y-5 md:pt-24 md:pb-24">
-          <h1 className="col-span-2 text-4xl font-semibold tracking-tight text-balance text-text md:col-span-7 md:col-start-1 md:row-start-1 md:self-end md:text-5xl lg:text-6xl">
+          <div className="col-span-2 md:col-span-12 md:col-start-1 md:row-start-1">
+            <StationNav />
+          </div>
+
+          <h1 className="col-span-2 text-4xl font-semibold tracking-tight text-balance text-text md:col-span-7 md:col-start-1 md:row-start-2 md:self-end md:text-5xl lg:text-6xl">
             I build the site and I make it rank.
           </h1>
 
-          <div className="md:col-span-4 md:col-start-9 md:row-span-3 md:row-start-1 md:self-center">
+          <div className="md:col-span-4 md:col-start-9 md:row-span-3 md:row-start-2 md:self-center">
             <Image
               src={AVATAR_IMAGE}
               alt={`${site.name}, ${site.role}`}
@@ -124,12 +129,12 @@ export default function HomePage() {
             />
           </div>
 
-          <p className="max-w-[46ch] text-base leading-relaxed text-text-muted md:col-span-7 md:col-start-1 md:row-start-2 md:text-lg">
+          <p className="max-w-[46ch] text-base leading-relaxed text-text-muted md:col-span-7 md:col-start-1 md:row-start-3 md:text-lg">
             Developer and technical SEO in Denver. Twelve years in sales and
             hospitality first. I build things, and I build relationships.
           </p>
 
-          <div className="col-span-2 flex flex-wrap gap-3 md:col-span-7 md:col-start-1 md:row-start-3 md:mt-3">
+          <div className="col-span-2 flex flex-wrap gap-3 md:col-span-7 md:col-start-1 md:row-start-4 md:mt-3">
             <ButtonLink href="/projects">See the work</ButtonLink>
             <ButtonLink href={`mailto:${site.email}`} variant="outline">
               Get in touch
@@ -183,6 +188,7 @@ export default function HomePage() {
       {/* Stop 4. The story teaser. No rail-indent, so the track runs under
           the photograph the way it does under the work cards. */}
       <section
+        id="story"
         data-stop
         data-stop-fx="0.045"
         data-stop-dy="104"
@@ -234,6 +240,7 @@ export default function HomePage() {
 
       {/* Stop 5. The questions, as a definition list. */}
       <section
+        id="questions"
         data-stop
         data-stop-fx="0.020"
         data-stop-dy="104"
