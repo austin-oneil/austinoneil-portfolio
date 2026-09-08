@@ -90,7 +90,7 @@ const hospitality = [
     period: "2017 - 2018",
     role: "Online sales and leasing consultant",
     org: "Asbury Automotive Group",
-    body: "Top salesperson in the Honda and Acura department every month from May 2017 to March 2018, closing at 13.5 percent against a target of 12.",
+    body: "I lasted a couple of months on the showroom floor before moving into online sales, which the industry had barely started doing. The job was handling a stranger's objections over the phone well enough that they arrived already decided. Top salesperson in the Honda and Acura department every month I was there, closing 13.5 percent of fresh leads against a 12 percent target, whether I closed the deal on the phone or handed off a qualified buyer to the floor. I got there by breaking the script the sales managers wanted read: listening first, and taking the customer's side when those two things conflicted.",
   },
   {
     period: "2012 - 2017",
@@ -192,6 +192,17 @@ export default function AboutPage() {
                 break at once and everybody is looking at you. That is not a
                 soft skill. That is most of the job when you are the technical
                 point of contact for thirty accounts.
+              </p>
+              <p>
+                The other half of it is that I get to new things early, and I
+                would rather advocate for the person in front of me than follow
+                a process that is not serving them. At the dealership that meant
+                moving into online sales before most of the industry took it
+                seriously, then ignoring the script I was handed and leading
+                with actual questions instead. It made the sales managers
+                uncomfortable. It also made me the top salesperson in my
+                department every month I was there. I have not found a reason to
+                work differently since.
               </p>
               <p>
                 I was homeschooled from seventh grade on, which mostly meant

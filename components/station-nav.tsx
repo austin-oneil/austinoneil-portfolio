@@ -20,6 +20,7 @@ import Link from "next/link";
  * the legend of, and it would just be a second nav.
  */
 const stations = [
+  { href: "#throughline", label: "Throughline" },
   { href: "#work", label: "Projects" },
   { href: "#stack", label: "Toolkit" },
   { href: "#story", label: "My story" },

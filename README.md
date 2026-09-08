@@ -199,7 +199,7 @@ not. Replace them and update `lib/images.ts`.
 
 | File | Ratio | Used on | What it should be |
 | --- | --- | --- | --- |
-| `basecamp-ai-agent.jpg` | 16:9, 1600x900 | Card and case study | Screenshot of the agent's output email, or an architecture diagram. Redact client names. |
+| `basecamp-ai-agent.jpg` | 16:9, 1600x900 | Card and case study | Real: the pipeline drawn as stations on a line, echoing the site's rail motif. A redacted screenshot of the agent's output email would be stronger still. |
 | `prayer-hours-plugin.jpg` | 16:9 | Card and case study | The admin dashboard or the FullCalendar month view. Redact member data. |
 | `dnvr-phnx.jpg` | 16:9 | Card and case study | Real: a brand plate built from the DNVR and PHNX wordmarks Austin supplied. Replace with a screenshot of the front end if one surfaces. |
 | `kharon-news-app.jpg` | 16:9 | Card and case study | The `/brief/[slug]` route, or the rich result. |

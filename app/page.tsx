@@ -7,6 +7,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { JsonLd } from "@/components/json-ld";
 import { SubwayLine } from "@/components/subway-line";
 import { StationNav } from "@/components/station-nav";
+import { ConvergenceMap } from "@/components/convergence-map";
 import { ProjectGrid } from "@/components/project-grid";
 import { StackCapsules } from "@/components/stack-capsules";
 import { PostRow } from "@/components/post-row";
@@ -143,7 +144,54 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stop 2. The work, as a bento grid the line runs behind. */}
+      {/* Stop 2. The throughline. Sits above the work so the breadth is framed
+          before the individual projects are read, rather than left for the
+          reader to infer from eight unrelated client names. */}
+      <section
+        id="throughline"
+        data-stop
+        data-stop-fx="0.060"
+        data-stop-dy="52"
+        className="relative border-t border-border py-16 md:py-24"
+      >
+        <div className="container-page">
+          <div className="grid gap-10 md:grid-cols-12 md:gap-12">
+            <div className="md:col-span-6">
+              <h2 className="text-2xl font-semibold tracking-tight text-text md:text-3xl">
+                Six industries, one habit
+              </h2>
+              <div className="mt-5 max-w-[58ch] space-y-4 leading-relaxed text-text-muted">
+                <p>
+                  Restaurants and bars. A car dealership. Sports media. A youth
+                  hockey organization. A membership nonprofit in the millions.
+                  And a hundred-plus dental practices. On paper that reads
+                  scattered.
+                </p>
+                <p>
+                  In practice it has been the same job every time: land somewhere
+                  I don&apos;t know yet, work out how it actually runs, and build
+                  the thing that makes it run better. The industry changes. The
+                  work of paying attention does not.
+                </p>
+                <p>
+                  I tend to get to new things early. At the dealership I moved
+                  into online sales while most of the industry still thought the
+                  internet was where you posted photos, and I spent that year
+                  breaking the script the sales managers wanted me to read.
+                  That&apos;s the same instinct that has me building production
+                  AI agents now rather than reading about them.
+                </p>
+              </div>
+            </div>
+
+            <div className="md:col-span-6 md:pt-2">
+              <ConvergenceMap />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stop 3. The work, as a bento grid the line runs behind. */}
       <section
         id="work"
         data-stop
@@ -163,7 +211,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stop 3. Toolkit. */}
+      {/* Stop 4. Toolkit. */}
       <section
         id="stack"
         data-stop
@@ -185,7 +233,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stop 4. The story teaser. No rail-indent, so the track runs under
+      {/* Stop 5. The story teaser. No rail-indent, so the track runs under
           the photograph the way it does under the work cards. */}
       <section
         id="story"
@@ -238,7 +286,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stop 5. The questions, as a definition list. */}
+      {/* Stop 6. The questions, as a definition list. */}
       <section
         id="questions"
         data-stop
@@ -266,7 +314,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stop 6. Writing. */}
+      {/* Stop 7. Writing. */}
       {posts.length > 0 ? (
         <section
           data-stop
@@ -287,7 +335,7 @@ export default function HomePage() {
         </section>
       ) : null}
 
-      {/* Stop 7. Terminus. */}
+      {/* Stop 8. Terminus. */}
       <section
         id="contact"
         data-terminus
