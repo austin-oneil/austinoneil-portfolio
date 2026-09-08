@@ -336,3 +336,79 @@ figure[data-rehype-pretty-code-figure] [data-highlighted-line] {
     display: none;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   TERMINUS ARRIVAL
+   The train reaching the last station is the payoff for having drawn one down
+   the whole page, so the final section acknowledges it: the ground lifts to a
+   raised surface, an accent bloom comes up behind the content, the heading
+   grows very slightly, and the three elements settle in sequence.
+
+   The size change is a transform, not a font-size change, so it composites
+   instead of reflowing the paragraph below it. Everything here is opacity,
+   transform and colour, and the whole block is inert under reduced motion,
+   where the rail renders fully drawn and the section is simply marked arrived.
+--------------------------------------------------------------------------- */
+
+[data-terminus] {
+  --arrival: 0;
+  transition: background-color 0.9s ease-out;
+}
+
+/* The ground shifts from the page colour to the raised surface. */
+[data-terminus].arrived {
+  --arrival: 1;
+  background-color: var(--surface);
+}
+
+/* Accent bloom behind the content, keyed off the same variable. */
+[data-terminus]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    48% 64% at 16% 46%,
+    color-mix(in srgb, var(--accent) 14%, transparent),
+    transparent 72%
+  );
+  opacity: var(--arrival);
+  transition: opacity 0.9s ease-out;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-terminus] h2 {
+    transform-origin: left center;
+    transform: translateY(12px) scale(0.97);
+    opacity: 0;
+    transition:
+      opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  [data-terminus] p,
+  [data-terminus] .arrival-cta {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  [data-terminus].arrived h2 {
+    opacity: 1;
+    transform: translateY(0) scale(1.04);
+  }
+
+  [data-terminus].arrived p {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.1s;
+  }
+
+  [data-terminus].arrived .arrival-cta {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.2s;
+  }
+}

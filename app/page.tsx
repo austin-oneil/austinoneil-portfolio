@@ -148,7 +148,7 @@ export default function HomePage() {
         id="work"
         data-stop
         data-stop-fx="0.045"
-        data-stop-dy="104"
+        data-stop-dy="52"
         className="relative py-16 md:py-24"
       >
         {/* No rail-indent: the grid keeps the full container width so the
@@ -168,7 +168,7 @@ export default function HomePage() {
         id="stack"
         data-stop
         data-stop-fx="0.045"
-        data-stop-dy="104"
+        data-stop-dy="52"
         className="relative border-t border-border py-16 md:py-24"
       >
         {/* No rail-indent: the track runs under the toolkit card. */}
@@ -191,7 +191,7 @@ export default function HomePage() {
         id="story"
         data-stop
         data-stop-fx="0.045"
-        data-stop-dy="104"
+        data-stop-dy="52"
         className="relative border-t border-border py-16 md:py-24"
       >
         <div className="container-page">
@@ -243,7 +243,7 @@ export default function HomePage() {
         id="questions"
         data-stop
         data-stop-fx="0.020"
-        data-stop-dy="104"
+        data-stop-dy="52"
         className="relative border-t border-border py-16 md:py-24"
       >
         <div className="container-page rail-indent">
@@ -271,7 +271,7 @@ export default function HomePage() {
         <section
           data-stop
           data-stop-fx="0.036"
-          data-stop-dy="104"
+          data-stop-dy="52"
           className="relative border-t border-border py-16 md:py-24"
         >
           <div className="container-page rail-indent">
@@ -290,9 +290,10 @@ export default function HomePage() {
       {/* Stop 7. Terminus. */}
       <section
         id="contact"
+        data-terminus
         data-stop
         data-stop-fx="0.015"
-        data-stop-dy="104"
+        data-stop-dy="52"
         className="relative border-t border-border py-16 md:py-24"
       >
         <div className="container-page rail-indent">
@@ -307,7 +308,7 @@ export default function HomePage() {
               the West Coast. Email is the fastest way to reach me, and I answer
               all of them.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <div className="arrival-cta mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
               <ButtonLink href={`mailto:${site.email}`}>Get in touch</ButtonLink>
               <a
                 href={`mailto:${site.email}`}

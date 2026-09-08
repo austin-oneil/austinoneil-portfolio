@@ -89,6 +89,17 @@ function measure(): { geometry: Geometry; tunnels: Tunnel[] } | null {
   // rather than two unrelated decorations. Without it, the track just starts
   // a little above the first station as before.
   const origin = document.querySelector<HTMLElement>("[data-rail-origin]");
+  // A lateral shift too small to read as a curve just reads as a wobble in a
+  // line that was meant to be straight. Snap near-identical rail positions
+  // onto the previous one so a bend is always a deliberate interchange rather
+  // than the residue of two fx values that happened to differ slightly.
+  const STRAIGHT_THRESHOLD = 26;
+  for (let i = 1; i < stops.length; i++) {
+    if (Math.abs(stops[i].x - stops[i - 1].x) < STRAIGHT_THRESHOLD) {
+      stops[i].x = stops[i - 1].x;
+    }
+  }
+
   let d: string;
   if (origin) {
     const r = origin.getBoundingClientRect();
@@ -247,6 +258,11 @@ export function SubwayLine() {
         stationRefs.current.forEach((node, i) => {
           node?.classList.toggle("lit", i < lit);
         });
+        // End of the line. The terminus section marks the arrival once, which
+        // is the whole point of having run a train down the page.
+        document
+          .querySelector("[data-terminus]")
+          ?.classList.toggle("arrived", lit === stops.length);
       }
 
       for (const tunnel of tunnelsRef.current) {
@@ -289,6 +305,7 @@ export function SubwayLine() {
       path.style.strokeDashoffset = "0";
       litRef.current = geometry.stops.length;
       for (const node of stationRefs.current) node?.classList.add("lit");
+      document.querySelector("[data-terminus]")?.classList.add("arrived");
       for (const tunnel of tunnelsRef.current) {
         tunnel.el.style.setProperty("--head-o", "0");
         tunnel.el.style.setProperty("--tail-o", "0");
