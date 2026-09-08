@@ -69,22 +69,43 @@ export const ROWS: Row[] = [
 
 /** M1. Each row is a short route: past station, the reason on the track,
  *  present station. Uses the site's transit language to carry an argument
- *  rather than to decorate one. */
+ *  rather than to decorate one.
+ *
+ *  Animation runs off one shared timeline declared on the list, not a separate
+ *  one per row. Per-row timelines meant the lower rows were still part-way
+ *  through their fade while you were reading them. Every row now resolves by
+ *  the time the block has entered, so anything on screen is fully legible.
+ *
+ *  Within a row the order is dot, track, destination: the connection being
+ *  drawn, rather than three things fading up at once.
+ */
 export function MappingRoutes() {
+  /** Each row's slice of the block's progress.
+   *
+   *  Everything is capped to finish by 82% of the entry phase rather than
+   *  100%. On a phone the rows stack to three lines each and the list gets
+   *  close to viewport height, where "fully entered" arrives late or, for a
+   *  list taller than the screen, is clamped. Finishing early means the last
+   *  row is never still animating while it is being read. */
+  const phase = (i: number, offset = 0) => {
+    const start = 4 + i * 9 + offset;
+    return { animationRange: `entry ${start}% entry ${Math.min(start + 26, 82)}%` };
+  };
+
   return (
-    <ol className="space-y-5">
+    <ol className="tl-scope space-y-5">
       {ROWS.map((row, i) => (
         <li
           key={row.past}
-          className="tl-rise grid items-center gap-x-4 gap-y-2 md:grid-cols-[minmax(0,15rem)_minmax(0,1fr)_minmax(0,17rem)]"
-          style={{ animationRange: `entry ${8 + i * 5}% cover ${42 + i * 5}%` }}
+          className="grid items-center gap-x-4 gap-y-2 md:grid-cols-[minmax(0,15rem)_minmax(0,1fr)_minmax(0,17rem)]"
         >
           <div className="flex items-center gap-3">
             <span
               aria-hidden
-              className="size-2.5 shrink-0 rounded-full border-2 border-border-strong bg-bg"
+              className="tl-dot size-2.5 shrink-0 rounded-full border-2 border-border-strong bg-bg"
+              style={phase(i)}
             />
-            <span>
+            <span className="tl-text" style={phase(i, 2)}>
               <span className="block font-mono text-[0.8125rem] text-text-muted">
                 {row.past}
               </span>
@@ -97,9 +118,13 @@ export function MappingRoutes() {
           <div className="relative flex items-center py-1 pl-5 md:pl-0">
             <span
               aria-hidden
-              className="absolute inset-x-0 top-1/2 hidden h-px bg-border-strong md:block"
+              className="tl-track absolute inset-x-0 top-1/2 hidden h-px bg-border-strong md:block"
+              style={phase(i, 4)}
             />
-            <span className="relative bg-surface px-3 text-[0.8125rem] leading-snug text-text-subtle italic md:mx-auto">
+            <span
+              className="tl-text relative bg-surface px-3 text-[0.8125rem] leading-snug text-text-subtle italic md:mx-auto"
+              style={phase(i, 8)}
+            >
               {row.built}
             </span>
           </div>
@@ -107,9 +132,13 @@ export function MappingRoutes() {
           <div className="flex items-start gap-3 md:justify-self-end">
             <span
               aria-hidden
-              className="mt-1.5 size-2.5 shrink-0 rounded-full bg-accent"
+              className="tl-dot mt-1.5 size-2.5 shrink-0 rounded-full bg-accent"
+              style={phase(i, 12)}
             />
-            <span className="text-[0.875rem] leading-snug text-text">
+            <span
+              className="tl-text text-[0.875rem] leading-snug text-text"
+              style={phase(i, 14)}
+            >
               {row.now}
               {row.evidence ? (
                 <>

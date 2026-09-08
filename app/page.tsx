@@ -7,7 +7,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { JsonLd } from "@/components/json-ld";
 import { SubwayLine } from "@/components/subway-line";
 import { StationNav } from "@/components/station-nav";
-import { ConvergenceMap } from "@/components/convergence-map";
+import { MappingRoutes } from "@/components/throughline/mapping";
 import { ProjectGrid } from "@/components/project-grid";
 import { StackCapsules } from "@/components/stack-capsules";
 import { PostRow } from "@/components/post-row";
@@ -157,39 +157,21 @@ export default function HomePage() {
         <div className="container-page">
           <div
             data-tunnel
-            className="grid gap-10 rounded-[--radius] border border-border bg-surface p-6 md:grid-cols-12 md:gap-12 md:p-8"
+            className="rounded-[--radius] border border-border bg-surface p-6 md:p-8"
           >
-            <div className="md:col-span-6">
+            <div className="max-w-[62ch]">
               <h2 className="text-2xl font-semibold tracking-tight text-text md:text-3xl">
                 A lot of trades. One I went deep on.
               </h2>
-              <div className="mt-5 max-w-[58ch] space-y-4 leading-relaxed text-text-muted">
-                <p>
-                  Bartending. Hospitality management. Training and leadership.
-                  B2B and B2C sales. Technology consulting. Then technical SEO,
-                  full-stack development, and the AI automation I build on top
-                  of both, which is where I stopped moving sideways and started
-                  going deeper.
-                </p>
-                <p>
-                  Every one of those was the same job underneath: land
-                  somewhere I don&apos;t know yet, work out how it actually
-                  runs, and build the thing that makes it run better. The
-                  breadth was not a detour. It is why I can walk into an
-                  unfamiliar codebase, or an unfamiliar business, and be useful
-                  in the first week.
-                </p>
-                <p>
-                  What I do now is the engineering version of that. Marketing
-                  infrastructure, internal tooling, and AI that does real work
-                  rather than demos. I get to new things early, and I would
-                  rather ship one than have an opinion about it.
-                </p>
-              </div>
+              <p className="mt-4 leading-relaxed text-text-muted">
+                Twelve years of hospitality, leadership and sales before I wrote
+                code for a living. None of it was a detour. Here is what each
+                one actually turned into.
+              </p>
             </div>
 
-            <div className="md:col-span-6 md:pt-2">
-              <ConvergenceMap />
+            <div className="mt-8 border-t border-border pt-8">
+              <MappingRoutes />
             </div>
           </div>
         </div>
