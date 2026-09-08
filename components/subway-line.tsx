@@ -207,17 +207,25 @@ export function SubwayLine() {
 
   /** Re-measure the page. Deferred out of the effect body by its callers. */
   const build = useCallback(() => {
+    const hostEl = document.querySelector<HTMLElement>("[data-rail-host]");
     if (window.innerWidth < 900) {
+      hostEl?.classList.remove("rail-active");
+      document.querySelector("[data-terminus]")?.classList.remove("arrived");
       setGeometry(null);
       return;
     }
     const result = measure();
     if (!result) {
+      hostEl?.classList.remove("rail-active");
       setGeometry(null);
       return;
     }
     tunnelsRef.current = result.tunnels;
     litRef.current = -1;
+    // Only once the rail is genuinely running may the terminus hide its
+    // content pending arrival. Without this gate the section stays at opacity
+    // zero anywhere the rail does not render, which is every phone.
+    hostEl?.classList.add("rail-active");
     setGeometry(result.geometry);
   }, []);
 
@@ -277,11 +285,14 @@ export function SubwayLine() {
         stationRefs.current.forEach((node, i) => {
           node?.classList.toggle("lit", i < lit);
         });
-        // End of the line. The terminus section marks the arrival once, which
-        // is the whole point of having run a train down the page.
-        document
-          .querySelector("[data-terminus]")
-          ?.classList.toggle("arrived", lit === stops.length);
+      }
+
+      // End of the line. Checked on every update rather than only when the
+      // station count changes: if the count is already at maximum there is no
+      // change to react to, and the arrival would never be marked. Latched
+      // rather than toggled, so scrolling back up does not un-arrive the train.
+      if (lit === stops.length) {
+        document.querySelector("[data-terminus]")?.classList.add("arrived");
       }
 
       for (const tunnel of tunnelsRef.current) {

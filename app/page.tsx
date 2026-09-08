@@ -96,15 +96,15 @@ export default function HomePage() {
           its own column across all three rows. */}
       <section
         data-stop
-        data-stop-fx="0.012"
+        data-stop-fx="0.032"
         data-stop-dy="150"
         className="relative border-b border-border"
       >
-        <div className="container-page rail-indent grid grid-cols-[auto_1fr] items-center gap-x-5 gap-y-6 pt-16 pb-16 md:grid-cols-12 md:gap-x-12 md:gap-y-5 md:pt-24 md:pb-24">
-          <div className="col-span-2 md:col-span-12 md:col-start-1 md:row-start-1">
-            <StationNav />
-          </div>
+        <div className="container-page pt-16 md:pt-24">
+          <StationNav />
+        </div>
 
+        <div className="container-page rail-indent grid grid-cols-[auto_1fr] items-center gap-x-5 gap-y-6 pb-16 md:grid-cols-12 md:gap-x-12 md:gap-y-5 md:pb-24">
           <h1 className="col-span-2 text-4xl font-semibold tracking-tight text-balance text-text md:col-span-7 md:col-start-1 md:row-start-2 md:self-end md:text-5xl lg:text-6xl">
             I build the site and I make it rank.
           </h1>
@@ -147,7 +147,7 @@ export default function HomePage() {
       <section
         id="work"
         data-stop
-        data-stop-fx="0.045"
+        data-stop-fx="0.060"
         data-stop-dy="52"
         className="relative py-16 md:py-24"
       >
@@ -167,7 +167,7 @@ export default function HomePage() {
       <section
         id="stack"
         data-stop
-        data-stop-fx="0.045"
+        data-stop-fx="0.060"
         data-stop-dy="52"
         className="relative border-t border-border py-16 md:py-24"
       >
@@ -190,7 +190,7 @@ export default function HomePage() {
       <section
         id="story"
         data-stop
-        data-stop-fx="0.045"
+        data-stop-fx="0.060"
         data-stop-dy="52"
         className="relative border-t border-border py-16 md:py-24"
       >
@@ -297,7 +297,7 @@ export default function HomePage() {
         className="relative border-t border-border py-16 md:py-24"
       >
         <div className="container-page rail-indent">
-          <div className="max-w-2xl">
+          <div className="arrival-platform max-w-2xl">
             <h2 className="text-2xl font-semibold tracking-tight text-text md:text-3xl">
               One conversation is worth fifty resume screens
             </h2>
