@@ -113,7 +113,17 @@ function measure(): { geometry: Geometry; tunnels: Tunnel[] } | null {
 
     const n = stops[i + 1];
     if (!n) {
-      d += ` L ${p.x} ${p.y + 44}`; // short tail past the terminus
+      // The track runs the full height of the terminus platform rather than
+      // stopping in a stub below the last station. The platform draws no edge
+      // of its own: this line is its edge, which is the only way the two read
+      // as one composition instead of two disconnected blue verticals.
+      const platform = document.querySelector<HTMLElement>(
+        "[data-terminus] .arrival-platform",
+      );
+      const tail = platform
+        ? toLocalY(platform.getBoundingClientRect().bottom + window.scrollY)
+        : p.y + 44;
+      d += ` L ${p.x} ${Math.max(tail, p.y + 44)}`;
       continue;
     }
 
