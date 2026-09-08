@@ -9,6 +9,10 @@ import {
   VariantWeightEditorial,
   VariantLedger,
 } from "@/components/throughline/variants";
+import {
+  MappingRoutes,
+  MappingTable,
+} from "@/components/throughline/mapping";
 
 /**
  * Side-by-side comparison of the throughline treatments, animated, so the
@@ -22,6 +26,18 @@ import {
 export const dynamic = "force-dynamic";
 
 const VARIANTS = [
+  {
+    key: "M1",
+    name: "Mapping, as routes",
+    says: "Each row is a short route: what the work was, the reason written on the track, and where it lands today. Answers HOW the past connects, not just that it happened.",
+    node: <MappingRoutes />,
+  },
+  {
+    key: "M2",
+    name: "Mapping, as a table",
+    says: "Same argument, no transit language. Columns labelled so nobody has to infer what they are reading.",
+    node: <MappingTable />,
+  },
   {
     key: "F1",
     name: "Accumulation, fanning into platforms",
@@ -81,8 +97,10 @@ export default function ThroughlineOptionsPage() {
         Throughline options
       </h1>
       <p className="mt-4 max-w-[62ch] leading-relaxed text-text-muted">
-        F1, F2 and F3 are the three ways of landing the specialty end. Scroll
-        slowly; each one animates as it enters. All of it is CSS
+        M1 and M2 are the new direction: they map each past trade onto what it
+        built and where it shows up in the work now, rather than just listing
+        things in order. F1 to F3 are the earlier accumulation treatments.
+        Scroll slowly; each one animates as it enters. All of it is CSS
         scroll-driven, so none of these cost any JavaScript, and every one
         renders finished rather than blank in a browser that does not support
         scroll timelines.
