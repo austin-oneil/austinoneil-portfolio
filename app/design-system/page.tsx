@@ -4,9 +4,19 @@ import { Tag } from "@/components/ui/tag";
 import { Section, SectionHeading } from "@/components/ui/section";
 
 /**
- * Living reference for the design system. Development only — it is not part of
- * the public site, so it never reaches the sitemap, the RSS feed or a crawler.
+ * Living reference for the design system. Development only.
+ *
+ * force-dynamic is load-bearing, not decoration. Statically prerendered, this
+ * route called notFound() at build time and Next emitted the root loading
+ * skeleton as its static output, so production served HTTP 200 with a page
+ * stuck on "Loading" forever. That is a soft 404: the worst of both outcomes,
+ * since a crawler sees a live page and a human sees a broken one.
+ *
+ * Evaluating per request makes notFound() return a real 404 status. The route
+ * is dev-only, so the cost of it not being static is nothing.
  */
+export const dynamic = "force-dynamic";
+
 export default function DesignSystemPage() {
   if (process.env.NODE_ENV === "production") notFound();
 
