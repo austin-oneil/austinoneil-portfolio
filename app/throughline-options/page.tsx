@@ -4,6 +4,9 @@ import {
   VariantStrata,
   VariantGrid,
   VariantWeight,
+  VariantWeightFan,
+  VariantWeightCards,
+  VariantWeightEditorial,
   VariantLedger,
 } from "@/components/throughline/variants";
 
@@ -19,6 +22,30 @@ import {
 export const dynamic = "force-dynamic";
 
 const VARIANTS = [
+  {
+    key: "F1",
+    name: "Accumulation, fanning into platforms",
+    says: "The route terminates into three platforms, which is how a line actually ends.",
+    node: <VariantWeightFan />,
+  },
+  {
+    key: "F2",
+    name: "Accumulation, into lit cards",
+    says: "The line runs into three lit platform cards. Heaviest of the three, most legible at a glance.",
+    node: <VariantWeightCards />,
+  },
+  {
+    key: "F3",
+    name: "Accumulation, editorial",
+    says: "No chips. The line lands against an accent rule and the type carries it.",
+    node: <VariantWeightEditorial />,
+  },
+  {
+    key: "F0",
+    name: "Accumulation, original",
+    says: "For comparison: the version you already saw.",
+    node: <VariantWeight />,
+  },
   {
     key: "A",
     name: "Convergence",
@@ -38,15 +65,9 @@ const VARIANTS = [
     node: <VariantGrid />,
   },
   {
-    key: "F",
-    name: "Accumulation",
-    says: "Momentum. One line that gains weight as it goes, and turns accent where the depth starts.",
-    node: <VariantWeight />,
-  },
-  {
     key: "G",
     name: "Ledger",
-    says: "No diagram. Type doing the work, which may beat any picture here.",
+    says: "No diagram. Type doing the work.",
     node: <VariantLedger />,
   },
 ];
@@ -60,7 +81,8 @@ export default function ThroughlineOptionsPage() {
         Throughline options
       </h1>
       <p className="mt-4 max-w-[62ch] leading-relaxed text-text-muted">
-        Scroll slowly. Each one animates as it enters. All of it is CSS
+        F1, F2 and F3 are the three ways of landing the specialty end. Scroll
+        slowly; each one animates as it enters. All of it is CSS
         scroll-driven, so none of these cost any JavaScript, and every one
         renders finished rather than blank in a browser that does not support
         scroll timelines.
