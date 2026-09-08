@@ -43,6 +43,14 @@ export function projectImage(slug: string): string {
  */
 export const PORTRAIT_IMAGE = "/austin-oneil.jpg";
 
+/**
+ * Square head-and-shoulders crop for the hero avatar, framed so the inscribed
+ * circle reads as a portrait rather than cutting through the jaw. Square source
+ * in a square box means object-cover never crops, so the framing is decided
+ * here once instead of being re-tuned per breakpoint in CSS.
+ */
+export const AVATAR_IMAGE = "/austin-oneil-avatar.jpg";
+
 /** Neutral 1x1 used as the blur placeholder so nothing flashes white. */
 export const BLUR_DATA_URL =
   "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyIDIiPjxyZWN0IHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IiM3MTcxN2EiLz48L3N2Zz4=";

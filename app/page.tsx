@@ -12,7 +12,7 @@ import { PostRow } from "@/components/post-row";
 import { getAllProjects } from "@/lib/projects";
 import { getAllPosts } from "@/lib/blog";
 import { personSchema, websiteSchema } from "@/lib/schema";
-import { BLUR_DATA_URL, PORTRAIT_IMAGE } from "@/lib/images";
+import { AVATAR_IMAGE, BLUR_DATA_URL } from "@/lib/images";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -85,47 +85,55 @@ export default function HomePage() {
       <JsonLd data={[personSchema(), websiteSchema()]} />
       <SubwayLine />
 
-      {/* Stop 1. Hero: asymmetric split, three text elements, nothing below
-          the CTAs. */}
+      {/* Stop 1. Hero.
+          Two layouts from one image element, no duplicate <Image> hidden at a
+          breakpoint (a hidden one still downloads, and this is the LCP asset).
+
+          Under md the grid is [auto 1fr]: headline spans both columns, then the
+          avatar and the subtext share a single row, then the CTAs span both.
+          From md up it becomes the 12-column split, with the avatar occupying
+          its own column across all three rows. */}
       <section
         data-stop
         data-stop-fx="0.012"
         data-stop-dy="132"
         className="relative border-b border-border"
       >
-        <div className="container-page rail-indent grid gap-10 pt-16 pb-16 md:grid-cols-12 md:items-center md:gap-12 md:pt-24 md:pb-24">
-          <div className="md:col-span-7">
-            <h1 className="text-4xl font-semibold tracking-tight text-balance text-text md:text-5xl lg:text-6xl">
-              I build the site and I make it rank.
-            </h1>
-            <p className="mt-5 max-w-[46ch] text-lg leading-relaxed text-text-muted">
-              Developer and technical SEO in Denver. Twelve years behind a bar
-              and a counter taught me the other half of the job.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href="/projects">See the work</ButtonLink>
-              <ButtonLink href={`mailto:${site.email}`} variant="outline">
-                Get in touch
-              </ButtonLink>
-            </div>
-          </div>
+        <div className="container-page rail-indent grid grid-cols-[auto_1fr] items-center gap-x-5 gap-y-6 pt-16 pb-16 md:grid-cols-12 md:gap-x-12 md:gap-y-5 md:pt-24 md:pb-24">
+          <h1 className="col-span-2 text-4xl font-semibold tracking-tight text-balance text-text md:col-span-7 md:col-start-1 md:row-start-1 md:self-end md:text-5xl lg:text-6xl">
+            I build the site and I make it rank.
+          </h1>
 
-          <div className="md:col-span-5">
+          <div className="md:col-span-4 md:col-start-9 md:row-span-3 md:row-start-1 md:self-center">
             <Image
-              src={PORTRAIT_IMAGE}
+              src={AVATAR_IMAGE}
               alt={`${site.name}, ${site.role}`}
-              width={1000}
-              height={1250}
+              width={720}
+              height={720}
               priority
+              fetchPriority="high"
               placeholder="blur"
               blurDataURL={BLUR_DATA_URL}
-              sizes="(min-width: 768px) 24rem, 100vw"
-              // object-[center_32%] only bites at 16:9, where the square
-              // source overflows vertically: it keeps the crop above his
-              // shoulders instead of slicing the top of his head. At 4:5 there
-              // is no vertical overflow, so it changes nothing on desktop.
-              className="aspect-video w-full rounded-[--radius] border border-border object-cover object-[center_32%] md:aspect-[4/5]"
+              sizes="(min-width: 768px) 224px, 80px"
+              // border-strong rather than border: the shirt is black and the
+              // dark page ground is near-black, so a faint ring lets the lower
+              // half of the circle dissolve into the background and the crop
+              // reads as a floating head. The stronger ring keeps the disc
+              // legible in both themes.
+              className="size-20 rounded-full border border-border-strong object-cover md:mx-auto md:size-56"
             />
+          </div>
+
+          <p className="max-w-[46ch] text-base leading-relaxed text-text-muted md:col-span-7 md:col-start-1 md:row-start-2 md:text-lg">
+            Developer and technical SEO in Denver. Twelve years behind a bar and
+            a counter taught me the other half of the job.
+          </p>
+
+          <div className="col-span-2 flex flex-wrap gap-3 md:col-span-7 md:col-start-1 md:row-start-3 md:mt-3">
+            <ButtonLink href="/projects">See the work</ButtonLink>
+            <ButtonLink href={`mailto:${site.email}`} variant="outline">
+              Get in touch
+            </ButtonLink>
           </div>
         </div>
       </section>
