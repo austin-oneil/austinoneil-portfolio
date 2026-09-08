@@ -27,19 +27,19 @@ export const metadata: Metadata = {
 const capabilities = [
   {
     heading: "What do I actually build?",
-    body: "Production software. Custom WordPress plugins in PHP with their own tables, endpoints and admin dashboards. A serverless AI agent in Python on AWS that runs every day. Full-stack JavaScript with real money moving through it. Front ends I designed and built from scratch, not themes I recolored.",
+    body: "Production software. Custom WordPress plugins in PHP with their own tables, endpoints, and admin dashboards. A serverless AI agent in Python on AWS that runs every day. Full-stack JavaScript applications with real money moving through them. Front ends I designed and built myself, not themes I recolored.",
   },
   {
-    heading: "What does the SEO half mean?",
-    body: "I run technical SEO and answer engine optimization across a book of more than 100 clients. Crawlability, rendering, structured data, site speed, CMS architecture, and the conversion paths sitting on top of them. It is engineering work. It just gets measured in search.",
+    heading: "Where does SEO fit in?",
+    body: "I handle technical SEO and answer engine optimization across a book of 100+ clients. Crawlability, rendering, structured data, site speed, CMS architecture, analytics, and the conversion paths sitting on top of them. When the problem is technical, I can explain it and fix it.",
   },
   {
-    heading: "Why does the combination matter?",
-    body: "Most developers treat search as somebody else's department. Most SEOs stop at the point where the fix needs a pull request. I can tell you why a rendering decision is costing you indexation, and then go change the rendering.",
+    heading: "How did I end up doing both?",
+    body: "I didn't really plan it that way. I spent 12 years working directly with people before I got into tech, including six years bartending and time in sales. Then I started building websites, and development and SEO kept overlapping more and more. Now I can figure out what needs to change, explain it to the people involved, and make the change myself.",
   },
   {
-    heading: "Where does the bartending come in?",
-    body: "Twelve years of hospitality and sales before this, six of them behind a bar. You learn to read a room, explain something complicated to someone who did not ask for a lecture, and stay calm when everything is on fire at once. That turns out to be most of what a technical point of contact does.",
+    heading: "Does bartending actually matter?",
+    body: "More than you'd think. You learn to read a room, build relationships quickly, explain something complicated without giving someone a lecture, and stay calm when five things go wrong at once. Those skills turned out to be pretty useful when I became the technical person clients and coworkers came to when something needed figuring out.",
   },
 ];
 
@@ -125,8 +125,8 @@ export default function HomePage() {
           </div>
 
           <p className="max-w-[46ch] text-base leading-relaxed text-text-muted md:col-span-7 md:col-start-1 md:row-start-2 md:text-lg">
-            Developer and technical SEO in Denver. Twelve years behind a bar and
-            a counter taught me the other half of the job.
+            Developer and technical SEO in Denver. Twelve years in sales and
+            hospitality first. I build things, and I build relationships.
           </p>
 
           <div className="col-span-2 flex flex-wrap gap-3 md:col-span-7 md:col-start-1 md:row-start-3 md:mt-3">
@@ -168,7 +168,7 @@ export default function HomePage() {
       >
         {/* No rail-indent: the track runs under the toolkit card. */}
         <div className="container-page">
-          <Heading>The stack I actually ship with</Heading>
+          <Heading>What I&apos;m working with lately</Heading>
           <Reveal>
             <div
               data-tunnel
@@ -188,7 +188,7 @@ export default function HomePage() {
         className="relative border-t border-border py-16 md:py-24"
       >
         <div className="container-page rail-indent">
-          <Heading>Two careers, one skill set</Heading>
+          <Heading>I didn&apos;t start in tech</Heading>
           <dl className="border-t border-border">
             {capabilities.map((item) => (
               <div
@@ -242,11 +242,11 @@ export default function HomePage() {
               One conversation is worth fifty resume screens
             </h2>
             <p className="mt-4 leading-relaxed text-text-muted">
-              I am looking for my next role, ideally the kind where somebody has
-              to build the marketing infrastructure and also explain it to the
-              people who depend on it. Open to relocating to Seattle or
-              elsewhere on the West Coast. Email is the fastest way to reach me,
-              and I answer all of them.
+              I&apos;m looking for my next role, ideally the kind where I can
+              build the marketing infrastructure and explain it to the people
+              who depend on it. Open to relocating to Seattle or elsewhere on
+              the West Coast. Email is the fastest way to reach me, and I answer
+              all of them.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
               <ButtonLink href={`mailto:${site.email}`}>Get in touch</ButtonLink>

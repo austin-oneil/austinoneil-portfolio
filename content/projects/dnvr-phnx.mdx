@@ -1,6 +1,6 @@
 ---
-title: 48 hours before launch, the site left AWS
-summary: I built the full WordPress front end for a sports media startup, then spent the last two days before launch diagnosing infrastructure I did not own, because the person who did had stopped answering.
+title: 48 hours before launch, the backend dev quit
+summary: I built the full WordPress front end for a sports media startup. Two days before launch the backend developer quit on a phone call, and the site was disconnected from AWS with nobody left who understood it.
 client: DNVR and PHNX
 context: All City Media
 period: "2021 - 2022"
@@ -20,55 +20,83 @@ stack:
 
 ## What was the job?
 
-A sports media startup needed a front end built from scratch for two properties.
-DNVR was the established one. PHNX was the first build outside the home market,
-in Phoenix, carrying a large blog and ecommerce memberships.
+A sports media startup needed a front end built from scratch for two
+properties. DNVR was the established one. PHNX was the first build outside the
+home market, in Phoenix, carrying a large blog and ecommerce memberships.
 
-I designed and built the full WordPress front end for both. Not a theme with the
-colors changed. Built.
+I designed and built the full WordPress front end for both. Not a theme with
+the colors changed. Built.
 
-The infrastructure belonged to a separate AWS developer, and I coordinated with
-them across EC2, Elastic Beanstalk, RDS, S3 and Route 53.
+The infrastructure belonged to a separate AWS developer. I coordinated with
+him across EC2, Elastic Beanstalk, RDS, S3 and Route 53, but it was his.
 
-## And then?
+## And then he quit
 
-48 hours before launch, the site came off AWS. Mixed content issues and an
-incomplete setup. The developer who owned that infrastructure went dark.
+48 hours before launch.
 
-I want to be precise about my position here, because it is the part that makes
-the story worth telling. I was the front-end guy. I had coordinated with the AWS
-side, I had not built it, and I was not on call for it. None of that mattered by
-about hour three, because the launch date was not moving and nobody else was
-going to pick it up.
+Not "went quiet." Not "got busy." He got on a call with the CEO, told him
+where to go, turned to me, said "good luck," and hung up.
 
-## What did I do?
+The site was disconnected from AWS. Mixed content errors, an incomplete setup,
+and the one person who understood any of it had removed himself from the
+project in about ninety seconds.
 
-I learned enough AWS, fast, to understand a stack I had only ever worked
-alongside. Not to fix it myself, to be able to describe exactly what was broken
-and why, in words another engineer could act on.
+I want to be precise about where I stood, because it is the part that makes
+this worth telling. I was the front-end guy. I had coordinated with the AWS
+side. I had not built it, and I was not on call for it. None of that mattered
+by roughly hour three, because the launch date was not moving and there was
+nobody else.
 
-Then I went to the CEO directly and told them what I had found, what I thought
-it would take, and what I thought their options were.
+## What I actually did
 
-We brought in a replacement developer. I got them oriented on the system and out
-of the discovery phase fast, and it launched with hours to spare.
+First I stopped trying to fix it.
+
+That sounds like giving up. It is the opposite. I had two days, no AWS
+ownership, and a stack I had only ever worked alongside. If I spent those two
+days teaching myself enough to repair someone else's half-finished
+infrastructure, I would have been the least qualified person in the building
+doing the most important job, and I would probably have missed.
+
+So I changed the goal. Instead of fixing it, I made it fixable by somebody
+who could.
+
+I learned enough AWS, fast, to understand what was in front of me. Not to
+repair it. To be able to describe exactly what was broken and why, in language
+another engineer could act on without rediscovering it themselves.
+
+Then I went to the CEO directly. Here is what is wrong. Here is what I think it
+takes. Here are your options, and here is how long you have to choose.
+
+We brought in a replacement developer. I handed him a real description of the
+failure instead of a shrug, got him oriented on the system, and stayed on the
+front end while he worked the infrastructure.
+
+It launched. Hours to spare.
 
 One thing I want to keep straight, because it gets flattened every time this
 story is retold: **I was not the emergency hire.** I was the person who found
-one and got them up to speed.
+one, briefed him, and kept the thing moving while he came up to speed.
 
 ## Decisions
 
-**Diagnose first, recruit second.** Bringing in a developer with 48 hours on the
-clock only works if they can start on the actual problem instead of spending
-their first day discovering the system. Learning enough AWS to hand over a real
-description of the failure is the entire reason the handoff took hours instead
-of days. That is not heroics, it is just doing the unglamorous part first.
+**Diagnose first, recruit second.** Bringing in a developer with 48 hours on
+the clock only works if he can start on the actual problem instead of spending
+his first day discovering the system. Learning enough AWS to hand over a real
+description of the failure is the entire reason that handoff took hours
+instead of days.
 
-**Go to the CEO, not around them.** With the infrastructure owner unreachable
-and a fixed date, the only decision that mattered was move the launch or replace
-the developer. That was not my call to make. It was my job to get it in front of
-the person whose call it was, early enough that they still had room to make it.
+That is not heroics. It is doing the boring part first, under pressure, when
+every instinct is telling you to start typing.
+
+**Go straight to the CEO.** With the infrastructure owner gone and a fixed
+date, the only decision that mattered was move the launch or replace the
+developer. That was not my call. My job was getting it in front of the person
+whose call it was, early enough that he still had room to make it, and clearly
+enough that he could decide without a second meeting.
+
+Twelve years in restaurants taught me that one. When something has gone wrong,
+the person who needs to know finds out from you, immediately, with a
+recommendation attached. Not later, and not from someone else.
 
 ## What happened after
 

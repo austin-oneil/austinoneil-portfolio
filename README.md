@@ -201,10 +201,10 @@ not. Replace them and update `lib/images.ts`.
 | --- | --- | --- | --- |
 | `basecamp-ai-agent.jpg` | 16:9, 1600x900 | Card and case study | Screenshot of the agent's output email, or an architecture diagram. Redact client names. |
 | `prayer-hours-plugin.jpg` | 16:9 | Card and case study | The admin dashboard or the FullCalendar month view. Redact member data. |
-| `dnvr-phnx.jpg` | 16:9 | Card and case study | DNVR or PHNX front end as built. |
+| `dnvr-phnx.jpg` | 16:9 | Card and case study | Real: a brand plate built from the DNVR and PHNX wordmarks Austin supplied. Replace with a screenshot of the front end if one surfaces. |
 | `kharon-news-app.jpg` | 16:9 | Card and case study | The `/brief/[slug]` route, or the rich result. |
 | `van-user-dashboard.jpg` | 16:9 | Card and case study | The account management screen. |
-| `lacroix-drill-house.jpg` | 16:9 | Card and case study | The booking flow. |
+| `lacroix-drill-house.jpg` | 16:9 | Card and case study | Real: the Drill House training floor. Could still be joined by a shot of the booking flow. |
 | `agency-cms-architecture.jpg` | 16:9 | Card and case study | Anonymized. A location-page layout with no identifying branding. |
 | `ahead-of-the-curve-media.jpg` | 16:9 | Card and case study | An archive screenshot if you have one. The site is offline, so do not link it. |
 
