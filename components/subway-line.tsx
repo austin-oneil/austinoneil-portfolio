@@ -31,8 +31,6 @@ import { useMotionValueEvent, useReducedMotion, useScroll } from "motion/react";
 interface Stop {
   x: number;
   y: number;
-  /** Bottom of the section's content. Curves may not begin above this. */
-  floor: number;
 }
 
 interface Geometry {
@@ -79,7 +77,6 @@ function measure(): { geometry: Geometry; tunnels: Tunnel[] } | null {
     return {
       x: toLocalX(rect.left + window.scrollX + rect.width * fx),
       y: toLocalY(section.getBoundingClientRect().top + window.scrollY + dy),
-      floor: toLocalY(rect.bottom + window.scrollY),
     };
   });
 
@@ -113,16 +110,38 @@ function measure(): { geometry: Geometry; tunnels: Tunnel[] } | null {
   for (let i = 0; i < stops.length; i++) {
     const p = stops[i];
     if (!(i === 0 && origin)) d += ` L ${p.x} ${p.y}`;
+
     const n = stops[i + 1];
     if (!n) {
       d += ` L ${p.x} ${p.y + 44}`; // short tail past the terminus
       continue;
     }
+
+    // Same rail position: a straight run. The next iteration's line-to draws
+    // it, so emitting a curve here would be a curve between two identical x
+    // values, which is just a slower straight line.
+    if (n.x === p.x) continue;
+
     // The curve window scales with lateral distance so a big sideways jump
     // stays gentle instead of kinking.
     const span = Math.min(190 + Math.abs(n.x - p.x) * 0.55, 560);
-    const curveTop = Math.max(n.y - span, p.y + 40, p.floor + 28);
     const curveEnd = n.y - 44;
+
+    // The window must sit strictly between the two stations and must leave
+    // room to actually turn. Clamping the top below curveEnd is what stops the
+    // path doubling back on itself: an earlier version also forced the curve
+    // to begin below the previous section's content, and once the stations
+    // moved up that constraint could push the start past the end, which drew
+    // a zigzag rather than an interchange.
+    const MIN_CURVE = 48;
+    let curveTop = Math.max(n.y - span, p.y + 40);
+    curveTop = Math.min(curveTop, curveEnd - MIN_CURVE);
+
+    // Not enough vertical room between these two stations to turn gracefully.
+    // Fall through and let the straight line-to handle it rather than emit a
+    // cramped S.
+    if (curveTop <= p.y) continue;
+
     const midY = (curveTop + curveEnd) / 2;
     d += ` L ${p.x} ${curveTop}`;
     d += ` C ${p.x} ${midY}, ${n.x} ${midY}, ${n.x} ${curveEnd}`;
