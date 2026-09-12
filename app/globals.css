@@ -227,7 +227,24 @@ figure[data-rehype-pretty-code-figure] [data-highlighted-line] {
   stroke: var(--accent);
   stroke-width: 2;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 55%, transparent));
+}
+
+/* Glow. Two wider strokes under the progress line, sharing its dash offset,
+   in place of a drop-shadow filter. The filter re-rasterised the path's
+   entire bounding box on every scroll frame, which on a page-height SVG is
+   the difference between a smooth line and a stuttering one. */
+.subway-glow {
+  fill: none;
+  stroke: var(--accent);
+  stroke-linecap: round;
+}
+.subway-glow-outer {
+  stroke-width: 11;
+  opacity: 0.1;
+}
+.subway-glow-inner {
+  stroke-width: 5;
+  opacity: 0.24;
 }
 
 .station-outer {
@@ -355,7 +372,8 @@ figure[data-rehype-pretty-code-figure] [data-highlighted-line] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .subway-progress {
+  .subway-progress,
+  .subway-glow {
     stroke-dashoffset: 0 !important;
   }
   [data-tunnel]::before,

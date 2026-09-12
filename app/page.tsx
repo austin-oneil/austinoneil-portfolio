@@ -309,18 +309,29 @@ export default function HomePage() {
             {/* The photo is from the years the copy is about, not a second
                 crop of the headshot. Its own 3:4 ratio, so nobody in it is
                 cropped out. */}
-            <figure data-tunnel className="md:col-span-5">
-              <Image
-                src={STORY_IMAGE}
-                alt={`${site.name} behind the bar in Denver, arm around a coworker, both in aprons`}
-                width={1500}
-                height={2000}
-                placeholder="blur"
-                blurDataURL={BLUR_DATA_URL}
-                sizes="(min-width: 768px) 22rem, 100vw"
-                className="aspect-[3/4] w-full rounded-(--radius) border border-border object-cover"
-              />
-              <figcaption className="mt-3 font-mono text-xs text-text-subtle">
+            {/* The whole figure is the tunnel, so the whole figure has to be
+                an opaque surface: photo flush at the top, caption inside the
+                card. A caption hanging below the card left a transparent
+                strip the rail showed through. The clip lives on the image
+                wrapper, never on the tunnel element itself, or the glows are
+                clipped with it. */}
+            <figure
+              data-tunnel
+              className="rounded-(--radius) border border-border bg-surface md:col-span-5"
+            >
+              <div className="overflow-hidden rounded-t-[calc(var(--radius)-1px)]">
+                <Image
+                  src={STORY_IMAGE}
+                  alt={`${site.name} behind the bar in Denver, arm around a coworker, both in aprons`}
+                  width={1500}
+                  height={2000}
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
+                  sizes="(min-width: 768px) 22rem, 100vw"
+                  className="aspect-[3/4] w-full object-cover"
+                />
+              </div>
+              <figcaption className="px-4 py-3 font-mono text-xs text-text-subtle">
                 Behind the bar in Denver.
               </figcaption>
             </figure>

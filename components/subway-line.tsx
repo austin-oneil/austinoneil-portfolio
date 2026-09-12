@@ -38,6 +38,9 @@ interface Geometry {
   width: number;
   height: number;
   stops: Stop[];
+  /** Document y of the rail host. Cached here so the scroll path never has
+   *  to call getBoundingClientRect, which forces layout on every frame. */
+  originY: number;
 }
 
 interface Tunnel {
@@ -197,6 +200,7 @@ function measure(): { geometry: Geometry; tunnels: Tunnel[] } | null {
       width: Math.round(hostRect?.width ?? document.documentElement.scrollWidth),
       height: Math.round(host?.scrollHeight ?? document.documentElement.scrollHeight),
       stops,
+      originY,
     },
     tunnels,
   };
@@ -204,6 +208,8 @@ function measure(): { geometry: Geometry; tunnels: Tunnel[] } | null {
 
 export function SubwayLine() {
   const progressRef = useRef<SVGPathElement>(null);
+  const glowOuterRef = useRef<SVGPathElement>(null);
+  const glowInnerRef = useRef<SVGPathElement>(null);
   const stationRefs = useRef<(SVGGElement | null)[]>([]);
   const tunnelsRef = useRef<Tunnel[]>([]);
   const samplesRef = useRef<{ y: number; len: number }[]>([]);
@@ -270,23 +276,42 @@ export function SubwayLine() {
       // everything and the terminus lights.
       const atBottom =
         y + window.innerHeight >= document.documentElement.scrollHeight - 2;
-      const hostTop =
-        document.querySelector<HTMLElement>("[data-rail-host]")
-          ?.getBoundingClientRect().top ?? 0;
-      const hostOffset = hostTop + window.scrollY;
       const penY = atBottom
         ? Number.POSITIVE_INFINITY
-        : y + window.innerHeight * 0.6 - hostOffset;
+        : y + window.innerHeight * 0.6 - geometry.originY;
 
+      // Path length for the pen's y, interpolated between the two samples
+      // that bracket it. The samples are monotonic in y because the track
+      // only ever runs downward, so a binary search finds the bracket.
+      //
+      // An earlier version snapped to the nearest sample below the pen, and
+      // with 240 samples on a track several thousand pixels long that meant
+      // the line advanced in visible steps of about thirty pixels on every
+      // scroll event. Interpolation makes the pen continuous.
       const samples = samplesRef.current;
+      const last = samples.length - 1;
       let len = 0;
-      for (let i = samples.length - 1; i >= 0; i--) {
-        if (samples[i].y <= penY) {
-          len = samples[i].len;
-          break;
+      if (last >= 0) {
+        if (penY >= samples[last].y) {
+          len = samples[last].len;
+        } else if (penY > samples[0].y) {
+          let lo = 0;
+          let hi = last;
+          while (hi - lo > 1) {
+            const mid = (lo + hi) >> 1;
+            if (samples[mid].y <= penY) lo = mid;
+            else hi = mid;
+          }
+          const a = samples[lo];
+          const b = samples[hi];
+          const t = b.y === a.y ? 0 : (penY - a.y) / (b.y - a.y);
+          len = a.len + (b.len - a.len) * t;
         }
       }
-      path.style.strokeDashoffset = `${Math.max(lengthRef.current - len, 0)}`;
+      const offset = `${Math.max(lengthRef.current - len, 0)}`;
+      path.style.strokeDashoffset = offset;
+      if (glowOuterRef.current) glowOuterRef.current.style.strokeDashoffset = offset;
+      if (glowInnerRef.current) glowInnerRef.current.style.strokeDashoffset = offset;
 
       let lit = 0;
       for (const stop of stops) if (stop.y <= penY) lit++;
@@ -332,9 +357,16 @@ export function SubwayLine() {
     const total = path.getTotalLength();
     lengthRef.current = total;
     path.style.strokeDasharray = `${total}`;
+    const glows = [glowOuterRef.current, glowInnerRef.current];
+    for (const glow of glows) {
+      if (glow) glow.style.strokeDasharray = `${total}`;
+    }
 
+    // Dense enough that linear interpolation between neighbours is exact to
+    // the eye even through the S-curves, where y advances slowly per unit of
+    // length. Sampled once per measure, never per frame.
     const samples: { y: number; len: number }[] = [];
-    const steps = 240;
+    const steps = 800;
     for (let i = 0; i <= steps; i++) {
       const len = (total * i) / steps;
       samples.push({ y: path.getPointAtLength(len).y, len });
@@ -343,6 +375,9 @@ export function SubwayLine() {
 
     if (reduce) {
       path.style.strokeDashoffset = "0";
+      for (const glow of glows) {
+        if (glow) glow.style.strokeDashoffset = "0";
+      }
       litRef.current = geometry.stops.length;
       for (const node of stationRefs.current) node?.classList.add("lit");
       document.querySelector("[data-terminus]")?.classList.add("arrived");
@@ -357,6 +392,9 @@ export function SubwayLine() {
     // looks broken on a page loaded already scrolled, or where the first
     // station is behind the train from the start.
     path.style.strokeDashoffset = `${total}`;
+    for (const glow of glows) {
+      if (glow) glow.style.strokeDashoffset = `${total}`;
+    }
     update(window.scrollY);
   }, [geometry, reduce, update]);
 
@@ -375,6 +413,21 @@ export function SubwayLine() {
       focusable="false"
     >
       <path d={geometry.d} className="subway-track" />
+      {/* The glow is two wider, fainter copies of the progress stroke rather
+          than a drop-shadow filter. A filter on a path this tall has to
+          re-rasterise its whole bounding box every time the dash offset
+          changes, which is every scroll frame; two extra strokes cost almost
+          nothing to paint. */}
+      <path
+        ref={glowOuterRef}
+        d={geometry.d}
+        className="subway-glow subway-glow-outer"
+      />
+      <path
+        ref={glowInnerRef}
+        d={geometry.d}
+        className="subway-glow subway-glow-inner"
+      />
       <path ref={progressRef} d={geometry.d} className="subway-progress" />
       {geometry.stops.map((stop, i) => (
         <g
