@@ -276,9 +276,39 @@ figure[data-rehype-pretty-code-figure] [data-highlighted-line] {
   stroke: var(--accent);
 }
 
+/* End of the line. Three things happen at the terminus when the train
+   arrives, all in the first second, all timed with the contact card's own
+   arrival: the inner dot swells to fill its ring (the train is in the
+   station, not passing through), a buffer bar draws across the track just
+   past the station (the end of track, the way a real one is marked), and one
+   ring pings outward. The ring re-runs on every arrival; the other two are
+   states and follow the lit class. */
+.station-end .station-inner {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    fill 0.4s ease,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.station-end.lit .station-inner {
+  /* r=3 scaled to r=6 sits exactly inside the r=7 ring's 2px stroke. */
+  transform: scale(2);
+}
+
+.station-buffer {
+  fill: var(--accent);
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scaleX(0);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+}
+.station.lit .station-buffer {
+  transform: scaleX(1);
+}
+
 /* Terminus ping. Invisible until the station lights, then one ring expands
-   out of it and fades, like the doors-opening chime. Re-runs each time the
-   train arrives, which is fine: it is a one-second ring, not a state. */
+   out of it and fades. Re-runs each time the train arrives, which is fine:
+   it is a one-second ring, not a state. */
 .station-ping {
   fill: none;
   stroke: var(--accent);
@@ -412,9 +442,9 @@ figure[data-rehype-pretty-code-figure] [data-highlighted-line] {
 
 @media (min-width: 900px) {
   .arrival-platform {
-    /* No accent edge of its own. The rail is the blue vertical in this
-       composition; a second one here would sit a few pixels off it and read
-       as a mistake. The hairline that appears on arrival is neutral. */
+    /* No accent edge of its own. The rail ends at the terminus station just
+       above this card; a blue vertical here would read as the line carrying
+       on past its last stop. The hairline that appears on arrival is neutral. */
     margin-left: -1.25rem;
     padding: 1.75rem;
     border: 1px solid transparent;

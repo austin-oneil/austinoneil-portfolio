@@ -116,18 +116,11 @@ function measure(): { geometry: Geometry; tunnels: Tunnel[] } | null {
 
     const n = stops[i + 1];
     if (!n) {
-      // The track runs the full height of the terminus platform rather than
-      // stopping in a stub below the last station. The platform draws no edge
-      // of its own: this line is its edge, which is the only way the two read
-      // as one composition instead of two disconnected blue verticals.
-      const platform = document.querySelector<HTMLElement>(
-        "[data-terminus] .arrival-platform",
-      );
-      const tail = platform
-        ? toLocalY(platform.getBoundingClientRect().bottom + window.scrollY)
-        : p.y + 44;
-      d += ` L ${p.x} ${Math.max(tail, p.y + 44)}`;
-      continue;
+      // The line ends on the terminus station, dead on its centre. It used to
+      // run on past it for the full height of the contact card, which read as
+      // the train sliding through the last stop rather than arriving at it.
+      // The end of track is marked by the buffer bar in the terminus group.
+      break;
     }
 
     // Same rail position: a straight run. The next iteration's line-to draws
@@ -435,7 +428,7 @@ export function SubwayLine() {
           ref={(node) => {
             stationRefs.current[i] = node;
           }}
-          className="station"
+          className={i === terminus ? "station station-end" : "station"}
         >
           {i === terminus ? (
             <>
@@ -452,6 +445,16 @@ export function SubwayLine() {
                 cy={stop.y}
                 r={12}
                 className="station-terminus"
+              />
+              {/* Buffer stop: the bar across the track that marks the end of
+                  the line. Draws in from its centre when the train arrives. */}
+              <rect
+                x={stop.x - 11}
+                y={stop.y + 17}
+                width={22}
+                height={3}
+                rx={1.5}
+                className="station-buffer"
               />
             </>
           ) : null}
