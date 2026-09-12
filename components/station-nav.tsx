@@ -20,7 +20,7 @@ import Link from "next/link";
  * the legend of, and it would just be a second nav.
  */
 const stations = [
-  { href: "#throughline", label: "Throughline" },
+  { href: "#throughline", label: "Skills" },
   { href: "#work", label: "Projects" },
   { href: "#stack", label: "Toolkit" },
   { href: "#story", label: "My story" },
@@ -48,7 +48,7 @@ export function StationNav() {
             ) : null}
             <Link
               href={station.href}
-              className="group inline-flex shrink-0 items-center gap-2 rounded-[--radius-sm] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              className="group inline-flex shrink-0 items-center gap-2 rounded-(--radius-sm) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
             >
               <span
                 {...(i === 0 ? { "data-rail-origin": "" } : {})}

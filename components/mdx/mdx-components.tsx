@@ -49,7 +49,7 @@ export const mdxComponents: MDXComponents = {
   a: ({ href = "", ...props }: ComponentPropsWithoutRef<"a">) => {
     const internal = href.startsWith("/") || href.startsWith("#");
     const className =
-      "rounded-[--radius-sm] font-medium text-accent underline decoration-accent-border underline-offset-[3px] transition-colors duration-150 hover:decoration-accent";
+      "rounded-(--radius-sm) font-medium text-accent underline decoration-accent-border underline-offset-[3px] transition-colors duration-150 hover:decoration-accent";
     return internal ? (
       <Link href={href} className={className} {...props} />
     ) : (
@@ -65,7 +65,7 @@ export const mdxComponents: MDXComponents = {
   hr: () => <hr className="my-12 border-border" />,
   code: (props: ComponentPropsWithoutRef<"code">) => (
     <code
-      className="rounded-[--radius-sm] border border-border bg-surface-2 px-1.5 py-0.5 font-mono text-[0.85em] text-text [figure_&]:border-0 [figure_&]:bg-transparent [figure_&]:p-0"
+      className="rounded-(--radius-sm) border border-border bg-surface-2 px-1.5 py-0.5 font-mono text-[0.85em] text-text [figure_&]:border-0 [figure_&]:bg-transparent [figure_&]:p-0"
       {...props}
     />
   ),
@@ -73,7 +73,7 @@ export const mdxComponents: MDXComponents = {
     <CodeBlock>{children}</CodeBlock>
   ),
   table: (props: ComponentPropsWithoutRef<"table">) => (
-    <div className="my-6 overflow-x-auto rounded-[--radius] border border-border">
+    <div className="my-6 overflow-x-auto rounded-(--radius) border border-border">
       <table className="w-full border-collapse text-left text-sm" {...props} />
     </div>
   ),
@@ -104,7 +104,7 @@ export const mdxComponents: MDXComponents = {
       alt={alt ?? ""}
       width={1600}
       height={900}
-      className="my-8 h-auto w-full rounded-[--radius] border border-border"
+      className="my-8 h-auto w-full rounded-(--radius) border border-border"
       sizes="(min-width: 768px) 45rem, 100vw"
       {...props}
     />

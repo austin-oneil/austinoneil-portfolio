@@ -22,5 +22,5 @@ export function middleware() {
 }
 
 export const config = {
-  matcher: ["/design-system", "/throughline-options"],
+  matcher: ["/design-system", "/throughline-options", "/terminus-options"],
 };

@@ -36,7 +36,7 @@ export function PostRow({
       <Heading className="mt-2.5 text-lg font-semibold tracking-tight text-text">
         <Link
           href={`/blog/${post.slug}`}
-          className="rounded-[--radius-sm] transition-colors duration-150 group-hover:text-accent"
+          className="rounded-(--radius-sm) transition-colors duration-150 group-hover:text-accent"
         >
           <span className="absolute inset-0" />
           {post.title}

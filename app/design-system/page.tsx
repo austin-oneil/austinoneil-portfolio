@@ -48,7 +48,7 @@ export default function DesignSystemPage() {
           {swatches.map(([token, label]) => (
             <div key={token}>
               <div
-                className="h-20 rounded-[--radius] border border-border"
+                className="h-20 rounded-(--radius) border border-border"
                 style={{ backgroundColor: `var(--${token})` }}
               />
               <p className="mt-2 font-mono text-xs text-text">--{token}</p>
@@ -128,10 +128,10 @@ export default function DesignSystemPage() {
         <SectionHeading>Skeleton states</SectionHeading>
         <div className="grid gap-6 md:grid-cols-2">
           <div className="animate-pulse space-y-3">
-            <div className="h-4 w-24 rounded-[--radius-sm] bg-surface-2" />
-            <div className="h-6 w-3/4 rounded-[--radius-sm] bg-surface-2" />
-            <div className="h-4 w-full rounded-[--radius-sm] bg-surface-2" />
-            <div className="h-4 w-5/6 rounded-[--radius-sm] bg-surface-2" />
+            <div className="h-4 w-24 rounded-(--radius-sm) bg-surface-2" />
+            <div className="h-6 w-3/4 rounded-(--radius-sm) bg-surface-2" />
+            <div className="h-4 w-full rounded-(--radius-sm) bg-surface-2" />
+            <div className="h-4 w-5/6 rounded-(--radius-sm) bg-surface-2" />
           </div>
           <p className="max-w-[65ch] text-sm leading-relaxed text-text-muted">
             Loading placeholders match the dimensions of the content they stand

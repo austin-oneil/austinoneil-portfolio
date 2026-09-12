@@ -32,7 +32,7 @@ export function FeaturedProjectCard({
           placeholder="blur"
           blurDataURL={BLUR_DATA_URL}
           sizes="(min-width: 768px) 26rem, 100vw"
-          className="aspect-[4/3] w-full rounded-[--radius] border border-border object-cover"
+          className="aspect-[4/3] w-full rounded-(--radius) border border-border object-cover"
         />
       </div>
 
@@ -43,7 +43,7 @@ export function FeaturedProjectCard({
         <h3 className="mt-3 text-xl font-semibold tracking-tight text-text md:text-2xl">
           <Link
             href={`/projects/${project.slug}`}
-            className="rounded-[--radius-sm] transition-colors duration-150 group-hover:text-accent"
+            className="rounded-(--radius-sm) transition-colors duration-150 group-hover:text-accent"
           >
             <span className="absolute inset-0" />
             {project.title}
@@ -86,7 +86,7 @@ export function ProjectRow({ project }: { project: Project }) {
           placeholder="blur"
           blurDataURL={BLUR_DATA_URL}
           sizes="(min-width: 640px) 14rem, 100vw"
-          className="aspect-[4/3] w-full rounded-[--radius] border border-border object-cover"
+          className="aspect-[4/3] w-full rounded-(--radius) border border-border object-cover"
         />
       </div>
       <div className="sm:col-span-9">
@@ -96,7 +96,7 @@ export function ProjectRow({ project }: { project: Project }) {
         <h2 className="mt-2 text-lg font-semibold tracking-tight text-text">
           <Link
             href={`/projects/${project.slug}`}
-            className="rounded-[--radius-sm] transition-colors duration-150 group-hover:text-accent"
+            className="rounded-(--radius-sm) transition-colors duration-150 group-hover:text-accent"
           >
             <span className="absolute inset-0" />
             {project.title}
@@ -133,7 +133,7 @@ export function CompactProjectCard({ project }: { project: Project }) {
         placeholder="blur"
         blurDataURL={BLUR_DATA_URL}
         sizes="(min-width: 768px) 22rem, 100vw"
-        className="aspect-[3/2] w-full rounded-[--radius] border border-border object-cover"
+        className="aspect-[3/2] w-full rounded-(--radius) border border-border object-cover"
       />
       <p className="mt-5 font-mono text-xs text-text-subtle">
         {project.client} <span aria-hidden>·</span> {project.period}
@@ -141,7 +141,7 @@ export function CompactProjectCard({ project }: { project: Project }) {
       <h3 className="mt-2 text-lg font-semibold tracking-tight text-text">
         <Link
           href={`/projects/${project.slug}`}
-          className="rounded-[--radius-sm] transition-colors duration-150 group-hover:text-accent"
+          className="rounded-(--radius-sm) transition-colors duration-150 group-hover:text-accent"
         >
           <span className="absolute inset-0" />
           {project.title}

@@ -1,43 +1,121 @@
 ---
 title: The backend dev quit 48 hours before launch
-date: "2026-09-01"
+date: "2026-09-12"
 excerpt: He told the CEO where to go, told me good luck, and hung up. The site was off AWS, the launch was in two days, and I was the front-end guy. What I did next, and what I'd do differently.
 tags: ["AWS", "Incidents", "WordPress"]
-draft: true
+draft: false
 coverImage: ""
 ---
 
-{/*
-  TODO(austin): write this post.
-
-  The section headings below are the scaffold. The narrative is yours - I have
-  deliberately not drafted prose in your voice, and I have not invented any
-  detail beyond what is already in the DNVR/PHNX case study.
-
-  When it is ready, set `draft: false` and it publishes to the index, the
-  sitemap and the RSS feed automatically.
-*/}
-
 ## What the setup was
 
-TODO(austin)
+I was building the front end for a sports media startup. Two properties. DNVR
+was the established one, in Denver. PHNX was the first build outside the home
+market, in Phoenix, with a large blog and ecommerce memberships attached.
+
+I designed and built the WordPress front end for both, from scratch. The
+infrastructure was a separate developer's job. He owned the AWS side: EC2,
+Elastic Beanstalk, RDS, S3 and Route 53. I coordinated with him, I knew roughly
+what lived where, and I had never needed to touch any of it myself.
+
+That division of labor is normal. It is also the setup for everything that
+follows, because a division of labor only works while both people are still on
+the project.
 
 ## The phone call
 
-TODO(austin)
+Two days before launch he got on a call with the CEO. He told the CEO where to
+go. Then he turned to me, said "good luck," and hung up. The whole thing took
+about ninety seconds.
+
+When the call ended, the site was disconnected from AWS. The setup was
+incomplete. The browser console was full of mixed content errors. And the one
+person who understood the infrastructure had just removed himself from the
+project.
+
+I want to be exact about where I stood, because it is the part that makes the
+story worth telling. I was the front-end developer. I had coordinated with the
+AWS side. I had not built it, and nobody had ever asked me to be on call for
+it. For about three hours I kept thinking that would matter. It did not. The
+launch date was fixed and there was nobody else.
 
 ## What mixed content actually broke
 
-TODO(austin)
+Mixed content is what a browser calls a secure page that loads insecure
+pieces. The page comes in over HTTPS, but some of what it asks for, a script, a
+stylesheet, an image, still points at a plain HTTP address. Modern browsers
+block the risky ones outright and warn about the rest. So the page arrives, and
+then parts of it quietly fail to load.
+
+On a site that has just been cut loose from its hosting setup, that is a
+symptom. The errors were telling me the front end and the infrastructure no
+longer agreed about where things lived. Fixing them one at a time would have
+meant chasing each broken address without ever asking why they had all broken
+at once.
 
 ## Learning a stack you do not own, under a deadline
 
-TODO(austin)
+The first thing I did was stop trying to fix it.
+
+That sounds like giving up. It was the opposite. I had two days, no history
+with the AWS account, and a stack I had only ever worked next to. If I spent
+those two days teaching myself enough to repair someone else's half-finished
+infrastructure, I would have been the least qualified person on the project
+doing the most important job on it. I probably would have missed.
+
+So I changed the goal. Instead of fixing it, I would make it fixable by
+somebody who could.
+
+I learned enough AWS, fast, to understand what was in front of me. Enough to
+read the setup, not repair it. Enough to write down what was broken, what was
+half-finished, and what was simply disconnected, in language another engineer
+could act on without rediscovering it.
+
+Then I went to the CEO. Here is what is wrong. Here is what I think it takes.
+Here are your options, and here is how long you have to choose. With the
+infrastructure owner gone and a fixed date, the only real decision was whether
+to move the launch or replace the developer. That was not my call to make. My
+job was to get it in front of the person whose call it was, early enough that
+he still had room to make it.
+
+Twelve years in restaurants taught me that part. When something goes wrong,
+the person who needs to know finds out from you, immediately, with a
+recommendation attached. Not later, and not from someone else.
 
 ## Bringing in a replacement developer
 
-TODO(austin)
+We brought in a replacement. I handed him a real description of the failure
+instead of a shrug, walked him through the system as I understood it, and then
+went back to the front end while he worked the infrastructure.
+
+Bringing in a developer with 48 hours on the clock only works if he can start
+on the actual problem instead of spending his first day finding out what the
+system is. The write-up I had put together is the reason that handoff took
+hours instead of days.
+
+It launched. Hours to spare.
+
+One thing I keep having to put back into this story every time someone retells
+it: I was not the emergency hire. I was the person who found one, briefed him,
+and kept the thing moving while he came up to speed. The AWS build was his. The
+WordPress front end for both properties was mine, start to finish, and it went
+live on the day it was supposed to.
+
+The relationship continued after launch. I improved AWS security that had been
+left weak, fixed front-end bugs across both properties, and worked on UX. I
+list those AWS services on the case study because I worked in them under
+pressure and afterward, not because I architected them.
 
 ## What I would do differently
 
-TODO(austin)
+Two things.
+
+I would ask for read access to the infrastructure and a written description of
+it before launch week. Not because I would own it, but so a handover is
+possible if it ever has to happen. On this project the handover had to be
+reconstructed from the outside in two days. It should have been a document.
+
+And I would get the real decision in front of the CEO within the first hour,
+not the third. The three hours I spent believing this was not my problem were
+three hours he did not have. The one thing I could actually control was how
+quickly the right person heard the truth, and I should have known that sooner.

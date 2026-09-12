@@ -145,7 +145,7 @@ export function MappingRoutes() {
                   {" "}
                   <Link
                     href={row.evidence.href}
-                    className="rounded-[--radius-sm] font-mono text-[0.75rem] whitespace-nowrap text-accent underline decoration-accent-border underline-offset-2 hover:decoration-accent"
+                    className="rounded-(--radius-sm) font-mono text-[0.75rem] whitespace-nowrap text-accent underline decoration-accent-border underline-offset-2 hover:decoration-accent"
                   >
                     {row.evidence.label}
                   </Link>
@@ -202,13 +202,138 @@ export function MappingTable() {
                   {" "}
                   <Link
                     href={row.evidence.href}
-                    className="rounded-[--radius-sm] font-mono text-[0.75rem] whitespace-nowrap text-accent underline decoration-accent-border underline-offset-2 hover:decoration-accent"
+                    className="rounded-(--radius-sm) font-mono text-[0.75rem] whitespace-nowrap text-accent underline decoration-accent-border underline-offset-2 hover:decoration-accent"
                   >
                     {row.evidence.label}
                   </Link>
                 </>
               ) : null}
             </p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+/** M3. Skill first.
+ *
+ *  M1 gave the three parts of each claim equal weight, and the part doing the
+ *  arguing (what the job built) was the quietest of the three: small, italic,
+ *  subtle, sitting on a hairline. A skim read only the right-hand column and
+ *  got a list of accomplishments with no connection to the left.
+ *
+ *  Here the transferable skill is the headline and the route beneath it is the
+ *  evidence: origin station on the left, the track, and the lit destination
+ *  station on the right, landing on work that is already on this site. Five
+ *  headlines read on their own as the argument; the routes let a careful
+ *  reader check each one.
+ *
+ *  Text is never animated. The only motion is the track drawing from origin to
+ *  destination and the destination station lighting when it arrives, which is
+ *  the one moment where movement means something: the connection being made.
+ *  Everything runs off one timeline scoped to the list and finishes early in
+ *  the entry phase, so nothing on screen is still moving while it is read.
+ *
+ *  Under 768px the route turns vertical: origin above, destination below, a
+ *  short connector between them. Same three parts, same order, no reflow that
+ *  changes the meaning.
+ */
+export function MappingSkills() {
+  /** Each row's slice of the list's entry. Capped well short of 100% so the
+   *  last row has resolved before it can be on screen, even on a phone where
+   *  the list is taller than the viewport. */
+  const phase = (i: number, offset = 0, span = 20) => {
+    const start = 6 + i * 10 + offset;
+    return {
+      animationRange: `entry ${start}% entry ${Math.min(start + span, 84)}%`,
+    };
+  };
+
+  const cols =
+    "md:grid-cols-[minmax(0,13rem)_minmax(3rem,1fr)_minmax(0,32rem)]";
+
+  return (
+    <div>
+      <div
+        aria-hidden
+        className={`hidden gap-x-4 border-b border-border pb-4 md:grid ${cols}`}
+      >
+        <p className="flex items-center gap-3 font-mono text-[0.6875rem] tracking-[0.14em] text-text-subtle uppercase">
+          <span className="size-2.5 shrink-0 rounded-full border-2 border-border-strong bg-bg" />
+          Where it came from
+        </p>
+        <span />
+        <p className="flex items-center gap-3 font-mono text-[0.6875rem] tracking-[0.14em] text-text-subtle uppercase">
+          <span className="size-2.5 shrink-0 rounded-full bg-accent" />
+          Where it shows up now
+        </p>
+      </div>
+
+      <ol className="tl-scope divide-y divide-border">
+        {ROWS.map((row, i) => (
+          <li key={row.past} className="py-5 last:pb-0 md:py-6">
+            <p className="text-[1.0625rem] leading-snug font-semibold tracking-tight text-text md:text-lg">
+              {row.built}
+            </p>
+
+            <div
+              className={`relative mt-3 md:grid md:items-start md:gap-x-4 ${cols}`}
+            >
+              {/* Vertical connector, phones only. Height matches the two-line
+                  origin block exactly, which is what lets it be fixed. */}
+              <span
+                aria-hidden
+                className="tl-track-v absolute top-[15px] left-1 h-[38px] w-px bg-border-strong md:hidden"
+                style={phase(i, 2)}
+              />
+
+              <p className="flex items-start gap-3">
+                <span
+                  aria-hidden
+                  className="mt-[5px] size-2.5 shrink-0 rounded-full border-2 border-border-strong bg-bg"
+                />
+                <span className="min-w-0">
+                  <span className="sr-only">From </span>
+                  <span className="block font-mono text-[0.8125rem] leading-5 text-text-muted">
+                    {row.past}
+                  </span>
+                  <span className="block font-mono text-[0.6875rem] leading-4 text-text-subtle">
+                    {row.years}
+                  </span>
+                </span>
+              </p>
+
+              <span aria-hidden className="relative hidden md:block">
+                <span
+                  className="tl-track absolute inset-x-0 top-[9px] h-px bg-border-strong"
+                  style={phase(i, 2)}
+                />
+              </span>
+
+              <p className="mt-2.5 flex items-start gap-3 md:mt-0">
+                <span
+                  aria-hidden
+                  className="tl-dot mt-[5px] size-2.5 shrink-0 rounded-full bg-accent"
+                  style={phase(i, 14, 14)}
+                />
+                <span className="min-w-0 text-[0.875rem] leading-5 text-text">
+                  <span className="sr-only">to </span>
+                  {row.now}
+                  {row.evidence ? (
+                    <>
+                      {" "}
+                      <Link
+                        href={row.evidence.href}
+                        className="rounded-(--radius-sm) font-mono text-[0.75rem] whitespace-nowrap text-accent underline decoration-accent-border underline-offset-2 hover:decoration-accent"
+                      >
+                        {row.evidence.label}
+                      </Link>
+                    </>
+                  ) : null}
+                </span>
+              </p>
+            </div>
           </li>
         ))}
       </ol>

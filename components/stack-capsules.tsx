@@ -19,7 +19,7 @@ export function StackCapsules() {
             {group.tools.map((tool) => (
               <li
                 key={tool.name}
-                className="group inline-flex items-center gap-2 rounded-[--radius] border border-border bg-surface px-3 py-2 text-sm text-text-muted transition-[border-color,color,transform] duration-150 ease-out hover:-translate-y-px hover:border-border-strong hover:text-text"
+                className="group inline-flex items-center gap-2 rounded-(--radius) border border-border bg-surface px-3 py-2 text-sm text-text-muted transition-[border-color,color,transform] duration-150 ease-out hover:-translate-y-px hover:border-border-strong hover:text-text"
               >
                 <span className="text-text-subtle transition-colors duration-150 group-hover:text-accent">
                   <BrandIcon slug={tool.icon} mono={tool.mono} />

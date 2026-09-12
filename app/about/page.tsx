@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
 import { ButtonLink } from "@/components/ui/button";
@@ -11,12 +12,12 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Austin O'Neil is a developer and technical SEO specialist in Denver. Twelve years in hospitality and sales before software, homeschooled and self-taught, now Senior SEO Specialist at Prospecta Marketing and an independent developer through Tangent Apps.",
+    "Austin O'Neil is a full-stack developer and technical SEO specialist in Denver. Twelve years in hospitality and sales before software, homeschooled and self-taught, now Senior SEO Specialist at Prospecta Marketing and an independent developer through Tangent Apps.",
   alternates: { canonical: "/about" },
   openGraph: {
     title: "About - Austin O'Neil",
     description:
-      "Developer and technical SEO in Denver. The long version, including the twelve years before the code.",
+      "Full-stack developer and technical SEO in Denver. The long version, including the twelve years before the code.",
     url: "/about",
     type: "profile",
   },
@@ -235,7 +236,7 @@ export default function AboutPage() {
               placeholder="blur"
               blurDataURL={BLUR_DATA_URL}
               sizes="(min-width: 768px) 20rem, 100vw"
-              className="aspect-[4/5] w-full rounded-[--radius] border border-border object-cover"
+              className="aspect-[4/5] w-full rounded-(--radius) border border-border object-cover"
             />
           </div>
         </div>
@@ -354,12 +355,23 @@ export default function AboutPage() {
             </div>
           ))}
         </div>
-        <p className="mt-8 max-w-[64ch] rounded-[--radius] border border-border bg-surface-2 p-4 text-sm leading-relaxed text-text-muted">
+        <p className="mt-8 max-w-[64ch] rounded-(--radius) border border-border bg-surface-2 p-4 text-sm leading-relaxed text-text-muted">
           One calibration I would rather state than have you find out: I am
           genuinely proficient in Next.js and TypeScript, and no employer has
           paid me for either. The evidence is an interview take-home, and it is
           labelled as one. Everything else on this page is production work
           somebody paid for.
+        </p>
+        <p className="mt-6 max-w-[64ch] text-sm leading-relaxed text-text-muted">
+          This site is part of the evidence too. It is built the way I would
+          build a client&apos;s: structured data on every page, a generated sitemap
+          and feed, no third-party scripts, and a zero-flash theme.{" "}
+          <Link
+            href="/colophon"
+            className="rounded-(--radius-sm) font-medium text-accent underline decoration-accent-border underline-offset-4 transition-colors duration-150 hover:decoration-accent"
+          >
+            How this site is built
+          </Link>
         </p>
       </Section>
 

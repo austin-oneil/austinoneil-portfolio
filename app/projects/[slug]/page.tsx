@@ -82,7 +82,7 @@ export default async function ProjectPage({
       <div className="container-page py-10 md:py-14">
         <Link
           href="/projects"
-          className="inline-flex items-center gap-1.5 rounded-[--radius-sm] text-sm text-text-muted transition-colors duration-150 hover:text-text"
+          className="inline-flex items-center gap-1.5 rounded-(--radius-sm) text-sm text-text-muted transition-colors duration-150 hover:text-text"
         >
           <ArrowLeft size={14} aria-hidden />
           All work
@@ -100,7 +100,7 @@ export default async function ProjectPage({
           </p>
 
           {project.note ? (
-            <p className="mt-5 max-w-[62ch] rounded-[--radius] border border-border bg-surface-2 p-4 text-sm leading-relaxed text-text-muted">
+            <p className="mt-5 max-w-[62ch] rounded-(--radius) border border-border bg-surface-2 p-4 text-sm leading-relaxed text-text-muted">
               {project.note}
             </p>
           ) : null}
@@ -116,7 +116,7 @@ export default async function ProjectPage({
               <a
                 href={project.url}
                 rel="noopener noreferrer"
-                className="ml-1 inline-flex items-center gap-1 rounded-[--radius-sm] text-sm font-medium text-accent underline decoration-accent-border underline-offset-4 transition-colors duration-150 hover:decoration-accent"
+                className="ml-1 inline-flex items-center gap-1 rounded-(--radius-sm) text-sm font-medium text-accent underline decoration-accent-border underline-offset-4 transition-colors duration-150 hover:decoration-accent"
               >
                 Visit the site
                 <ArrowUpRight size={13} aria-hidden />
@@ -135,7 +135,7 @@ export default async function ProjectPage({
           placeholder="blur"
           blurDataURL={BLUR_DATA_URL}
           sizes="(min-width: 1024px) 64rem, 100vw"
-          className="mt-10 aspect-video w-full rounded-[--radius] border border-border object-cover"
+          className="mt-10 aspect-video w-full rounded-(--radius) border border-border object-cover"
         />
 
         <div className="mt-12 gap-12 lg:grid lg:grid-cols-12">

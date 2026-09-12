@@ -70,7 +70,7 @@ export default function BlogPage() {
  */
 function EmptyState() {
   return (
-    <div className="max-w-[55ch] rounded-[--radius] border border-border bg-surface-2 p-8">
+    <div className="max-w-[55ch] rounded-(--radius) border border-border bg-surface-2 p-8">
       <h2 className="text-lg font-semibold tracking-tight text-text">
         Nothing published yet
       </h2>

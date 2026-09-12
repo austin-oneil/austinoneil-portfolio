@@ -51,6 +51,15 @@ export const PORTRAIT_IMAGE = "/austin-oneil.jpg";
  */
 export const AVATAR_IMAGE = "/austin-oneil-avatar.jpg";
 
+/**
+ * Real asset. Austin behind the bar in Denver with a coworker, 3:4 source.
+ * Used in the home page story section, where the copy is about the years
+ * before the code, so the picture should be from those years rather than a
+ * second crop of the headshot. Rendered at its own ratio, so nothing is cropped
+ * and both people stay in frame.
+ */
+export const STORY_IMAGE = "/austin-bartending.jpg";
+
 /** Neutral 1x1 used as the blur placeholder so nothing flashes white. */
 export const BLUR_DATA_URL =
   "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyIDIiPjxyZWN0IHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IiM3MTcxN2EiLz48L3N2Zz4=";

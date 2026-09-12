@@ -81,7 +81,7 @@ export default async function PostPage({
       <div className="container-page py-10 md:py-14">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-1.5 rounded-[--radius-sm] text-sm text-text-muted transition-colors duration-150 hover:text-text"
+          className="inline-flex items-center gap-1.5 rounded-(--radius-sm) text-sm text-text-muted transition-colors duration-150 hover:text-text"
         >
           <ArrowLeft size={14} aria-hidden />
           All writing
@@ -148,7 +148,7 @@ export default async function PostPage({
                     <li key={item.slug}>
                       <Link
                         href={`/blog/${item.slug}`}
-                        className="rounded-[--radius-sm] font-medium text-accent underline decoration-accent-border underline-offset-4 transition-colors duration-150 hover:decoration-accent"
+                        className="rounded-(--radius-sm) font-medium text-accent underline decoration-accent-border underline-offset-4 transition-colors duration-150 hover:decoration-accent"
                       >
                         {item.title}
                       </Link>

@@ -115,7 +115,7 @@ export function VariantStrata() {
           {SPECIALTY.map((line, i) => (
             <li
               key={line}
-              className="tl-rise rounded-[--radius] border border-accent bg-surface px-4 py-3 font-mono text-[0.9375rem] font-semibold text-text"
+              className="tl-rise rounded-(--radius) border border-accent bg-surface px-4 py-3 font-mono text-[0.9375rem] font-semibold text-text"
               style={range(i, 5)}
             >
               {line}
@@ -131,7 +131,7 @@ export function VariantStrata() {
           {TRADES.map((trade, i) => (
             <li
               key={trade}
-              className="tl-rise rounded-[--radius-sm] border border-border px-4 py-2 font-mono text-[0.8125rem] text-text-muted"
+              className="tl-rise rounded-(--radius-sm) border border-border px-4 py-2 font-mono text-[0.8125rem] text-text-muted"
               style={range(i + 3, 4)}
             >
               {trade}
@@ -154,7 +154,7 @@ export function VariantGrid() {
           <li
             key={item}
             style={range(i, 3)}
-            className={`tl-rise flex items-center justify-between gap-3 rounded-[--radius] border px-4 py-4 font-mono text-[0.8125rem] ${
+            className={`tl-rise flex items-center justify-between gap-3 rounded-(--radius) border px-4 py-4 font-mono text-[0.8125rem] ${
               hot
                 ? "border-accent bg-surface font-semibold text-text"
                 : "border-border text-text-muted"

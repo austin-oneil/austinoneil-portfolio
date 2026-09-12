@@ -14,6 +14,11 @@ import type { Project } from "@/types/content";
  *
  * All hover motion is CSS on transform and color, so the grid ships no
  * JavaScript and the whole thing stays on the compositor.
+ *
+ * The card itself must not clip overflow: the tunnel headlight and taillight
+ * are pseudo-elements drawn outside the card box, above and below it, and an
+ * overflow-hidden card swallows both. The image wrapper clips instead, with
+ * its own top radius so the picture still sits inside the rounded corner.
  */
 
 type Span = "wide" | "narrow" | "half";
@@ -61,10 +66,10 @@ function ProjectCell({
   return (
     <article
       data-tunnel
-      className="group relative flex h-full flex-col overflow-hidden rounded-[--radius] border border-border bg-surface transition-[border-color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-accent-border focus-within:border-accent"
+      className="group relative flex h-full flex-col rounded-(--radius) border border-border bg-surface transition-[border-color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-accent-border focus-within:border-accent"
     >
       {withImage ? (
-        <div className="overflow-hidden">
+        <div className="overflow-hidden rounded-t-[calc(var(--radius)-1px)]">
           <Image
             src={projectImage(project.slug)}
             alt=""
@@ -87,7 +92,7 @@ function ProjectCell({
         <h3 className="mt-2.5 text-lg font-semibold tracking-tight text-text transition-colors duration-150 group-hover:text-accent">
           <Link
             href={`/projects/${project.slug}`}
-            className="rounded-[--radius-sm] outline-none"
+            className="rounded-(--radius-sm) outline-none"
           >
             <span className="absolute inset-0" />
             {project.title}

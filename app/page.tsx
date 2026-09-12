@@ -7,14 +7,14 @@ import { Reveal } from "@/components/ui/reveal";
 import { JsonLd } from "@/components/json-ld";
 import { SubwayLine } from "@/components/subway-line";
 import { StationNav } from "@/components/station-nav";
-import { MappingRoutes } from "@/components/throughline/mapping";
+import { MappingSkills } from "@/components/throughline/mapping";
 import { ProjectGrid } from "@/components/project-grid";
 import { StackCapsules } from "@/components/stack-capsules";
 import { PostRow } from "@/components/post-row";
 import { getAllProjects } from "@/lib/projects";
 import { getAllPosts } from "@/lib/blog";
 import { personSchema, websiteSchema } from "@/lib/schema";
-import { AVATAR_IMAGE, BLUR_DATA_URL, PORTRAIT_IMAGE } from "@/lib/images";
+import { AVATAR_IMAGE, BLUR_DATA_URL, STORY_IMAGE } from "@/lib/images";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -46,6 +46,40 @@ const capabilities = [
 ];
 
 /**
+ * Results under the hero. Every figure is verified in the background document
+ * and carries its own window. The two search figures are the ones that
+ * document allows as headlines: a funnel result benchmarked against the
+ * client's own target, and a traffic change over a stated period. Visibility
+ * index deltas are deliberately absent; they mean nothing to a reader who does
+ * not know the tool that produces them. Dental and healthcare clients are
+ * never named.
+ */
+const results = [
+  {
+    value: "6.3%",
+    label:
+      "of organic visitors became leads for one dental practice over six months, against the client's own 2 to 3% target",
+  },
+  {
+    value: "110%",
+    label:
+      "more traffic in six months for a consulting firm, on an SEO strategy I wrote and carried out myself",
+  },
+  {
+    value: "$600 to $25",
+    label:
+      "a month for a hockey organization's booking and payments, after I replaced the platform with custom JavaScript",
+    evidence: { href: "/projects/lacroix-drill-house", label: "Case study" },
+  },
+  {
+    value: "60%+",
+    label:
+      "of the time my repetitive agency tasks used to take, now handled by an AI agent I built and run in production",
+    evidence: { href: "/projects/basecamp-ai-agent", label: "Case study" },
+  },
+];
+
+/**
  * Section heading used inside the subway sections. Kept local because these
  * headings sit inside the rail indent rather than in the shared Section shell.
  */
@@ -70,7 +104,7 @@ function MoreLink({ href, children }: { href: string; children: string }) {
   return (
     <Link
       href={href}
-      className="inline-flex items-center gap-1.5 rounded-[--radius-sm] text-sm font-semibold text-accent transition-colors duration-150 hover:text-accent-hover"
+      className="inline-flex items-center gap-1.5 rounded-(--radius-sm) text-sm font-semibold text-accent transition-colors duration-150 hover:text-accent-hover"
     >
       {children}
       <ArrowRight size={14} aria-hidden />
@@ -105,7 +139,7 @@ export default function HomePage() {
           <StationNav />
         </div>
 
-        <div className="container-page rail-indent grid grid-cols-[auto_1fr] items-center gap-x-5 gap-y-6 pb-16 md:grid-cols-12 md:gap-x-12 md:gap-y-5 md:pb-24">
+        <div className="container-page rail-indent grid grid-cols-[auto_1fr] items-center gap-x-5 gap-y-6 pb-12 md:grid-cols-12 md:gap-x-12 md:gap-y-5 md:pb-16">
           <h1 className="col-span-2 text-4xl font-semibold tracking-tight text-balance text-text md:col-span-7 md:col-start-1 md:row-start-2 md:self-end md:text-5xl lg:text-6xl">
             I build the site and I make it rank.
           </h1>
@@ -131,8 +165,9 @@ export default function HomePage() {
           </div>
 
           <p className="max-w-[46ch] text-base leading-relaxed text-text-muted md:col-span-7 md:col-start-1 md:row-start-3 md:text-lg">
-            Developer and technical SEO in Denver. Twelve years in sales and
-            hospitality first. I build things, and I build relationships.
+            Full-stack developer and technical SEO in Denver. Twelve years in
+            sales and hospitality first. I build things, and I build
+            relationships.
           </p>
 
           <div className="col-span-2 flex flex-wrap gap-3 md:col-span-7 md:col-start-1 md:row-start-4 md:mt-3">
@@ -141,6 +176,45 @@ export default function HomePage() {
               Get in touch
             </ButtonLink>
           </div>
+
+          {/* Availability, stated where a recruiter looks first rather than
+              only at the terminus. A status line, not an eyebrow. */}
+          <p className="col-span-2 flex items-start gap-2.5 font-mono text-xs leading-relaxed text-text-muted md:col-span-7 md:col-start-1 md:row-start-5">
+            <span
+              aria-hidden
+              className="mt-[5px] size-2 shrink-0 rounded-full bg-accent"
+            />
+            <span>
+              Open to growth, marketing and web engineering roles, or in-house
+              technical SEO. Seattle, San Francisco, the West Coast, or remote.
+            </span>
+          </p>
+        </div>
+
+        <div className="container-page rail-indent">
+          <ul className="grid grid-cols-2 gap-x-8 gap-y-8 border-t border-border pt-8 pb-16 md:grid-cols-4 md:pt-10 md:pb-24">
+            {results.map((item) => (
+              <li key={item.value}>
+                <p className="font-mono text-2xl font-semibold tracking-tight text-text md:text-[1.75rem]">
+                  {item.value}
+                </p>
+                <p className="mt-2 max-w-[26ch] text-sm leading-snug text-text-muted">
+                  {item.label}
+                  {item.evidence ? (
+                    <>
+                      {" "}
+                      <Link
+                        href={item.evidence.href}
+                        className="rounded-(--radius-sm) font-mono text-[0.75rem] whitespace-nowrap text-accent underline decoration-accent-border underline-offset-2 hover:decoration-accent"
+                      >
+                        {item.evidence.label}
+                      </Link>
+                    </>
+                  ) : null}
+                </p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -157,21 +231,23 @@ export default function HomePage() {
         <div className="container-page">
           <div
             data-tunnel
-            className="rounded-[--radius] border border-border bg-surface p-6 md:p-8"
+            className="rounded-(--radius) border border-border bg-surface p-6 md:p-8"
           >
             <div className="max-w-[62ch]">
               <h2 className="text-2xl font-semibold tracking-tight text-text md:text-3xl">
                 A lot of trades. One I went deep on.
               </h2>
               <p className="mt-4 leading-relaxed text-text-muted">
-                Twelve years of hospitality, leadership and sales before I wrote
-                code for a living. None of it was a detour. Here is what each
-                one actually turned into.
+                Before I wrote code for a living I spent twelve years running
+                restaurant shifts, training staff, selling cars, and tending
+                bar. None of it was a detour. Each job built a skill I still
+                use every week, and each row below names that skill, the job
+                that built it, and the work on this site where it shows up now.
               </p>
             </div>
 
-            <div className="mt-8 border-t border-border pt-8">
-              <MappingRoutes />
+            <div className="mt-8 border-t border-border pt-6 md:pt-7">
+              <MappingSkills />
             </div>
           </div>
         </div>
@@ -211,7 +287,7 @@ export default function HomePage() {
           <Reveal>
             <div
               data-tunnel
-              className="rounded-[--radius] border border-border bg-surface p-6 md:p-8"
+              className="rounded-(--radius) border border-border bg-surface p-6 md:p-8"
             >
               <StackCapsules />
             </div>
@@ -230,20 +306,24 @@ export default function HomePage() {
       >
         <div className="container-page">
           <div className="grid gap-8 md:grid-cols-12 md:items-center md:gap-12">
-            {/* Photo on the left here, mirroring the hero rather than
-                repeating it. */}
-            <div data-tunnel className="md:col-span-5">
+            {/* The photo is from the years the copy is about, not a second
+                crop of the headshot. Its own 3:4 ratio, so nobody in it is
+                cropped out. */}
+            <figure data-tunnel className="md:col-span-5">
               <Image
-                src={PORTRAIT_IMAGE}
-                alt={`${site.name} in Denver`}
-                width={1000}
-                height={1250}
+                src={STORY_IMAGE}
+                alt={`${site.name} behind the bar in Denver, arm around a coworker, both in aprons`}
+                width={1500}
+                height={2000}
                 placeholder="blur"
                 blurDataURL={BLUR_DATA_URL}
                 sizes="(min-width: 768px) 22rem, 100vw"
-                className="aspect-[4/5] w-full rounded-[--radius] border border-border object-cover"
+                className="aspect-[3/4] w-full rounded-(--radius) border border-border object-cover"
               />
-            </div>
+              <figcaption className="mt-3 font-mono text-xs text-text-subtle">
+                Behind the bar in Denver.
+              </figcaption>
+            </figure>
 
             <div className="md:col-span-7">
               <h2 className="text-2xl font-semibold tracking-tight text-text md:text-3xl">
@@ -251,9 +331,9 @@ export default function HomePage() {
               </h2>
               <div className="mt-5 max-w-[58ch] space-y-4 leading-relaxed text-text-muted">
                 <p>
-                  Twelve years of hospitality, leadership and sales before I
-                  wrote code for a living. Most people read that as a career
-                  change. I read it as the reason I&apos;m good at this one.
+                  Most people read twelve years of hospitality and sales as a
+                  career change. I read it as the reason I&apos;m good at this
+                  one.
                 </p>
                 <p>
                   In automotive sales I moved into the online channel while most
@@ -333,6 +413,7 @@ export default function HomePage() {
       <section
         id="contact"
         data-terminus
+        data-variant="headlight"
         data-stop
         data-stop-fx="0.015"
         data-stop-dy="52"
@@ -344,17 +425,18 @@ export default function HomePage() {
               One conversation is worth fifty resume screens
             </h2>
             <p className="mt-4 leading-relaxed text-text-muted">
-              I&apos;m looking for my next role, ideally the kind where I can
-              build the marketing infrastructure and explain it to the people
-              who depend on it. Open to relocating to Seattle or elsewhere on
-              the West Coast. Email is the fastest way to reach me, and I answer
-              all of them.
+              I&apos;m looking for my next role, ideally one where I build the
+              marketing infrastructure and explain it to the people who depend
+              on it. I&apos;m open to relocating, with Seattle, San Francisco
+              and the rest of the West Coast at the top of the list, and to
+              remote roles anywhere. Email is the fastest way to reach me, and
+              I answer all of them.
             </p>
             <div className="arrival-cta mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
               <ButtonLink href={`mailto:${site.email}`}>Get in touch</ButtonLink>
               <a
                 href={`mailto:${site.email}`}
-                className="rounded-[--radius-sm] font-mono text-sm text-text-muted transition-colors duration-150 hover:text-text"
+                className="rounded-(--radius-sm) font-mono text-sm text-text-muted transition-colors duration-150 hover:text-text"
               >
                 {site.email}
               </a>

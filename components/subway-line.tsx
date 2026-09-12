@@ -385,12 +385,22 @@ export function SubwayLine() {
           className="station"
         >
           {i === terminus ? (
-            <circle
-              cx={stop.x}
-              cy={stop.y}
-              r={12}
-              className="station-terminus"
-            />
+            <>
+              {/* Arrival ping: a ring that expands out of the terminus and
+                  fades as the train reaches it. Purely visual, no geometry. */}
+              <circle
+                cx={stop.x}
+                cy={stop.y}
+                r={12}
+                className="station-ping"
+              />
+              <circle
+                cx={stop.x}
+                cy={stop.y}
+                r={12}
+                className="station-terminus"
+              />
+            </>
           ) : null}
           <circle cx={stop.x} cy={stop.y} r={7} className="station-outer" />
           <circle cx={stop.x} cy={stop.y} r={3} className="station-inner" />

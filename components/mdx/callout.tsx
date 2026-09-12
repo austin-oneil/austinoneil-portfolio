@@ -15,7 +15,7 @@ export function Callout({
   const Icon = type === "warning" ? Warning : Info;
   return (
     <aside
-      className={`my-6 flex gap-3 rounded-[--radius] border p-4 ${
+      className={`my-6 flex gap-3 rounded-(--radius) border p-4 ${
         type === "warning"
           ? "border-border-strong bg-surface-2"
           : "border-accent-border bg-accent-faint"

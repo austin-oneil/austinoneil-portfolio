@@ -12,7 +12,7 @@ export function SiteFooter() {
           </p>
           <a
             href={`mailto:${site.email}`}
-            className="mt-4 inline-block rounded-[--radius-sm] font-mono text-sm text-accent underline decoration-accent-border underline-offset-4 transition-colors duration-150 hover:decoration-accent"
+            className="mt-4 inline-block rounded-(--radius-sm) font-mono text-sm text-accent underline decoration-accent-border underline-offset-4 transition-colors duration-150 hover:decoration-accent"
           >
             {site.email}
           </a>
@@ -25,7 +25,7 @@ export function SiteFooter() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="rounded-[--radius-sm] text-text-muted transition-colors duration-150 hover:text-text"
+                    className="rounded-(--radius-sm) text-text-muted transition-colors duration-150 hover:text-text"
                   >
                     {item.label}
                   </Link>
@@ -37,7 +37,7 @@ export function SiteFooter() {
             <li>
               <a
                 href={site.socials.github}
-                className="rounded-[--radius-sm] text-text-muted transition-colors duration-150 hover:text-text"
+                className="rounded-(--radius-sm) text-text-muted transition-colors duration-150 hover:text-text"
               >
                 GitHub
               </a>
@@ -45,15 +45,23 @@ export function SiteFooter() {
             <li>
               <a
                 href={site.socials.linkedin}
-                className="rounded-[--radius-sm] text-text-muted transition-colors duration-150 hover:text-text"
+                className="rounded-(--radius-sm) text-text-muted transition-colors duration-150 hover:text-text"
               >
                 LinkedIn
               </a>
             </li>
             <li>
+              <Link
+                href="/colophon"
+                className="rounded-(--radius-sm) text-text-muted transition-colors duration-150 hover:text-text"
+              >
+                How this site is built
+              </Link>
+            </li>
+            <li>
               <a
                 href="/rss.xml"
-                className="rounded-[--radius-sm] text-text-muted transition-colors duration-150 hover:text-text"
+                className="rounded-(--radius-sm) text-text-muted transition-colors duration-150 hover:text-text"
               >
                 RSS
               </a>

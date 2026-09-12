@@ -5,7 +5,7 @@ type Variant = "solid" | "outline" | "ghost";
 type Size = "sm" | "md";
 
 const base =
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[--radius] font-semibold " +
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-(--radius) font-semibold " +
   "transition-[background-color,border-color,color,transform] duration-150 ease-out " +
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent " +
   "active:translate-y-px disabled:pointer-events-none disabled:opacity-50";

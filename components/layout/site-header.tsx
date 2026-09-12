@@ -20,7 +20,7 @@ export function SiteHeader() {
       <div className="container-page flex h-16 items-center justify-between gap-6">
         <Link
           href="/"
-          className="rounded-[--radius-sm] font-semibold tracking-tight text-text transition-colors duration-150 hover:text-accent"
+          className="rounded-(--radius-sm) font-semibold tracking-tight text-text transition-colors duration-150 hover:text-accent"
         >
           {site.name}
         </Link>
@@ -33,7 +33,7 @@ export function SiteHeader() {
                   <Link
                     href={item.href}
                     aria-current={isActive(item.href) ? "page" : undefined}
-                    className={`rounded-[--radius] px-3 py-2 text-sm transition-colors duration-150 hover:text-text ${
+                    className={`rounded-(--radius) px-3 py-2 text-sm transition-colors duration-150 hover:text-text ${
                       isActive(item.href)
                         ? "font-medium text-text"
                         : "text-text-muted"
@@ -53,7 +53,7 @@ export function SiteHeader() {
               <button
                 type="button"
                 aria-label="Open menu"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-[--radius] border border-border text-text-muted transition-colors duration-150 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent md:hidden"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-(--radius) border border-border text-text-muted transition-colors duration-150 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent md:hidden"
               >
                 <List size={17} aria-hidden />
               </button>
@@ -67,7 +67,7 @@ export function SiteHeader() {
                   </Dialog.Title>
                   <Dialog.Close
                     aria-label="Close menu"
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-[--radius] border border-border text-text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-(--radius) border border-border text-text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                   >
                     <X size={17} aria-hidden />
                   </Dialog.Close>

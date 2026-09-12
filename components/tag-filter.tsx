@@ -94,7 +94,7 @@ function FilterButton({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`inline-flex items-center gap-1.5 rounded-[--radius] border px-3 py-1.5 text-sm transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
+      className={`inline-flex items-center gap-1.5 rounded-(--radius) border px-3 py-1.5 text-sm transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
         active
           ? "border-accent bg-accent-faint font-medium text-accent"
           : "border-border text-text-muted hover:border-border-strong hover:text-text"

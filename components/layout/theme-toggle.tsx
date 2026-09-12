@@ -29,7 +29,7 @@ export function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label="Switch between light and dark theme"
-      className="inline-flex h-9 w-9 items-center justify-center rounded-[--radius] border border-border text-text-muted transition-colors duration-150 hover:border-border-strong hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      className="inline-flex h-9 w-9 items-center justify-center rounded-(--radius) border border-border text-text-muted transition-colors duration-150 hover:border-border-strong hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
     >
       <Sun
         size={17}

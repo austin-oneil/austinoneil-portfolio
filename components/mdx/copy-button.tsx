@@ -30,12 +30,12 @@ export function CodeBlock({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="group relative my-6 overflow-hidden rounded-[--radius] border border-border bg-surface-2">
+    <div className="group relative my-6 overflow-hidden rounded-(--radius) border border-border bg-surface-2">
       <button
         type="button"
         onClick={copy}
         aria-label={copied ? "Copied" : "Copy code"}
-        className="absolute top-2.5 right-2.5 z-10 inline-flex h-8 items-center gap-1.5 rounded-[--radius-sm] border border-border bg-surface px-2.5 font-mono text-[0.6875rem] text-text-muted opacity-0 transition-opacity duration-150 group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        className="absolute top-2.5 right-2.5 z-10 inline-flex h-8 items-center gap-1.5 rounded-(--radius-sm) border border-border bg-surface px-2.5 font-mono text-[0.6875rem] text-text-muted opacity-0 transition-opacity duration-150 group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         {copied ? (
           <Check size={13} aria-hidden />

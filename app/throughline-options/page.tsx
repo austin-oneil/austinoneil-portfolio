@@ -11,6 +11,7 @@ import {
 } from "@/components/throughline/variants";
 import {
   MappingRoutes,
+  MappingSkills,
   MappingTable,
 } from "@/components/throughline/mapping";
 
@@ -26,6 +27,12 @@ import {
 export const dynamic = "force-dynamic";
 
 const VARIANTS = [
+  {
+    key: "M3",
+    name: "Mapping, skill first",
+    says: "The transferable skill is the headline; the route under it is the evidence. Five headlines carry the argument on a skim, the routes let a careful reader check each one. Text never animates. Live on the home page.",
+    node: <MappingSkills />,
+  },
   {
     key: "M1",
     name: "Mapping, as routes",
@@ -97,9 +104,11 @@ export default function ThroughlineOptionsPage() {
         Throughline options
       </h1>
       <p className="mt-4 max-w-[62ch] leading-relaxed text-text-muted">
-        M1 and M2 are the new direction: they map each past trade onto what it
-        built and where it shows up in the work now, rather than just listing
-        things in order. F1 to F3 are the earlier accumulation treatments.
+        M3 is what the home page runs. M1 and M2 were the first two mapping
+        treatments: each past trade onto what it built and where it shows up in
+        the work now, rather than a list of things in order. M1 was replaced
+        because the column doing the arguing was the quietest of the three. F1
+        to F3 are the earlier accumulation treatments.
         Scroll slowly; each one animates as it enters. All of it is CSS
         scroll-driven, so none of these cost any JavaScript, and every one
         renders finished rather than blank in a browser that does not support
@@ -117,7 +126,7 @@ export default function ThroughlineOptionsPage() {
             </h2>
             <p className="text-sm text-text-muted">{variant.says}</p>
           </div>
-          <div className="rounded-[--radius] border border-border bg-surface p-6 md:p-10">
+          <div className="rounded-(--radius) border border-border bg-surface p-6 md:p-10">
             {variant.node}
           </div>
           {/* Space so the next variant is well clear of the viewport and
